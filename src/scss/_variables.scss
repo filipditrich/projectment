@@ -1,0 +1,99 @@
+// Override Boostrap variables
+@import '~bootstrap/scss/mixins';
+@import '~@coreui/coreui/scss/variables';
+@import './functions';
+@import './themes';
+
+// Main
+$id:                                  map_get($active_theme, id);
+$primary:                             map_get($active_theme, primary);
+$secondary:                           map_get($active_theme, secondary);
+$gradient-color-1:                    map_get($active_theme, gradient-1);
+$gradient-color-2:                    map_get($active_theme, gradient-2);
+$text-color:                          map_get($active_theme, text);
+
+// Body
+$body-bg:                             mix($white, $primary, 95%);
+
+// Misc
+$border-color:                        $gray-200;
+
+// Links
+$link-color:                          $primary;
+
+// Navbar
+$navbar-border:                       (bottom: (size: 1px, style: solid, color: $border-color));
+
+// Navbar Brand
+$navbar-brand-width:                  75%;
+$navbar-brand-minimized-border:       $navbar-brand-border;
+
+// Sidebar
+$sidebar-bg:                          $white;
+$sidebar-borders:                     (right: (size: 1px, style: solid, color: $border-color));
+
+// Sidebar Nav
+$sidebar-nav-color:                    #fff;
+$sidebar-nav-title-padding-y:          .75rem;
+$sidebar-nav-title-padding-x:          1rem;
+$sidebar-nav-title-color:              $gray-400;
+
+// Sidebar Links
+$sidebar-nav-link-padding-y:           .75rem;
+$sidebar-nav-link-padding-x:           1rem;
+$sidebar-nav-link-color:               $gray-800;
+$sidebar-nav-link-bg:                  transparent;
+$sidebar-nav-link-icon-color:          $gray-600;
+$sidebar-nav-link-borders:             0;
+
+$sidebar-nav-link-hover-color:         $white;
+$sidebar-nav-link-hover-bg:            linear-gradient-theme(0.75);
+$sidebar-nav-link-hover-icon-color:    $white;
+$sidebar-nav-link-hover-borders:       0;
+
+$sidebar-nav-link-active-color:        $white;
+$sidebar-nav-link-active-bg:           linear-gradient-theme(1);
+$sidebar-nav-link-active-icon-color:   $white;
+$sidebar-nav-link-active-borders:      0;
+
+$sidebar-nav-link-disabled-bg:         $sidebar-bg;
+$sidebar-nav-link-disabled-icon-color: $sidebar-nav-link-icon-color;
+
+// Sidebar Dropdown
+$sidebar-nav-dropdown-color:                  $gray-600;
+$sidebar-nav-dropdown-bg:                     darken($body-bg, 1.5);
+$sidebar-nav-dropdown-open-toggle-color:      $sidebar-nav-link-hover-color;
+$sidebar-nav-dropdown-open-toggle-bg:         linear-gradient-theme(0.5);
+$sidebar-nav-dropdown-indicator-hover-color:  $sidebar-nav-link-hover-color;
+
+// Sidebar Minimizer
+$sidebar-minimizer-bg:                 $white;
+$sidebar-minimizer-borders:            (top: (size: 1px, style: solid, color: $border-color), right: (size: 1px, style: solid, color: $border-color));
+$sidebar-minimizer-indicator-color:    $gray-600;
+$sidebar-minimizer-indicator:          str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 14'%3E%3Cpath fill='#{$sidebar-minimizer-indicator-color}' d='M9.148 2.352l-4.148 4.148 4.148 4.148q0.148 0.148 0.148 0.352t-0.148 0.352l-1.297 1.297q-0.148 0.148-0.352 0.148t-0.352-0.148l-5.797-5.797q-0.148-0.148-0.148-0.352t0.148-0.352l5.797-5.797q0.148-0.148 0.352-0.148t0.352 0.148l1.297 1.297q0.148 0.148 0.148 0.352t-0.148 0.352z'/%3E%3C/svg%3E"), "#", "%23");
+$sidebar-minimizer-hover-bg:           $body-bg;
+$sidebar-minimizer-hover-indicator-color: $gray-600;
+$sidebar-minimizer-hover-indicator:    str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 14'%3E%3Cpath fill='#{$sidebar-minimizer-hover-indicator-color}' d='M9.148 2.352l-4.148 4.148 4.148 4.148q0.148 0.148 0.148 0.352t-0.148 0.352l-1.297 1.297q-0.148 0.148-0.352 0.148t-0.352-0.148l-5.797-5.797q-0.148-0.148-0.148-0.352t0.148-0.352l5.797-5.797q0.148-0.148 0.352-0.148t0.352 0.148l1.297 1.297q0.148 0.148 0.148 0.352t-0.148 0.352z'/%3E%3C/svg%3E"), "#", "%23");
+
+// Footer
+$footer-bg:                            $white;
+$footer-color:                         $gray-500;
+$footer-borders:                       (top: (size: 1px, style: solid, color: $border-color));
+
+// Dropdowns
+$dropdown-min-width:                   15rem;
+$dropdown-link-color:                  $sidebar-nav-link-color;
+$dropdown-link-hover-color:            $sidebar-nav-link-hover-color;
+$dropdown-link-hover-bg:               $sidebar-nav-link-hover-bg;
+$dropdown-link-active-color:           $sidebar-nav-link-active-color;
+$dropdown-link-active-bg:              $sidebar-nav-link-active-bg;
+$dropdown-header-color:                $white;
+$dropdown-header-bg:                   $sidebar-nav-link-active-bg;
+
+// Breadcrumb
+$breadcrumb-borders:                   (bottom: (size: 1px, style: solid, color: $border-color));
+
+// Preloader
+$preloader-bg:                         $body-bg;
+$preloader-color:                      $gray-500;
+$preloader-spinner-color:              $primary;

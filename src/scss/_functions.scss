@@ -1,0 +1,11 @@
+// default values due to include loop
+$gradient-color-1: red;
+$gradient-color-2: green;
+
+@function radial-gradient-theme($opacity: 1) {
+  @return radial-gradient(circle at bottom left, rgba($gradient-color-1, $opacity), rgba($gradient-color-2, $opacity));
+}
+
+@function linear-gradient-theme($opacity: 1, $direction: to right, $start: 0%, $end: 100%) {
+  @return linear-gradient($direction, rgba($gradient-color-1, $opacity) $start, rgba($gradient-color-2, $opacity) $end);
+}

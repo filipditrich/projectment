@@ -1,18 +1,41 @@
 {
-  "name": "projectment",
+  "name": "@filipditrich/projectment",
   "version": "0.1.0",
+  "description": "Software na správu projektů",
+  "author": "Filip Ditrich",
+  "homepage": "https://projectment.pslib.cloud",
+  "license": "MIT",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:filipditrich/projectment"
+  },
   "dependencies": {
+    "@coreui/coreui": "^2.1.16",
+    "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.3.1",
+    "@coreui/icons": "0.3.0",
+    "@coreui/react": "^2.5.4",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
+    "@types/classnames": "^2.2.9",
     "@types/jest": "^24.0.23",
     "@types/node": "^12.12.20",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
+    "@types/react-router-dom": "^5.1.3",
+    "@types/reactstrap": "^8.2.0",
+    "bootstrap": "^4.3.1",
+    "classnames": "^2.2.6",
+    "flag-icon-css": "^3.4.5",
+    "font-awesome": "^4.7.0",
+    "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
+    "reactstrap": "^8.2.0",
+    "simple-line-icons": "^2.4.1",
     "typescript": "^3.7.3"
   },
   "scripts": {
@@ -20,6 +43,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "bugs": {
+    "url": "https://github.com/filipditrich/projectment/issues"
   },
   "eslintConfig": {
     "extends": "react-app"
