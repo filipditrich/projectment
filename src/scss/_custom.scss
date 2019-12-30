@@ -32,8 +32,82 @@ button:active, button:focus {
 
 }
 
+.button {
+  display: inline-block;
+  letter-spacing: 1px;
+  font-weight: 600;
+  line-height: 2.5rem;
+  outline: none !important;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  border: double 2px transparent;
+  border-radius: 50em;
+  font-size: $font-size-sm;
+  text-decoration: none;
+  transition: all 250ms ease-in-out;
+  padding: 0;
+
+  & > span {
+    padding: 0 2rem;
+    white-space: nowrap;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &.button-primary {
+    color: $black;
+    background-image: linear-gradient(white, white), radial-gradient-theme();
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+
+    &.button-reverse {
+      background-image: linear-gradient-theme(), radial-gradient-theme();
+      color: $white;
+      border: 2px solid transparent;
+    }
+    &:hover {
+      background-image: linear-gradient-theme(), radial-gradient-theme();
+      color: $white;
+      box-shadow: 0 10px 30px rgba(darken($primary, 20), 0.2);
+      border: 2px solid transparent;
+
+      &.button-reverse {
+        background-image: linear-gradient(white, white), radial-gradient-theme();
+        color: $black;
+      }
+    }
+  }
+
+  &.button-secondary {
+    border-color: $white;
+    background: rgba($white, 0.1);
+    color: $white;
+
+    &.button-reverse {
+      background: $white;
+      color: $black;
+
+      &:hover {
+        background: rgba($white, 0.1);
+        color: $white;
+      }
+    }
+    &:hover {
+      background: $white;
+      color: $black;
+    }
+  }
+}
+
 .cursor-pointer {
   cursor: pointer;
+}
+
+[disabled] {
+  cursor: not-allowed;
 }
 
 .badge-primary {

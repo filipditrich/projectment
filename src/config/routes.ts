@@ -3,7 +3,7 @@ import React from 'react';
 const Home = React.lazy(() => import('../views/Home'));
 
 /**
- * Routes Configuration
+ * Protected Routes Configuration
  * @author filipditrich
  */
 const routes: any[] = [

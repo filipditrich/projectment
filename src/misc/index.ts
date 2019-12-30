@@ -1,11 +1,11 @@
-import navigation from './navigation';
+import navigation from '../config/navigation';
+import routes from '../config/routes';
 import loading from './loading';
-import routes from './routes';
-import preloader from './preloader';
+import loader from './loader';
 
 export {
     navigation,
-    loading,
     routes,
-    preloader,
+    loading,
+    loader,
 };

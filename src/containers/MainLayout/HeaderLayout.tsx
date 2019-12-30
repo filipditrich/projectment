@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Badge, UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem } from 'reactstrap';
 import {
     AppSidebarToggler,
-    AppAsideToggler,
+    // AppAsideToggler,
     AppNavbarBrand,
     // @ts-ignore
 } from '@coreui/react';
@@ -30,10 +31,10 @@ interface IHeaderLayoutState {}
  */
 export default class HeaderLayout extends React.Component<IHeaderLayoutProps, IHeaderLayoutState> {
 
-    onSearchClick(e: Event | any): void {
-        // TODO
-        console.log(e);
-    }
+    // onSearchClick(e: Event | any): void {
+    //     // TODO
+    //     console.log(e);
+    // }
 
     render() {
         return(
@@ -50,26 +51,27 @@ export default class HeaderLayout extends React.Component<IHeaderLayoutProps, IH
 
                 <Nav className="flex-grow-1" navbar>
 
-                    <NavItem className="ml-2 d-flex mr-auto cursor-pointer" onClick={ (e: any) => this.onSearchClick(e) }>
-                        <div className="navbar-search input-group d-md-down-none">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text" id="basic-addon1"><i className="icon-magnifier"/></span>
-                            </div>
-                            <input type="text" className="form-control" placeholder="Search..." aria-label="Username"
-                                   aria-describedby="basic-addon1"/>
-                        </div>
-                    </NavItem>
+                    <div className="ml-auto" />
 
-                    <UncontrolledDropdown nav direction="down">
-                        <DropdownToggle nav>
-                            <i className="icon-bell"/><Badge pill color="danger">5</Badge>
-                        </DropdownToggle>
+                    {/*<NavItem className="ml-2 d-flex mr-auto cursor-pointer" onClick={ (e: any) => this.onSearchClick(e) }>*/}
+                    {/*    <div className="navbar-search input-group d-md-down-none">*/}
+                    {/*        <div className="input-group-prepend">*/}
+                    {/*            <span className="input-group-text" id="basic-addon1"><i className="icon-magnifier"/></span>*/}
+                    {/*        </div>*/}
+                    {/*        <input type="text" className="form-control" placeholder="Search..." aria-label="Username"*/}
+                    {/*               aria-describedby="basic-addon1"/>*/}
+                    {/*    </div>*/}
+                    {/*</NavItem>*/}
 
-                        <DropdownMenu right>
-                            {/*<DropdownItem tag="div" className="text-center">No Notifications</DropdownItem>*/}
-                            <div className="text-center py-3">No Notifications</div>
-                        </DropdownMenu>
-                    </UncontrolledDropdown>
+                    {/*<UncontrolledDropdown nav direction="down">*/}
+                    {/*    <DropdownToggle nav>*/}
+                    {/*        <i className="icon-bell"/><Badge pill color="danger">5</Badge>*/}
+                    {/*    </DropdownToggle>*/}
+
+                    {/*    <DropdownMenu right>*/}
+                    {/*        <div className="text-center py-3">No Notifications</div>*/}
+                    {/*    </DropdownMenu>*/}
+                    {/*</UncontrolledDropdown>*/}
 
                     <UncontrolledDropdown nav direction="down" className="ml-3">
                         <DropdownToggle nav className="navbar-avatar d-flex">
@@ -85,7 +87,7 @@ export default class HeaderLayout extends React.Component<IHeaderLayoutProps, IH
                             <DropdownItem header tag="div" className="text-center"><strong>Nastavení</strong></DropdownItem>
                             <DropdownItem><i className="fa fa-user"/> Profil</DropdownItem>
                             <DropdownItem><i className="fa fa-wrench"/> Předvolby</DropdownItem>
-                            <DropdownItem onClick={e => this.props.onLogout(e)}><i className="fa fa-lock"/> Odhlásit se</DropdownItem>
+                            <DropdownItem onClick={ () => window.location.href="/sign-out" }><i className="fa fa-lock"/> Odhlásit se</DropdownItem>
                         </DropdownMenu>
                     </UncontrolledDropdown>
                 </Nav>

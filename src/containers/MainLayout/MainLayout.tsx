@@ -63,7 +63,7 @@ export default class MainLayout extends React.Component {
                                               /> : (null);
                                         })
                                     }
-                                    <Redirect from="/" to="/dashboard" />
+                                    <Redirect from="/" to="/home" />
                                 </Switch>
                             </React.Suspense>
                         </Container>
