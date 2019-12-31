@@ -24,7 +24,13 @@ export const List = (props) => {
         { Header: "Jméno", accessor: "user.firstName" },
         { Header: "Příjmení", accessor: "user.lastName" },
         { Header: "Cílové skupiny", accessor: "ideaTargets" },
-        { Header: "Nabízený", accessor: "offered", disableSortBy: true, Cell: (data) => (data.cell.value === true ? "Ano" : "Ne"), Filter: BoolColumnFilter },
+        {
+            Header: "Nabízený",
+            accessor: "offered",
+            disableSortBy: true,
+            Cell: (data) => (data.cell.value === true ? "Ano" : "Ne"),
+            Filter: BoolColumnFilter,
+        },
         { Header: "Akce", Cell: (data) => (<Link to={"/ideas/" + data.row.original.id}>Detail</Link>) },
     ], []);
 

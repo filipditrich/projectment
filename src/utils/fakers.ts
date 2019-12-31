@@ -21,7 +21,7 @@ const userSchema = {
     lastName: { faker: 'name.lastName', locale: 'cz' },
     email: { faker: 'internet.email' },
     gender: { function: () => getRandomInt(0, 2) },
-    canBeAuthor: { faker: 'random.boolean' },
+    canBeAuthor: { function: () => Math.random() >= 0.5 ? 'true' : 'false' },
     canBeEvaluator: { faker: 'random.boolean' },
 };
 
@@ -47,7 +47,7 @@ export function fakeIdeaData(countOptions: any = 1): any {
                     return ideaTargets[getRandomInt(0, (ideaTargets.length - 1))];
                 },
             },
-            offered: { faker: 'random.boolean' },
+            offered: { function: () => !(+new Date()%2) ? true : 'false' }, // bullshit
             description: { faker: 'lorem.words' },
             participants: { function: () => getRandomInt(1, 3) },
             resources: { faker: 'commerce.productMaterial' },

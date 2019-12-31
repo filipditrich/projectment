@@ -8,9 +8,9 @@ export const TextColumnFilter = ({ column: { filterValue, preFilterRows, setFilt
     );
 };
 
-export const BoolColumnFilter = ({ column: filterValue, preFilterRows, setFilter }) => {
+export const BoolColumnFilter = ({ column: { filterValue, preFilteredRows, setFilter }}) => {
     return (
-        <select value={ filterValue } onChange={ (e) => { setFilter(e.target.value || undefined) } }>
+        <select value={ filterValue } onChange={e => { setFilter(e.target.value || undefined) } }>
             <option value="">Vše</option>
             <option value={ true }>Ano</option>
             <option value={ false }>Ne</option>
