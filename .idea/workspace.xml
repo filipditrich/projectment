@@ -2,45 +2,51 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5726637-2915-46d8-85ce-db261ec60771" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Authentication/SignIn.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Authentication/SignInCb.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Authentication/SignOut.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Authentication/SignOutCb.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Authentication/SilentRenewCb.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Authentication/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/NotFound.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Unauthorized.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/config/application.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/config/authorization.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/config/constants.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/config/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/misc/loader.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/request.enum.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/providers/ApplicationProvider.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/providers/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/fakers.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/fetch.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/query.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/random.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/Modal.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/Table.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/layout/HeaderLayout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scss/_mixins.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/Ideas/Create.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/Ideas/Detail.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/Ideas/Display.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/Ideas/Edit.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/Ideas/Ideas.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/Ideas/List.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/Ideas/UserDisplay.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/Ideas/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/theme.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/MainLayout/HeaderLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/MainLayout/HeaderLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/MainLayout/MainLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/MainLayout/MainLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authentication/ProtectedRoute.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Authentication/ProtectedRoute.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authentication/ProtectedRoute.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Authentication/SignIn.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authentication/SignIn.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Authentication/SignInCb.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authentication/SignInCb.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Authentication/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authentication/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Unauthorized.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Unauthorized.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/application.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/application.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/authorization.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/authorization.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/constants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/navigation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/navigation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/theme.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/MainLayout/AsideLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/AsideLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/MainLayout/FooterLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/FooterLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/MainLayout/HeaderLayout.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/MainLayout/MainLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/MainLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/MainLayout/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/index.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/misc/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/misc/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/misc/navigation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/navigation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/misc/preloader.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/misc/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/routes.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scss/_custom.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/_custom.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scss/_functions.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/_functions.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scss/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/_variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scss/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/fakers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fakers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/fetch.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fetch.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/padder.util.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/padder.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Home/Home.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/index.ts" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -57,13 +63,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/Authentication/ProtectedRoute.tsx">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/layout/MainLayout.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="20" lean-forward="true" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+            <state relative-caret-position="270">
+              <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/config/routes.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/common/Modal.tsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
               <folding>
-                <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#0#40#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -75,44 +99,44 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="tsconfig.json" />
-        <option value="SCSS File" />
         <option value="TypeScript JSX File" />
+        <option value="SCSS File" />
         <option value="TypeScript File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>magni</find>
-      <find>dropdown</find>
-      <find>navbar-drop</find>
-      <find>dropdown-menu</find>
-      <find>dropdown-menu {</find>
-      <find>$dropdown-bg</find>
-      <find>header</find>
-      <find>navbar</find>
-      <find>navbar-bor</find>
-      <find>sd</find>
-      <find>title</find>
-      <find>d-md-down-none</find>
-      <find>.img-avatar</find>
-      <find>toggle</find>
-      <find>cil-options</find>
-      <find>breadcru</find>
-      <find>primary</find>
-      <find />
-      <find>:(\s){1,}</find>
-      <find>logo-pro</find>
-      <find>redirect</find>
-      <find>$card</find>
-      <find>// buttons</find>
+      <find>faker</find>
+      <find>lo</find>
+      <find>loading()</find>
+      <find>return value</find>
+      <find>includes(f.value)</find>
+      <find>f.value</find>
+      <find>.toLowerCase().includes</find>
+      <find>filterOut</find>
+      <find>filterIn</find>
+      <find>.log(route</find>
+      <find>$danger</find>
+      <find>$danger-gradient-1, $danger-gradient-2</find>
+      <find>$warning-gradient-1, $warning-gradient-2</find>
+      <find>$modal-header-</find>
+      <find>$modal-header-padding:</find>
+      <find>Modals</find>
+      <find>.modal-danger</find>
+      <find>mixin</find>
+      <find>$border-radi</find>
+      <find>border-rad</find>
+      <find>nav-link</find>
       <find>button</find>
-      <find>&quot;</find>
-      <find>export</find>
-      <find>ProjectMent</find>
-      <find>.createElement</find>
-      <find>Initial</find>
-      <find>Initializing</find>
+      <find>&lt;a href=&quot;#&quot;</find>
+      <find>&lt;/a&gt;</find>
+      <find>$modal-content-bg:</find>
+      <find>'</find>
+      <find>icon-speedo</find>
+      <find>icon-gr</find>
+      <find>icon-bul</find>
+      <find>profile</find>
     </findStrings>
     <replaceStrings>
       <replace>$main-bg</replace>
@@ -120,6 +144,18 @@
       <replace>d-sm-down-none</replace>
       <replace>:</replace>
       <replace>'</replace>
+      <replace>filterOut = value</replace>
+      <replace>.toLowerCase().includes(f.value.toLowerCase())</replace>
+      <replace>f.value.toString()</replace>
+      <replace>.toString().toLowerCase().includes</replace>
+      <replace>filterIn</replace>
+      <replace>filterOut</replace>
+      <replace>$warning-gradient-1, $warning-gradient-2</replace>
+      <replace>$info-gradient-1, $info-gradient-2</replace>
+      <replace>$success-gradient-1, $success-gradient-2</replace>
+      <replace>&lt;button</replace>
+      <replace>&quot;</replace>
+      <replace>&lt;/button &gt;</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src</dir>
@@ -132,61 +168,61 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/App.scss" />
-        <option value="$PROJECT_DIR$/src/containers/MainLayout/AsideLayout.tsx" />
-        <option value="$PROJECT_DIR$/src/views/Home/index.ts" />
-        <option value="$PROJECT_DIR$/src/misc/navigation.ts" />
-        <option value="$PROJECT_DIR$/src/views/Home/Home.tsx" />
-        <option value="$PROJECT_DIR$/src/containers/MainLayout/MainLayout.tsx" />
-        <option value="$PROJECT_DIR$/src/views/Authentication/Login/index.ts" />
-        <option value="$PROJECT_DIR$/src/views/Authentication/index.ts" />
-        <option value="$PROJECT_DIR$/src/scss/_variables.scss" />
-        <option value="$PROJECT_DIR$/src/views/Authentication/Login/Login.tsx" />
-        <option value="$PROJECT_DIR$/src/scss/_themes.scss" />
-        <option value="$PROJECT_DIR$/src/utils/fetch.ts" />
-        <option value="$PROJECT_DIR$/src/utils/query.ts" />
-        <option value="$PROJECT_DIR$/src/config/authorization.ts" />
-        <option value="$PROJECT_DIR$/src/config/constants.ts" />
-        <option value="$PROJECT_DIR$/src/providers/ApplicationProvider.ts" />
-        <option value="$PROJECT_DIR$/src/providers/index.ts" />
-        <option value="$PROJECT_DIR$/.env" />
-        <option value="$PROJECT_DIR$/src/config/index.ts" />
-        <option value="$PROJECT_DIR$/src/config/application.ts" />
-        <option value="$PROJECT_DIR$/src/components/Unauthorized.ts" />
-        <option value="$PROJECT_DIR$/src/components/Unauthorized.tsx" />
-        <option value="$PROJECT_DIR$/src/components/NotFound.tsx" />
-        <option value="$PROJECT_DIR$/src/components/Authentication/SignIn/Login.tsx" />
-        <option value="$PROJECT_DIR$/src/components/index.ts" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/Ideas.ts" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/index.ts" />
         <option value="$PROJECT_DIR$/src/views/index.ts" />
-        <option value="$PROJECT_DIR$/src/misc/routes.ts" />
-        <option value="$PROJECT_DIR$/src/components/Authentication/Account.tsx" />
-        <option value="$PROJECT_DIR$/src/config/routes.ts" />
-        <option value="$PROJECT_DIR$/src/scss/_custom.scss" />
-        <option value="$PROJECT_DIR$/src/utils/random.ts" />
-        <option value="$PROJECT_DIR$/src/utils/fakers.ts" />
-        <option value="$PROJECT_DIR$/src/utils/index.ts" />
-        <option value="$PROJECT_DIR$/src/misc/load-screen.tsx" />
-        <option value="$PROJECT_DIR$/src/misc/index.ts" />
-        <option value="$PROJECT_DIR$/src/misc/preloader.tsx" />
-        <option value="$PROJECT_DIR$/src/misc/loader.tsx" />
-        <option value="$PROJECT_DIR$/src/providers/ApplicationProvider.tsx" />
-        <option value="$PROJECT_DIR$/src/models/index.ts" />
-        <option value="$PROJECT_DIR$/src/models/request.enum.ts" />
-        <option value="$PROJECT_DIR$/src/components/Authentication/SignOutCb.tsx" />
-        <option value="$PROJECT_DIR$/src/components/Authentication/SilentRenewCb.ts" />
-        <option value="$PROJECT_DIR$/src/components/Authentication/SilentRenewCb.tsx" />
-        <option value="$PROJECT_DIR$/src/components/Authentication/SignOut.ts" />
-        <option value="$PROJECT_DIR$/src/components/Authentication/SignIn.tsx" />
-        <option value="$PROJECT_DIR$/src/components/Authentication/index.ts" />
+        <option value="$PROJECT_DIR$/src/components/Common/Table.tsx" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/List.ts" />
+        <option value="$PROJECT_DIR$/src/components/Common/Table.js" />
+        <option value="$PROJECT_DIR$/src/components/common/Table.tsx" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/List.tsx" />
+        <option value="$PROJECT_DIR$/src/components/index.ts" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/Create.ts" />
+        <option value="$PROJECT_DIR$/src/config/routes.tsx" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/Detail.ts" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/Display.ts" />
+        <option value="$PROJECT_DIR$/src/containers/MainLayout/MainLayout.tsx" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/Display.tsx" />
+        <option value="$PROJECT_DIR$/src/utils/fetch.ts" />
+        <option value="$PROJECT_DIR$/src/fakes.ts" />
         <option value="$PROJECT_DIR$/src/App.tsx" />
-        <option value="$PROJECT_DIR$/src/components/Authentication/SignOut.tsx" />
-        <option value="$PROJECT_DIR$/src/components/Authentication/SignInCb.tsx" />
-        <option value="$PROJECT_DIR$/src/containers/MainLayout/HeaderLayout.tsx" />
+        <option value="$PROJECT_DIR$/src/utils/index.ts" />
+        <option value="$PROJECT_DIR$/src/components/common/index.ts" />
+        <option value="$PROJECT_DIR$/src/utils/fakers.ts" />
+        <option value="$PROJECT_DIR$/src/scss/_mixins.scss" />
+        <option value="$PROJECT_DIR$/src/scss/style.scss" />
+        <option value="$PROJECT_DIR$/src/scss/_variables.scss" />
+        <option value="$PROJECT_DIR$/src/scss/_functions.scss" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/Edit.ts" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/Detail.jsx" />
+        <option value="$PROJECT_DIR$/src/scss/_custom.scss" />
+        <option value="$PROJECT_DIR$/src/views/Home/Home.tsx" />
+        <option value="$PROJECT_DIR$/src/components/Unauthorized.tsx" />
+        <option value="$PROJECT_DIR$/src/components/common/Table.jsx" />
         <option value="$PROJECT_DIR$/src/components/Authentication/ProtectedRoute.tsx" />
+        <option value="$PROJECT_DIR$/src/components/Authentication/SignIn.tsx" />
+        <option value="$PROJECT_DIR$/src/components/Authentication/SignInCb.tsx" />
+        <option value="$PROJECT_DIR$/src/config/application.ts" />
+        <option value="$PROJECT_DIR$/src/config/authorization.ts" />
+        <option value="$PROJECT_DIR$/src/config/navigation.ts" />
+        <option value="$PROJECT_DIR$/src/config/theme.ts" />
+        <option value="$PROJECT_DIR$/src/containers/MainLayout/HeaderLayout.tsx" />
+        <option value="$PROJECT_DIR$/src/misc/index.ts" />
+        <option value="$PROJECT_DIR$/src/config/index.ts" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/Display.jsx" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/Edit.jsx" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/UserDisplay.jsx" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/Ideas.tsx" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/List.jsx" />
+        <option value="$PROJECT_DIR$/src/layout/MainLayout.tsx" />
+        <option value="$PROJECT_DIR$/src/config/routes.ts" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/Ideas.jsx" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/Create.jsx" />
+        <option value="$PROJECT_DIR$/src/components/common/Modal.tsx" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="x" value="-37" />
     <option name="y" value="-900" />
     <option name="width" value="1440" />
@@ -223,13 +259,52 @@
               <item name="projectment" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Authentication" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="projectment" type="b2602c69:ProjectViewProjectNode" />
+              <item name="projectment" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="layout" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="projectment" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Sites/projectment" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="projectment" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Sites/projectment" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name=".idea" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="projectment" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Sites/projectment" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="projectment" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Sites/projectment" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="views" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="projectment" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Sites/projectment" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="views" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Ideas" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -252,11 +327,11 @@
       <recent name="$PROJECT_DIR$/src/scss" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/layout" />
       <recent name="$PROJECT_DIR$/src/config" />
       <recent name="$PROJECT_DIR$/src/components/Authentication" />
       <recent name="$PROJECT_DIR$/src/components" />
       <recent name="$PROJECT_DIR$/src/assets/img" />
-      <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -285,21 +360,21 @@
       <workItem from="1576669581595" duration="372000" />
       <workItem from="1576844527608" duration="51114000" />
       <workItem from="1577624883308" duration="3799000" />
-      <workItem from="1577721744481" duration="11836000" />
+      <workItem from="1577721744481" duration="47603000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67475000" />
+    <option name="totallyTimeSpent" value="103242000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-37" y="-900" width="1440" height="900" extended-state="6" />
+    <frame x="-37" y="-900" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49933246" visible="true" weight="0.2085976" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49775785" visible="true" weight="0.2085976" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
-      <window_info id="Favorites" order="3" sideWeight="0.5006676" side_tool="true" weight="0.19886003" />
+      <window_info id="Favorites" order="3" sideWeight="0.50224215" side_tool="true" weight="0.2085976" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3296837" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -311,7 +386,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="TypeScript" order="9" weight="0.32846716" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.1350365" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.14355232" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -342,64 +417,148 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/utils/padder.ts">
+    <entry file="file://$PROJECT_DIR$/src/scss/_custom.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        <state relative-caret-position="405">
+          <caret line="104" column="22" lean-forward="true" selection-start-line="104" selection-start-column="22" selection-end-line="104" selection-end-column="22" />
+          <folding>
+            <element signature="e#159#613#0" />
+            <element signature="e#623#1802#0" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/query.ts">
+    <entry file="file://$PROJECT_DIR$/src/views/Home/Home.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="2" lean-forward="true" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
+        <state relative-caret-position="315">
+          <caret line="21" column="54" selection-start-line="21" selection-start-column="54" selection-end-line="21" selection-end-column="54" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/config/authorization.ts">
+    <entry file="file://$PROJECT_DIR$/src/views/Home/index.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="26" lean-forward="true" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
+        <state relative-caret-position="45">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/config/theme.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/providers/index.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="28" column="19" lean-forward="true" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/global.d.ts">
+    <entry file="file://$PROJECT_DIR$/src/models/request.enum.ts">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.css">
+    <entry file="file://$PROJECT_DIR$/src/components/Authentication/index.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Authentication/ProtectedRoute.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="18" lean-forward="true" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Authentication/SignIn.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="20" lean-forward="true" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Authentication/SignInCb.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+            <element signature="e#179#235#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Authentication/SignOut.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Authentication/SignOutCb.tsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/config/constants.ts">
+    <entry file="file://$PROJECT_DIR$/src/components/Authentication/SilentRenewCb.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="165">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/config/index.ts">
+    <entry file="file://$PROJECT_DIR$/src/components/common/index.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#0#86#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/common/Table.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Unauthorized.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/NotFound.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/index.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="7" column="27" lean-forward="true" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+          <caret line="7" column="17" lean-forward="true" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
           <folding>
-            <element signature="e#0#72#0" expanded="true" />
+            <element signature="e#0#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -411,167 +570,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/@coreui/react/es/AsideToggler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="89" column="26" lean-forward="true" selection-start-line="89" selection-start-column="26" selection-end-line="89" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/@types/react/index.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="231" column="45" lean-forward="true" selection-start-line="231" selection-start-column="45" selection-end-line="231" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Authentication/SignIn/index.ts">
+    <entry file="file://$PROJECT_DIR$/src/config/authorization.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+          <caret line="3" column="45" selection-start-line="3" selection-start-column="45" selection-end-line="3" selection-end-column="45" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Unauthorized.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="119" selection-start-line="15" selection-start-column="119" selection-end-line="15" selection-end-column="119" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/NotFound.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="38" lean-forward="true" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/index.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/index.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/index.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Authentication/Account.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/config/constants.ts">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/config/navigation.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="29" lean-forward="true" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+        <state relative-caret-position="240">
+          <caret line="16" column="6" lean-forward="true" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
+    <entry file="file://$PROJECT_DIR$/src/config/theme.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        <state relative-caret-position="45">
+          <caret line="3" column="3" lean-forward="true" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/MainLayout/index.ts">
+    <entry file="file://$PROJECT_DIR$/src/layout/index.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/scss/_ie-fix.scss">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/scss/_themes.scss">
+    <entry file="file://$PROJECT_DIR$/src/layout/HeaderLayout.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="45" lean-forward="true" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/scss/style.scss">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/scss/_variables.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="157" column="26" selection-start-line="157" selection-start-column="26" selection-end-line="157" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="28" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/scss/_custom.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="47" column="33" lean-forward="true" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
+        <state relative-caret-position="60">
+          <caret line="4" column="23" lean-forward="true" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
           <folding>
-            <element signature="e#159#613#0" />
+            <element signature="e#365#425#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/MainLayout/MainLayout.tsx">
+    <entry file="file://$PROJECT_DIR$/src/layout/FooterLayout.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="15" lean-forward="true" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="225">
+          <caret line="15" column="5" lean-forward="true" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/fakers.ts">
+    <entry file="file://$PROJECT_DIR$/src/layout/AsideLayout.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+        <state relative-caret-position="225">
+          <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/index.ts">
+    <entry file="file://$PROJECT_DIR$/src/layout/index.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="8" lean-forward="true" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/random.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="26" lean-forward="true" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
+        <state relative-caret-position="45">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
@@ -582,129 +639,174 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/misc/loader.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/misc/index.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="7" column="11" lean-forward="true" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
           <folding>
-            <element signature="e#0#46#0" expanded="true" />
+            <element signature="e#1#33#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/misc/preloader.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/misc/loader.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/fetch.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/typescript/lib/lib.dom.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="426">
-          <caret line="1567" column="7" lean-forward="true" selection-start-line="1567" selection-start-column="7" selection-end-line="1567" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/models/index.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/request.enum.ts">
+    <entry file="file://$PROJECT_DIR$/src/config/index.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+        <state relative-caret-position="120">
+          <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#72#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/providers/ApplicationProvider.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="156" column="26" lean-forward="true" selection-start-line="156" selection-start-column="26" selection-end-line="156" selection-end-column="26" />
+        <state relative-caret-position="252">
+          <caret line="141" column="29" selection-start-line="141" selection-start-column="29" selection-end-line="141" selection-end-column="29" />
           <folding>
             <element signature="e#0#78#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Authentication/SilentRenewCb.tsx">
+    <entry file="file://$PROJECT_DIR$/src/providers/index.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="39" lean-forward="true" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
+        <state relative-caret-position="210">
+          <caret line="14" column="17" lean-forward="true" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/query.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/random.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/padder.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/index.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/fetch.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/fakers.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/index.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Authentication/SignIn.tsx">
+    <entry file="file://$PROJECT_DIR$/src/views/Ideas/index.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="3" lean-forward="true" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="75">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Authentication/index.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="32" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Authentication/SignOutCb.tsx">
+    <entry file="file://$PROJECT_DIR$/src/views/Ideas/Edit.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Authentication/SignInCb.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="37" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="6" lean-forward="true" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+          <caret line="9" column="15" lean-forward="true" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#0#51#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Authentication/SignOut.tsx">
+    <entry file="file://$PROJECT_DIR$/src/views/Ideas/UserDisplay.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="16" lean-forward="true" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
+        <state relative-caret-position="210">
+          <caret line="14" column="20" lean-forward="true" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/Ideas/Display.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="69" column="37" selection-start-line="69" selection-start-column="37" selection-end-line="69" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/Ideas/Detail.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/Ideas/List.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#62#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/layout/MainLayout.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/Ideas/Ideas.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/Ideas/Create.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="39" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
           <folding>
             <element signature="e#0#51#0" expanded="true" />
           </folding>
@@ -713,28 +815,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/config/routes.ts">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/common/Modal.tsx">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/MainLayout/HeaderLayout.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="545">
-          <caret line="93" lean-forward="true" selection-start-line="93" selection-end-line="93" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#279#339#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Authentication/ProtectedRoute.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="20" lean-forward="true" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#40#0" expanded="true" />
           </folding>
         </state>
       </provider>

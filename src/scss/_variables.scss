@@ -1,8 +1,9 @@
 // Override Boostrap variables
 @import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/functions';
 @import '~@coreui/coreui/scss/variables';
-@import './functions';
 @import './themes';
+@import './functions';
 
 // Main
 $id:                                  map_get($active_theme, id);
@@ -11,6 +12,23 @@ $secondary:                           map_get($active_theme, secondary);
 $gradient-color-1:                    map_get($active_theme, gradient-1);
 $gradient-color-2:                    map_get($active_theme, gradient-2);
 $text-color:                          map_get($active_theme, text);
+
+// Colors
+$danger: #CB2D3E;
+$danger-gradient-1: $danger;
+$danger-gradient-2: #EF473A;
+
+$warning: #F7971E;
+$warning-gradient-1: $warning;
+$warning-gradient-2: #FFD200;
+
+$success: #0BA360;
+$success-gradient-1: $success;
+$success-gradient-2: #3CBA92;
+
+$info: #4481EB;
+$info-gradient-1: $info;
+$info-gradient-2: #04BEFE;
 
 // Body
 $body-bg:                             mix($white, $primary, 95%);

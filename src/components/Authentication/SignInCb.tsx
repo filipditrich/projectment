@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import { loader } from '../../misc';
-import { RequestMethod } from '../../models';
+// import { RequestMethod } from '../../models';
 import { fakePromise, getRandomInt } from '../../utils';
 import { useAppContext } from '../../providers';
 

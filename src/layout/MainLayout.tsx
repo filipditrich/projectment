@@ -14,8 +14,9 @@ import {
     AppAside,
     // @ts-ignore
 } from '@coreui/react';
-import { Container } from 'reactstrap';
-import { navigation, loading, routes } from '../../misc';
+import { Card, Col, Container, Row } from 'reactstrap';
+import { loading } from '../misc';
+import { navigation, routes } from '../config';
 
 // layout parts
 const HeaderLayout = React.lazy(() => import('./HeaderLayout'));
@@ -30,7 +31,7 @@ export default class MainLayout extends React.Component {
 
                 <AppHeader fixed>
                     <React.Suspense fallback={ loading() }>
-                        <HeaderLayout onLogout={ (event: any) => console.log(event) } />
+                        <HeaderLayout />
                     </React.Suspense>
                 </AppHeader>
 
@@ -49,22 +50,29 @@ export default class MainLayout extends React.Component {
                         <AppBreadcrumb appRoutes={ routes } router={ router } />
                         <Container fluid>
                             <React.Suspense fallback={ loading() }>
-                                <Switch>
-                                    {
-                                        routes.map((route, idx) => {
-                                            console.log(route, idx);
-                                            return route.component ?
-                                              <Route
-                                                  key={idx}
-                                                  path={route.path}
-                                                  exact={route.exact}
-                                                  name={route.name}
-                                                  component={route.component}
-                                              /> : (null);
-                                        })
-                                    }
-                                    <Redirect from="/" to="/home" />
-                                </Switch>
+                                <div className="animated fadeIn">
+                                    <Row className="justify-content-center">
+                                        <Col sm="12">
+                                            <Card className="p-4">
+                                                <Switch>
+                                                    {
+                                                        routes.map((route, idx) => {
+                                                            return route.component ?
+                                                                <Route
+                                                                    key={ idx }
+                                                                    path={ route.path }
+                                                                    exact={ route.exact }
+                                                                    name={ route.name }
+                                                                    component={ route.component }
+                                                                /> : (null);
+                                                        })
+                                                    }
+                                                    <Redirect from="/" to="/home" />
+                                                </Switch>
+                                            </Card>
+                                        </Col>
+                                    </Row>
+                                </div>
                             </React.Suspense>
                         </Container>
                     </main>

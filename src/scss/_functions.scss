@@ -9,3 +9,11 @@ $gradient-color-2: green;
 @function linear-gradient-theme($opacity: 1, $direction: to right, $start: 0%, $end: 100%) {
   @return linear-gradient($direction, rgba($gradient-color-1, $opacity) $start, rgba($gradient-color-2, $opacity) $end);
 }
+
+@function radial-gradient-style($color-1, $color-2, $opacity: 1) {
+  @return radial-gradient(circle at bottom left, rgba($color-1, $opacity), rgba($color-2, $opacity));
+}
+
+@function linear-gradient-style($color-1, $color-2, $opacity: 1, $direction: to right, $start: 0%, $end: 100%) {
+  @return linear-gradient($direction, rgba($color-1, $opacity) $start, rgba($color-2, $opacity) $end);
+}

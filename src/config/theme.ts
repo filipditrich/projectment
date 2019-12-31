@@ -1,5 +1,5 @@
 /**
- * Configuration Variables
+ * Theme Configuration Variables
  * @author filipditrich
  */
 export default {

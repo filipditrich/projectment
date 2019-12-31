@@ -1,7 +1,13 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router';
-import { useAppContext } from '../../providers';
+// import { useAppContext } from '../../providers';
 
+/**
+ * Protected Route
+ * @param children
+ * @param rest
+ * @constructor
+ */
 export const ProtectedRoute = ({ children, ...rest }: any) => {
 
     // TODO: de-fake

@@ -1,0 +1,53 @@
+@import './functions';
+
+@mixin button-style($color-1, $color-2, $gradient-1, $gradient-2) {
+  color: $color-1;
+  background-image: linear-gradient(white, white), radial-gradient-style($gradient-1, $gradient-2);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+
+  &.button-reverse {
+    background-image: linear-gradient-style($gradient-1, $gradient-2), radial-gradient-style($gradient-1, $gradient-2);
+    border: 2px solid transparent;
+    color: $color-2;
+  }
+
+  &:hover {
+    background-image: linear-gradient-style($gradient-1, $gradient-2), radial-gradient-style($gradient-1, $gradient-2);
+    color: $color-2;
+    box-shadow: 0 10px 30px rgba(darken($color-1, 20), 0.2);
+    border: 2px solid transparent;
+
+    &.button-reverse {
+      background-image: linear-gradient(white, white), radial-gradient-style($gradient-1, $gradient-2);
+      color: $color-1;
+    }
+  }
+}
+
+@mixin modal($border, $background) {
+  .modal-content {
+    border-color: $border;
+  }
+
+  .modal-header {
+    border-radius: $border-radius $border-radius 0 0;
+    background: $background;
+
+    .close {
+      color: $white;
+    }
+  }
+
+  .modal-footer {
+    border-color: rgba($border, 0.25);
+  }
+
+  .modal-body {
+    padding: 1.5rem 1rem;
+
+    p {
+      margin: 0;
+    }
+  }
+}

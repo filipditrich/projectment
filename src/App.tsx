@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { SignInCb, SignOutCb, SilentRenewCb } from './components/Authentication';
+import { fakeUsersData, fakeSignedInUserData, fakeIdeasData } from './utils';
 import { loader } from './misc';
 import { ProtectedRoute } from './components';
 import TextLoop from 'react-text-loop';
@@ -22,8 +23,8 @@ const preloader = () => {
     return loader(<TextLoop mask={ true } children={ texts } interval={ 3500 } springConfig={{ stiffness: 180, damping: 8 }} />);
 };
 
-// containers
-const DefaultLayout = React.lazy(() => import('./containers/MainLayout'));
+// layout
+const DefaultLayout = React.lazy(() => import('./layout'));
 
 // pages
 const SignIn = React.lazy(() => import('./components/Authentication/SignIn'));
@@ -37,6 +38,11 @@ const Unauthorized = React.lazy(() => import('./components/Unauthorized'));
 class App extends Component {
 
     render() {
+        // TODO: delete
+        localStorage.setItem('fakeUsersData', JSON.stringify(fakeUsersData));
+        localStorage.setItem('fakeIdeasData', JSON.stringify(fakeIdeasData));
+        localStorage.setItem('fakeSignedInUserData', JSON.stringify(fakeSignedInUserData));
+
         return (
           <BrowserRouter>
               <React.Suspense fallback={ preloader() }>

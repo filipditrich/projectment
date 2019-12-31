@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Col, Container, Row } from 'reactstrap';
 
+/**
+ * Unauthorized Component
+ * @author filipditrich
+ */
 export default class Unauthorized extends React.Component {
 
     render() {
