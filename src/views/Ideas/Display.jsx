@@ -76,7 +76,7 @@ export const Display = (props) => {
                                         setIsDeleting(true);
 
                                         await fakePromise(getRandomInt(100, 750));
-                                        history.push("/ideas/list");
+                                        history.push("/ideas");
                                     }
                                 }
                                 className="button button-danger button-reverse"

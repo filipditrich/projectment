@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5726637-2915-46d8-85ce-db261ec60771" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/utils/fakers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fakers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Display.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Display.jsx" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -18,23 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Authentication/ProtectedRoute.tsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/utils/fakers.ts">
+        <entry file="file://$PROJECT_DIR$/src/views/Ideas/Display.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="87" column="18" selection-start-line="87" selection-start-column="18" selection-end-line="87" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#43#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="232">
+              <caret line="66" column="40" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -53,7 +41,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>lo</find>
       <find>loading()</find>
       <find>return value</find>
       <find>includes(f.value)</find>
@@ -83,6 +70,7 @@
       <find>profile</find>
       <find>icon-bul</find>
       <find>boolean</find>
+      <find>/ideas/list</find>
     </findStrings>
     <replaceStrings>
       <replace>$main-bg</replace>
@@ -153,7 +141,6 @@
         <option value="$PROJECT_DIR$/src/containers/MainLayout/HeaderLayout.tsx" />
         <option value="$PROJECT_DIR$/src/misc/index.ts" />
         <option value="$PROJECT_DIR$/src/config/index.ts" />
-        <option value="$PROJECT_DIR$/src/views/Ideas/Display.jsx" />
         <option value="$PROJECT_DIR$/src/views/Ideas/Edit.jsx" />
         <option value="$PROJECT_DIR$/src/views/Ideas/UserDisplay.jsx" />
         <option value="$PROJECT_DIR$/src/views/Ideas/Ideas.tsx" />
@@ -165,6 +152,7 @@
         <option value="$PROJECT_DIR$/src/views/Ideas/List.jsx" />
         <option value="$PROJECT_DIR$/src/components/common/Table.jsx" />
         <option value="$PROJECT_DIR$/src/utils/fakers.ts" />
+        <option value="$PROJECT_DIR$/src/views/Ideas/Display.jsx" />
       </list>
     </option>
   </component>
@@ -198,20 +186,14 @@
               <item name="projectment" type="b2602c69:ProjectViewProjectNode" />
               <item name="projectment" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="projectment" type="b2602c69:ProjectViewProjectNode" />
               <item name="projectment" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="projectment" type="b2602c69:ProjectViewProjectNode" />
-              <item name="projectment" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="Ideas" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -306,12 +288,12 @@
       <workItem from="1576669581595" duration="372000" />
       <workItem from="1576844527608" duration="51114000" />
       <workItem from="1577624883308" duration="3799000" />
-      <workItem from="1577721744481" duration="51160000" />
+      <workItem from="1577721744481" duration="51294000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="106799000" />
+    <option name="totallyTimeSpent" value="106933000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -341,7 +323,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="TypeScript" order="9" weight="0.32846716" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.18978103" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.1569343" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -630,13 +612,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/Ideas/Display.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="69" column="37" selection-start-line="69" selection-start-column="37" selection-end-line="69" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/views/Ideas/Detail.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -753,6 +728,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/fakers.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1455">
+          <caret line="97" column="28" selection-start-line="97" selection-start-column="28" selection-end-line="97" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Authentication/ProtectedRoute.tsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -760,13 +745,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/fakers.ts">
+    <entry file="file://$PROJECT_DIR$/src/views/Ideas/Display.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="87" column="18" selection-start-line="87" selection-start-column="18" selection-end-line="87" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="232">
+          <caret line="66" column="40" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
         </state>
       </provider>
     </entry>
