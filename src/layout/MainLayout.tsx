@@ -19,6 +19,7 @@ import { ReactHelmetHead } from '../components/common';
 import { loading } from '../misc';
 import { navigation, routes } from '../config';
 import { IRoute } from '../models/route';
+import { ToastContainer } from 'react-toastify';
 
 // layout parts
 const HeaderLayout = React.lazy(() => import('./HeaderLayout'));
@@ -37,6 +38,9 @@ export default class MainLayout extends React.Component {
                         <HeaderLayout />
                     </React.Suspense>
                 </AppHeader>
+
+                {/* Toaster Container */}
+                <ToastContainer />
 
                 <div className="app-body">
 

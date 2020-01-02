@@ -32,6 +32,19 @@ button:active, button:focus {
 
 }
 
+.link-muted {
+  @extend .link;
+  background: linear-gradient-theme(0.75);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.35;
+  transition: all 100ms ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
 .button {
   display: inline-block;
   letter-spacing: 1px;
@@ -400,6 +413,12 @@ table, .table {
   }
 }
 
+.table-striped {
+  tbody tr:nth-of-type(#{$table-striped-order}) {
+    background: $table-accent-bg;
+  }
+}
+
 .table-hover {
   tbody tr {
     @include hover() {
@@ -417,6 +436,11 @@ table, .table {
       }
     }
   }
+}
+
+.-headerGroups {
+  background: linear-gradient-theme();
+  color: $white;
 }
 
 .form-control:focus {
@@ -477,3 +501,24 @@ table, .table {
   }
 }
 
+.#{$rt-namespace}__toast {
+  opacity: 0.95;
+
+  &:hover {
+    opacity: 0.98;
+  }
+}
+
+.custom-control-input {
+  &:checked ~ .custom-control-label::before {
+    background: $custom-control-indicator-checked-bg;
+  }
+
+  &:focus ~ .custom-control-label::before {
+    @if $enable-shadows {
+      box-shadow: $input-box-shadow, $input-focus-box-shadow;
+    } @else {
+      box-shadow: 0 0 0 0.2rem rgba($custom-control-indicator-focus-box-shadow, 0.2);
+    }
+  }
+}

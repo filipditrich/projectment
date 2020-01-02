@@ -2,10 +2,13 @@
 @import "variables";
 
 // Import styles
-@import "~@coreui/coreui/scss/coreui.scss";
+@import "~@coreui/coreui/scss/coreui";
+
+// Styles for Toastify
+@import "~react-toastify/scss/main";
 
 // Temp fix for reactstrap
-@import '~@coreui/coreui/scss/_dropdown-menu-right.scss';
+@import '~@coreui/coreui/scss/_dropdown-menu-right';
 
 // Functions
 @import 'functions';

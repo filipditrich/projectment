@@ -31,7 +31,7 @@ $info-gradient-1: $info;
 $info-gradient-2: #04BEFE;
 
 // Body
-$body-bg:                             mix($white, $primary, 95%);
+$body-bg:                             mix($white, $primary, 98%);
 
 // Misc
 $border-color:                        $gray-200;
@@ -207,39 +207,27 @@ $btn-border-radius:           50rem;
 $btn-border-radius-lg:        $btn-border-radius;
 $btn-border-radius-sm:        $btn-border-radius;
 
-$btn-transition:              color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !default;
+// Custom Inputs
+$custom-control-indicator-checked-bg:           linear-gradient-theme();
+$custom-control-indicator-checked-border-color: $primary;
+$custom-control-indicator-focus-border-color:   $custom-control-indicator-checked-border-color;
+$custom-control-indicator-active-box-shadow:    $custom-control-indicator-focus-border-color;
+$custom-control-indicator-focus-box-shadow:     $primary;
 
 
 // Tables
-//
-// Customizes the `.table` component with basic values, each used across all table variations.
-
-$table-cell-padding:          .75rem !default;
-$table-cell-padding-sm:       .3rem !default;
-
-$table-color:                 $body-color !default;
-$table-bg:                    null !default;
-$table-accent-bg:             rgba($gray-100, 0.5);
+$table-accent-bg:             $body-bg;
 $table-hover-color:           $white;
-$table-hover-bg:              linear-gradient-theme();
-$table-active-bg:             $table-hover-bg !default;
-
-$table-border-width:          $border-width !default;
+$table-hover-bg:              linear-gradient-theme(0.5);
 $table-border-color:          $border-color;
+$table-striped-order:         even;
 
-$table-head-bg:               $gray-200 !default;
-$table-head-color:            $gray-700 !default;
-
-$table-dark-color:            $white !default;
-$table-dark-bg:               $gray-800 !default;
-$table-dark-accent-bg:        rgba($white, .05) !default;
-$table-dark-hover-color:      $table-dark-color !default;
-$table-dark-hover-bg:         rgba($white, .075) !default;
-$table-dark-border-color:     lighten($table-dark-bg, 7.5%) !default;
-
-$table-striped-order:         odd !default;
-
-$table-caption-color:         $text-muted !default;
-
-$table-bg-level:              -9 !default;
-$table-border-level:          -6 !default;
+// Toastify
+$rt-color-default:            linear-gradient-theme();
+$rt-color-info:               linear-gradient-style($info-gradient-1, $info-gradient-2);
+$rt-color-success:            linear-gradient-style($success-gradient-1, $success-gradient-2);
+$rt-color-warning:            linear-gradient-style($warning-gradient-1, $warning-gradient-2);
+$rt-color-error:              linear-gradient-style($danger-gradient-1, $danger-gradient-2);
+$rt-text-color-default:       $white;
+$rt-color-progress-default:   $white;
+$rt-font-family:              $font-family-base;

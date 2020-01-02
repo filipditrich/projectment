@@ -2,7 +2,7 @@ import React, { useState, useMemo, useCallback } from "react";
 import { useAppContext } from "../../providers";
 import { Link } from "react-router-dom";
 import { BoolColumnFilter, Table } from "../../components";
-import {fakePromise, fakeIdeaData, getRandomInt} from "../../utils";
+import { fakePromise, getRandomInt } from "../../utils";
 import { get, chunk, orderBy } from "lodash";
 
 /**
@@ -134,7 +134,14 @@ export const List = (props) => {
         })();
     }, [ accessToken ]);
 
-    return <Table columns={ columns } data={ data } fetchData={ fetchData } isLoading={ isLoading } error={ error } totalPages={ totalPages } totalRows={ totalRows }/>;
+    return <Table
+        columns={ columns }
+        data={ data }
+        fetchData={ fetchData }
+        isLoading={ isLoading }
+        error={ error }
+        totalPages={ totalPages }
+        totalRows={ totalRows } />;
 };
 
 export default List;
