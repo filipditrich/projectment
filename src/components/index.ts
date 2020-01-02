@@ -1,7 +1,7 @@
 import NotFound from './NotFound';
 import Unauthorized from './Unauthorized';
 import { ProtectedRoute, SignIn } from './Authentication';
-import { BoolColumnFilter, ListColumnFilter, TextColumnFilter, Table } from './common';
+import { BoolColumnFilter, ListColumnFilter, TextColumnFilter, Table, ReactHelmetHead, Modal } from './common';
 
 export {
     NotFound,
@@ -14,4 +14,6 @@ export {
     ListColumnFilter,
     TextColumnFilter,
     Table,
+    Modal,
+    ReactHelmetHead,
 }

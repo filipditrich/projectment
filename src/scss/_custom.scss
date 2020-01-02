@@ -386,3 +386,94 @@ button:active, button:focus {
 .modal-success {
   @include modal($success, linear-gradient-style($success-gradient-1, $success-gradient-2));
 }
+
+table, .table {
+
+  tbody, thead {
+    border: $table-border-width solid $table-border-color;
+  }
+
+  thead {
+    th {
+      border-width: 1px;
+    }
+  }
+}
+
+.table-hover {
+  tbody tr {
+    @include hover() {
+      color: $table-hover-color;
+      background: $table-hover-bg;
+
+      .link, a {
+        background: $table-hover-color;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        &::after {
+          background: $table-hover-color;
+        }
+      }
+    }
+  }
+}
+
+.form-control:focus {
+  color: #5c6873;
+  background-color: #fff;
+  border-color: rgba($primary, 0.75);
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(darken($primary, 20), 0.1);
+}
+
+.paginator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+
+  .form-control {
+    width: auto;
+  }
+
+  .pagination {
+    margin: 0 1rem 0 0;
+
+    ul {
+      flex-wrap: wrap;
+    }
+  }
+
+  .page-link {
+    color: $gray-600;
+    background-color: $white;
+    border: 1px solid $border-color;
+  }
+
+  .page-link:hover {
+    color: darken($primary, 20);
+    background-color: #e4e7ea;
+    border-color: $border-color;
+  }
+
+  .page-link:focus {
+    box-shadow: 0 0 0 0.2rem rgba($primary, 0.1);
+  }
+
+  .page-item.active .page-link {
+    z-index: 1;
+    color: $white;
+    background-color: $primary;
+    border-color: $border-color;
+  }
+
+  .page-item.disabled .page-link {
+    color: $gray-500;
+    background-color: $white;
+    border-color: $border-color;
+    opacity: 0.75;
+  }
+}
+

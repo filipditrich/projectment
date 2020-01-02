@@ -16,9 +16,20 @@ export const List = (props) => {
 
     const [ data, setData ] = useState([]);
     const [ totalPages, setTotalPages ] = useState(0);
+    const [ totalRows, setTotalRows ] = useState(0);
     const { accessToken } = useAppContext();
 
     const columns = useMemo(() => [
+        {
+            Header: "Akce",
+            Cell: (data) => {
+                return (
+                    <div className="d-flex justify-content-center">
+                        <Link to={ "/ideas/" + data.row.original.id }><i className="icon-info font-lg"/></Link>
+                    </div>
+                );
+            },
+        },
         { Header: "Název", accessor: "name" },
         { Header: "Předmět", accessor: "subject" },
         { Header: "Jméno", accessor: "user.firstName" },
@@ -31,7 +42,6 @@ export const List = (props) => {
             Cell: (data) => (data.cell.value === true ? "Ano" : "Ne"),
             Filter: BoolColumnFilter,
         },
-        { Header: "Akce", Cell: (data) => (<Link to={"/ideas/" + data.row.original.id}>Detail</Link>) },
     ], []);
 
     // TODO: de-fake
@@ -70,7 +80,7 @@ export const List = (props) => {
 
             try {
                 // TODO: de-fake
-                res = await fakePromise(getRandomInt(100, 500), {
+                res = await fakePromise(getRandomInt(100, 750), {
                     ok: true,
                     json: () => {
                         return {
@@ -112,6 +122,7 @@ export const List = (props) => {
                     setData(json || []);
                     // setTotalPages(json.pages); // TODO: de-comment
                     setTotalPages(size ? chunk(fakeData, size).length : 1);
+                    setTotalRows(fakeData.length);
                 } else {
                     throw new Error(res.statusText);
                 }
@@ -123,7 +134,7 @@ export const List = (props) => {
         })();
     }, [ accessToken ]);
 
-    return <Table columns={ columns } data={ data } fetchData={ fetchData } isLoading={ isLoading } error={ error } totalPages={ totalPages } />;
+    return <Table columns={ columns } data={ data } fetchData={ fetchData } isLoading={ isLoading } error={ error } totalPages={ totalPages } totalRows={ totalRows }/>;
 };
 
 export default List;

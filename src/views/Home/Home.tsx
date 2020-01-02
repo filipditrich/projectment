@@ -29,6 +29,7 @@ export default class Home extends React.Component {
                     <button className="button button-success"><span>Success</span></button >
                     <button className="button button-success button-reverse"><span>Success Reverse</span></button >
                 </div>
+
             </>
         );
     }

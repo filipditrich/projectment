@@ -1,37 +1,87 @@
 import React, { useEffect, useMemo } from "react";
 import { useFilters, usePagination, useSortBy, useTable } from "react-table";
+import {Table as ReactstrapTable, Input, Pagination, PaginationItem, PaginationLink} from "reactstrap";
 import { loading } from "../../misc";
+import classnames from "classnames";
 
+/**
+ * Text Column Filter
+ * @param filterValue
+ * @param preFilterRows
+ * @param setFilter
+ * @returns {*}
+ * @constructor
+ */
 export const TextColumnFilter = ({ column: { filterValue, preFilterRows, setFilter } }) => {
     return (
-        <input value={ filterValue || "" } onChange={ (e) => { setFilter(e.target.value || undefined) } } placeholder="Zadejte text" />
+        <Input
+            type="text"
+            placeholder="Zadejte text"
+            value={ filterValue || "" }
+            onChange={ (e) => { setFilter(e.target.value || undefined) } }
+        />
     );
 };
 
+/**
+ * Boolean Column Filter
+ * @param filterValue
+ * @param preFilteredRows
+ * @param setFilter
+ * @returns {*}
+ * @constructor
+ */
 export const BoolColumnFilter = ({ column: { filterValue, preFilteredRows, setFilter }}) => {
     return (
-        <select value={ filterValue } onChange={e => { setFilter(e.target.value || undefined) } }>
+        <Input
+            type="select"
+            value={ filterValue }
+            onChange={ (e) => { setFilter(e.target.value || undefined) } }>
             <option value="">Vše</option>
             <option value={ true }>Ano</option>
             <option value={ false }>Ne</option>
-        </select>
+        </Input>
     );
 };
 
+/**
+ * List Column filter
+ * @param filterValue
+ * @param preFilteredRows
+ * @param setFilter
+ * @param values
+ * @returns {*}
+ * @constructor
+ */
 export const ListColumnFilter = ({ column: { filterValue, preFilteredRows, setFilter }}, values) => {
     return (
-        <select value={ filterValue } onChange={ (e) => { setFilter(e.target.value || undefined) } }>
+        <Input
+            type="select"
+            value={ filterValue }
+            onChange={ (e) => { setFilter(e.target.value || undefined) } }>
             <option value="">Vše</option>
             {
                 Object.keys(values).map((key, index) => (
                     <option key={ index } value={ key }>{ values[key] }</option>
                 ))
             }
-        </select>
+        </Input>
     );
 };
 
-export const Table = ({ columns, data, fetchData, isLoading, error, totalPages }) => {
+/**
+ * Table Component
+ * @param columns
+ * @param data
+ * @param fetchData
+ * @param isLoading
+ * @param error
+ * @param totalPages
+ * @param totalRows
+ * @returns {*}
+ * @constructor
+ */
+export const Table = ({ columns, data, fetchData, isLoading, error, totalPages, totalRows }) => {
     const defaultColumn = useMemo(() => ({
         Filter: TextColumnFilter,
     }), []);
@@ -51,92 +101,148 @@ export const Table = ({ columns, data, fetchData, isLoading, error, totalPages }
         previousPage,
         setPageSize,
         state: { pageIndex, pageSize, sortBy, filters },
-    } = useTable({ columns, data, defaultColumn, initialState: {pageIndex: 0, pageSize: 50}, manualPagination: true, pageCount: totalPages, manualSortBy: true, disableMultiSort: true, manualFilters: true }, useFilters, useSortBy, usePagination);
+    } = useTable({ columns, data, defaultColumn, initialState: { pageIndex: 0, pageSize: 10 }, manualPagination: true, pageCount: totalPages, manualSortBy: true, disableMultiSort: true, manualFilters: true }, useFilters, useSortBy, usePagination);
 
     useEffect(() => {
         fetchData({ page: pageIndex, size: pageSize, sort: sortBy, filters });
     }, [ fetchData, pageIndex, pageSize, sortBy, filters ]);
 
+    const countFrom = data.length ? (pageSize * pageIndex) + 1 : 0;
+    const countTo = (pageSize * pageIndex) + data.length;
+
     return (
         <>
-            <div>
-                <table {...getTableProps()}>
-                    <thead>
-                    {headerGroups.map(headerGroup => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                                    {column.render("Header")}
-                                    <span>
-                  {column.isSorted
-                      ? column.isSortedDesc
-                          ? " 🔽"
-                          : " 🔼"
-                      : ""}
-                </span>
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                    {headerGroups.map(headerGroup => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps()}>
-                                    {column.canFilter ? column.render("Filter") : null}
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                    </thead>
-                    <tbody {...getTableBodyProps()}>
-                    {
-                        error ? (
-                            <tr>
-                                <td colSpan={1000}>{error.text} ({error.status})</td>
-                            </tr>
-                        ) : (
-                            isLoading ? (
-                                <tr>
-                                    <td colSpan={1000}>{ loading() }</td>
+            {/* Table */}
+            <div className="table-container">
+                <ReactstrapTable { ...getTableProps() } className="rt-table" striped hover responsive>
+
+                    {/* Table Head */}
+                    <thead className="rt-head">
+                        {
+                            // Header Titles
+                            headerGroups.map(headerGroup => (
+                                <tr { ...headerGroup.getHeaderGroupProps() } className="-headerGroups">
+                                    {
+                                        headerGroup.headers.map(column => (
+                                            <th { ...column.getHeaderProps(column.getSortByToggleProps()) }>
+                                                { column.render("Header") }
+                                                <span className="ml-2">{ column.isSorted ? column.isSortedDesc ? "▼" : "▲" : "" }</span>
+                                            </th>
+                                        ))
+                                    }
                                 </tr>
-                            ) : page.map(
-                                (row, i) => {
+                            ))
+                        }
+                        {
+                            // Header Filters
+                            headerGroups.map(headerGroup => (
+                                <tr { ...headerGroup.getHeaderGroupProps() } className="-filters">
+                                    {
+                                        headerGroup.headers.map(column => (
+                                            <th { ...column.getHeaderProps() } className="rt-th">
+                                                { column.canFilter ? column.render("Filter") : null }
+                                            </th>
+                                        ))
+                                    }
+                                </tr>
+                            ))
+                        }
+                    </thead>
+
+                    {/* Table Body */}
+                    <tbody {...getTableBodyProps()} className="rt-body">
+                    {
+                        // Error Message
+                        error ? (
+                            <tr><td colSpan={ 1000 }>{ error.text } ({ error.status })</td></tr>
+                        ) : (
+                            // Loading
+                            isLoading ? (
+                                <tr><td colSpan={ 1000 }>{ loading() }</td></tr>
+                                // Cell
+                            ) : page.map((row, i) => {
                                     prepareRow(row);
                                     return (
-                                        <tr {...row.getRowProps()}>
-                                            {row.cells.map(cell => {
-                                                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                                            })}
+                                        <tr { ...row.getRowProps() } className="rt-tr">
+                                            {
+                                                row.cells.map(cell => {
+                                                    return <td { ...cell.getCellProps() } className="rt-td">{ cell.render("Cell") }</td>
+                                                })
+                                            }
                                         </tr>
                                     )
-                                }
-                            )
+                            })
                         )
                     }
                     </tbody>
-                </table>
+                </ReactstrapTable>
             </div>
+
+            {/* Paginator */}
             <div className="paginator">
-                <div>
-                    <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{"<<"}</button>
-                    <button onClick={() => previousPage()} disabled={!canPreviousPage}>{"<"}</button>
-                    <button onClick={() => nextPage()} disabled={!canNextPage}>{">"}</button>
-                    <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>{">>"}</button>
-                </div>
-                <div>
-                    {[...Array(pageCount).keys()].map((num) => (
-                        <span className="paginator-page" key={num} onClick={() => {
-                            gotoPage(num)
-                        }}>{num + 1}</span>))}
-                </div>
-                <div>
-                    <select value={pageSize} onChange={e => {
-                        setPageSize(Number(e.target.value))
-                    }}
-                    >{[10, 20, 30, 40, 50, 100].map(pageSize => (
-                        <option key={pageSize} value={pageSize}>{pageSize}</option>
-                    ))}
-                    </select>
+
+                {/* Pagination */}
+                <Pagination>
+                    <PaginationItem
+                        className={ classnames({ 'disabled': !canPreviousPage }) }>
+                        <PaginationLink
+                            first
+                            onClick={() => gotoPage(0)}
+                            disabled={!canPreviousPage} />
+                    </PaginationItem>
+                    <PaginationItem
+                        className={ classnames({ 'disabled': !canPreviousPage }) }>
+                        <PaginationLink
+                            previous
+                            onClick={ () => previousPage }
+                            disabled={ !canPreviousPage } />
+                    </PaginationItem>
+                    {
+                        [...Array(pageCount).keys()].map((num) => (
+                            <PaginationItem
+                                key={ num }
+                                className={ classnames({ 'active': pageIndex === num }) }>
+                                <PaginationLink
+                                    onClick={ () => gotoPage(num) }>
+                                    { num + 1 }
+                                </PaginationLink>
+                            </PaginationItem>
+                        ))
+                    }
+                    <PaginationItem
+                        className={ classnames({ 'disabled': !canNextPage }) }>
+                        <PaginationLink
+                            next
+                            onClick={ () => nextPage() }
+                            disabled={ !canNextPage } />
+                    </PaginationItem>
+                    <PaginationItem
+                        className={ classnames({ 'disabled': !canNextPage }) }>
+                        <PaginationLink
+                            last
+                            onClick={ () => gotoPage(pageCount - 1) }
+                            disabled={ !canNextPage } />
+                    </PaginationItem>
+                </Pagination>
+
+                {/* Total + IPP */}
+                <div className="d-flex align-items-center mt-3 mt-lg-0">
+                    <span className="mr-3 text-muted">{ countFrom } - { countTo } z { totalRows } záznamů</span>
+
+                    <Input
+                        type="select"
+                        value={ pageSize }
+                        onChange={ (e) => { setPageSize(Number(e.target.value)) } }>
+                        {
+                            [10, 20, 30, 40, 50, 100].map(pageSize => (
+                                <option
+                                    key={ pageSize }
+                                    value={ pageSize }>
+                                    { pageSize }
+                                </option>
+                            ))
+                        }
+                    </Input>
                 </div>
             </div>
         </>

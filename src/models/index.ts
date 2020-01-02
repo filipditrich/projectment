@@ -1,4 +1,4 @@
-import { RequestMethod } from './request.enum';
+import { RequestMethod } from './request';
 
 export {
     RequestMethod,

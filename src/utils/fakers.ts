@@ -121,5 +121,5 @@ export const useFetch = (fetchedData: any, success: boolean = true): any => {
 
 // TODO: delete
 export const fakeUsersData: any[] = fakeUserData({ max: 50, min: 1 });
-export const fakeIdeasData: any[] = fakeIdeaData({ max: 50, min: 1 });
+export const fakeIdeasData: any[] = fakeIdeaData({ max: 100, min: 20 });
 export const fakeSignedInUserData: any = fakeUsersData[getRandomInt(0, (fakeUsersData.length - 1))];
