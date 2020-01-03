@@ -16,7 +16,7 @@ export const TextColumnFilter = ({ column: { filterValue, preFilterRows, setFilt
     return (
         <Input
             type="text"
-            placeholder="Zadejte text"
+            placeholder="Zadejte hledaný výraz"
             value={ filterValue || "" }
             onChange={ (e) => { setFilter(e.target.value || undefined) } }
         />
@@ -45,7 +45,7 @@ export const BoolColumnFilter = ({ column: { filterValue, preFilteredRows, setFi
 };
 
 /**
- * List Column filter
+ * IdeaList Column filter
  * @param filterValue
  * @param preFilteredRows
  * @param setFilter

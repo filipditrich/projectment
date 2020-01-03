@@ -99,7 +99,7 @@ export const useFetch = (fetchedData: any, success: boolean = true): any => {
 
             let res, json;
             try {
-                res = await fakePromise(getRandomInt(100, 750), success
+                res = await fakePromise(getRandomInt(500, 1000), success
                     ? { ok: true, status: 200, statusText: "200 OK", json: () => fetchedData }
                     : { ok: false, status: 500, statusText: "500 Internal Server Error", json: () => fetchedData });
 
@@ -120,6 +120,10 @@ export const useFetch = (fetchedData: any, success: boolean = true): any => {
 };
 
 // TODO: delete
-export const fakeUsersData: any[] = fakeUserData({ max: 50, min: 1 });
-export const fakeIdeasData: any[] = fakeIdeaData({ max: 100, min: 20 });
+// export const fakeUsersData: any[] = fakeUserData({ max: 50, min: 1 });
+// export const fakeIdeasData: any[] = fakeIdeaData({ max: 100, min: 20 });
+// export const fakeSignedInUserData: any = fakeUsersData[getRandomInt(0, (fakeUsersData.length - 1))];
+
+export const fakeUsersData: any[] = JSON.parse(localStorage.getItem('fakeUsersData') as string);
+export const fakeIdeasData: any[] = JSON.parse(localStorage.getItem('fakeIdeasData') as string);
 export const fakeSignedInUserData: any = fakeUsersData[getRandomInt(0, (fakeUsersData.length - 1))];

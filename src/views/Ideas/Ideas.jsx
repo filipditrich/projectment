@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import List from "./List";
+import IdeaList from "./IdeaList";
 
 /**
  * Main Ideas View
@@ -14,7 +14,7 @@ export const Ideas = (props) => {
                 <h1>Náměty</h1>
                 <Link to="/ideas/create"><i className="fa fa-plus-square-o font-3xl" /></Link>
             </header>
-            <List />
+            <IdeaList />
         </>
     );
 };

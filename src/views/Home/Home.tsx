@@ -20,8 +20,6 @@ export default class Home extends React.Component {
     render() {
         return (
             <>
-                <h1>Welcome Home</h1>
-
                 <div className="button-container">
                     <button onClick={ () => this.toastIt(toast.TYPE.DEFAULT) } className="button button-primary"><span>Primary</span></button>
                     <button onClick={ () => this.toastIt(toast.TYPE.DEFAULT) } className="button button-primary button-reverse"><span>Primary Reverse</span></button>
@@ -40,7 +38,6 @@ export default class Home extends React.Component {
                     <button onClick={ () => this.toastIt(toast.TYPE.SUCCESS) } className="button button-success"><span>Success</span></button>
                     <button onClick={ () => this.toastIt(toast.TYPE.SUCCESS) } className="button button-success button-reverse"><span>Success Reverse</span></button>
                 </div>
-
             </>
         );
     }

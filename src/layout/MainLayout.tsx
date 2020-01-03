@@ -14,7 +14,7 @@ import {
     AppAside,
     // @ts-ignore
 } from '@coreui/react';
-import { Card, Col, Container, Row } from 'reactstrap';
+import { Card, CardBody, CardHeader, Col, Container, Row } from 'reactstrap';
 import { ReactHelmetHead } from '../components/common';
 import { loading } from '../misc';
 import { navigation, routes } from '../config';
@@ -40,8 +40,9 @@ export default class MainLayout extends React.Component {
                 </AppHeader>
 
                 {/* Toaster Container */}
-                <ToastContainer />
+                <ToastContainer autoClose={ 7500 } />
 
+                {/* Main Content */}
                 <div className="app-body">
 
                     {/* Sidebar */}
@@ -60,37 +61,44 @@ export default class MainLayout extends React.Component {
                         <AppBreadcrumb appRoutes={ routes } router={ router } />
                         <Container fluid>
                             <React.Suspense fallback={ loading() }>
-                                <div className="animated fadeIn">
-                                    <Row className="justify-content-center">
-                                        <Col sm="12">
-                                            <Card className="p-4">
-                                                <Switch>
-                                                    {
-                                                        routes.map((route: IRoute, idx) => {
-                                                            return route.component ?
-                                                                <Route
-                                                                    key={ idx }
-                                                                    path={ route.path }
-                                                                    exact={ route.exact }
-                                                                    render={
-                                                                        (props: any) => {
-                                                                            return (
-                                                                                <React.Fragment>
-                                                                                    <ReactHelmetHead title={ route.name } />
-                                                                                    <route.component { ...props } />
-                                                                                </React.Fragment>
-                                                                            );
+                                <Switch>
+                                    {
+                                        routes.map((route: IRoute, idx) => {
+                                            return route.component ?
+                                                <Route
+                                                    key={ idx }
+                                                    path={ route.path }
+                                                    exact={ route.exact }
+                                                    render={
+                                                        (props: any) => {
+                                                            return (
+                                                                <React.Fragment>
+                                                                    <div className="animated fadeIn">
+                                                                        <ReactHelmetHead title={ route.name } />
+                                                                        {
+                                                                            route.card ? (
+                                                                                <Row className="justify-content-center">
+                                                                                    <Col sm="12">
+                                                                                        <Card>
+                                                                                            { route.title ? (<CardHeader>{ route.title }</CardHeader>) : null }
+                                                                                            <CardBody>
+                                                                                                <route.component { ...props } />
+                                                                                            </CardBody>
+                                                                                        </Card>
+                                                                                    </Col>
+                                                                                </Row>
+                                                                            ) : <route.component { ...props } />
                                                                         }
-                                                                    }
-                                                                /> : (null);
-                                                        })
+                                                                    </div>
+                                                                </React.Fragment>
+                                                            );
+                                                        }
                                                     }
-                                                    <Redirect from="/" to="/home" />
-                                                </Switch>
-                                            </Card>
-                                        </Col>
-                                    </Row>
-                                </div>
+                                                /> : (null);
+                                        })
+                                    }
+                                    <Redirect from="/" to="/home" />
+                                </Switch>
                             </React.Suspense>
                         </Container>
                     </main>

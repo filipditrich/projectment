@@ -39,9 +39,9 @@ class App extends Component {
 
     render() {
         // TODO: delete
-        localStorage.setItem('fakeUsersData', JSON.stringify(fakeUsersData));
-        localStorage.setItem('fakeIdeasData', JSON.stringify(fakeIdeasData));
-        localStorage.setItem('fakeSignedInUserData', JSON.stringify(fakeSignedInUserData));
+        // localStorage.setItem('fakeUsersData', JSON.stringify(fakeUsersData));
+        // localStorage.setItem('fakeIdeasData', JSON.stringify(fakeIdeasData));
+        // localStorage.setItem('fakeSignedInUserData', JSON.stringify(fakeSignedInUserData));
 
         return (
           <BrowserRouter>

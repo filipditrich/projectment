@@ -10,9 +10,24 @@ export default {
             icon: 'icon-speedometer',
         },
         {
+            title: true,
             name: 'Náměty',
-            url: '/ideas',
+        },
+        {
+            name: 'Náměty',
             icon: 'icon-bulb',
+            children: [
+                {
+                    name: 'Seznam námětů',
+                    url: '/ideas/list',
+                    icon: 'icon-layers',
+                },
+                {
+                    name: 'Vytvořit námět',
+                    url: '/ideas/create',
+                    icon: 'icon-note',
+                }
+            ],
         },
     ],
 };

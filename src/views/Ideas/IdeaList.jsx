@@ -6,11 +6,11 @@ import { fakePromise, getRandomInt } from "../../utils";
 import { get, chunk, orderBy } from "lodash";
 
 /**
- * Idea List Component
+ * Idea IdeaList Component
  * @returns {*}
  * @constructor
  */
-export const List = (props) => {
+export const IdeaList = (props) => {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ error, setError ] = useState(false);
 
@@ -25,7 +25,7 @@ export const List = (props) => {
             Cell: (data) => {
                 return (
                     <div className="d-flex justify-content-center">
-                        <Link to={ "/ideas/" + data.row.original.id }><i className="icon-info font-lg"/></Link>
+                        <Link to={ "/ideas/list/" + data.row.original.id }><i className="icon-info font-lg"/></Link>
                     </div>
                 );
             },
@@ -144,4 +144,4 @@ export const List = (props) => {
         totalRows={ totalRows } />;
 };
 
-export default List;
+export default IdeaList;

@@ -2,19 +2,24 @@ import React from "react";
 import { useAppContext } from "../../providers";
 import { useFetch } from "../../utils";
 import { find } from "lodash";
+import { loading, error } from '../../misc';
 
 /**
- * Idea Detail User Display Component
+ * Idea IdeaDetail User IdeaDisplay Component
  * @param props
  * @returns {*}
  * @constructor
  */
-export const UserDisplay = (props) => {
+export const IdeaUserDisplay = (props) => {
     const { accessToken } = useAppContext();
 
+    const {
+        userData,
+    } = props;
+
     // TODO: de-fake
-    const { response, error, isLoading } = useFetch(find(JSON.parse(localStorage.getItem("fakeUsersData")), { id: props.id }));
-    // const { response, error, isLoading } = useFetch(process.env.REACT_APP_API_URL + "/users/" + props.id,{
+    const { response, error: err, isLoading } = useFetch(find(JSON.parse(localStorage.getItem("fakeUsersData")), { id: userData.id }));
+    // const { response, error: err, isLoading } = useFetch(process.env.REACT_APP_API_URL + "/users/" + props.id,{
     //     method: "GET",
     //     headers: {
     //         Authorization: "Bearer " + accessToken
@@ -22,9 +27,9 @@ export const UserDisplay = (props) => {
     // });
 
     if (isLoading) {
-        return <p>Nahrávání dat</p>;
-    } else if (error !== false) {
-        return <div>{"Došlo k chybě: " + error.text + " (" + error.status + ")"}</div>;
+        return loading();
+    } else if (err !== false) {
+        return error(`Došlo k chybě: ${ err.text } (${ err.status })`);
     } else if (response) {
         return (
             <dl>
@@ -43,8 +48,8 @@ export const UserDisplay = (props) => {
             </dl>
         );
     } else {
-        return <p>Missing data</p>;
+        return error('Chybějící data');
     }
 };
 
-export default UserDisplay;
+export default IdeaUserDisplay;
