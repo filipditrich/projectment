@@ -522,3 +522,13 @@ table, .table {
     }
   }
 }
+
+.card-header {
+  background: $card-cap-bg;
+}
+
+.sidebar-fixed {
+  .sidebar {
+    height: calc(100vh - #{$navbar-height});
+  }
+}

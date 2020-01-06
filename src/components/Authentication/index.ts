@@ -6,9 +6,10 @@ import SilentRenewCb from "./SilentRenewCb";
 import ProtectedRoute from "./ProtectedRoute";
 
 export {
-    SignIn,
-    SignInCb,
-    SignOutCb,
-    SilentRenewCb,
-    ProtectedRoute,
-}
+	SignIn,
+	SignOut,
+	SignInCb,
+	SignOutCb,
+	SilentRenewCb,
+	ProtectedRoute,
+};

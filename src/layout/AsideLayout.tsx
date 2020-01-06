@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from "react";
 
 /**
  * Main Aside Layout
@@ -6,11 +6,11 @@ import React from 'react';
  */
 export default class AsideLayout extends React.Component {
 
-    render() {
-        return (
-            <React.Fragment>
+	render(): ReactElement {
+		return (
+			<React.Fragment>
                 AsideLayout
-            </React.Fragment>
-        );
-    }
+			</React.Fragment>
+		);
+	}
 }

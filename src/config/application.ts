@@ -1,3 +1,3 @@
 export default {
-    APP_NAME: 'ProjectMent',
-}
+	APP_NAME: "ProjectMent",
+};

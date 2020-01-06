@@ -3,5 +3,5 @@
  * @author filipditrich
  */
 export default {
-    THEME_ID: 4,
-}
+	THEME_ID: 4,
+};

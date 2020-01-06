@@ -3,10 +3,10 @@ import Modal from "./Modal";
 import ReactHelmetHead from "./ReactHelmetHead";
 
 export {
-    BoolColumnFilter,
-    TextColumnFilter,
-    ListColumnFilter,
-    Table,
-    Modal,
-    ReactHelmetHead,
-}
+	BoolColumnFilter,
+	TextColumnFilter,
+	ListColumnFilter,
+	Table,
+	Modal,
+	ReactHelmetHead,
+};

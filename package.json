@@ -5,7 +5,7 @@
   "author": "Filip Ditrich",
   "homepage": "https://projectment.pslib.cloud",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "repository": {
     "type": "git",
     "url": "git@github.com:filipditrich/projectment"
@@ -73,6 +73,8 @@
     ]
   },
   "devDependencies": {
+    "@types/react-table": "^7.0.2",
+    "eslint": "^6.8.0",
     "mocker-data-generator": "^2.6.6"
   }
 }

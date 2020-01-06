@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 // export const useFetch = (url: string, options: any) => {
 //     const [ response, setResponse ] = useState(null);
