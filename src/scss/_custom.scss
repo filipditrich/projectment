@@ -45,6 +45,11 @@ button:active, button:focus {
   }
 }
 
+//.bg-danger { background: linear-gradient-style($danger-gradient-1, $danger-gradient-2) };
+//.bg-warning { background: linear-gradient-style($warning-gradient-1, $warning-gradient-2) };
+//.bg-info { background: linear-gradient-style($info-gradient-1, $info-gradient-2) };
+//.bg-success { background: linear-gradient-style($success-gradient-1, $success-gradient-2) };
+
 .button {
   display: inline-block;
   letter-spacing: 1px;
@@ -80,7 +85,11 @@ button:active, button:focus {
   }
 
   &.button-secondary {
-    @include button-style($white, $black, rgba($white, 0.1), rgba($white, 0.1));
+    @include button-style($black, $white, rgba($white, 0.1), rgba($white, 0.1));
+    &:hover {
+      background: transparent;
+      border: 2px solid $white;
+    }
   }
 
   &.button-success {
@@ -283,7 +292,12 @@ button:active, button:focus {
 
 .breadcrumb .breadcrumb-item {
   a {
-    color: $gray-600;
+    color: $gray-400;
+  }
+  &.active {
+    //font-weight: bold;
+    color: $gray-800;
+    //color: $primary;
   }
 }
 
@@ -404,6 +418,7 @@ table, .table {
 
   tbody, thead {
     border: $table-border-width solid $table-border-color;
+    border-top: none !important;
   }
 
   thead {
@@ -441,6 +456,18 @@ table, .table {
 .-headerGroups {
   background: linear-gradient-theme();
   color: $white;
+
+  th {
+    border-top: none;
+  }
+}
+
+.-filters {
+  background: linear-gradient-theme(1/25);
+
+  .form-control {
+    background: transparent;
+  }
 }
 
 .form-control:focus {
@@ -530,5 +557,20 @@ table, .table {
 .sidebar-fixed {
   .sidebar {
     height: calc(100vh - #{$navbar-height});
+  }
+}
+
+.table-pre-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border: $border-width solid $border-color;
+  border-bottom: none;
+  background: linear-gradient-theme();
+  color: $white;
+
+  a, a i {
+    color: inherit;
   }
 }

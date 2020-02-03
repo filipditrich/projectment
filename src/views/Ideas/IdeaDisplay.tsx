@@ -1,4 +1,6 @@
 import React, { ReactElement } from "react";
+import { RequestMethod } from "../../models";
+import { useAppContext } from "../../providers";
 // import { useAppContext } from "../../providers";
 import { useFetch } from "../../utils";
 import { find } from "lodash";
@@ -11,20 +13,19 @@ import { loading, error } from "../../misc";
  * @constructor
  */
 export const IdeaDisplay = (props: { onResponse: (response: any) => void, id: string | undefined }): ReactElement => {
-	// const { accessToken } = useAppContext();
+	const [ { accessToken } ] = useAppContext();
 	
 	const {
 		onResponse,
 	} = props;
 	
-	// TODO: de-fake
-	const { response, error: err, isLoading } = useFetch(find(JSON.parse(localStorage.getItem("fakeIdeasData") as string), { id: props.id }));
-	// const { response, error: err, isLoading } = useFetch(process.env.REACT_APP_API_URL + "/ideas/" + props.id,{
-	//     method: "GET",
-	//     headers: {
-	//         Authorization: "Bearer " + accessToken
-	//     }
-	// });
+	const { response, error: err, isLoading }:
+		{ response: any, error: any, isLoading: boolean } = useFetch(process.env.REACT_APP_API_URL + "/ideas/" + props.id, {
+			method: RequestMethod.GET,
+			headers: {
+				Authorization: "Bearer " + accessToken,
+			},
+		});
 	
 	if (isLoading) {
 		return loading();

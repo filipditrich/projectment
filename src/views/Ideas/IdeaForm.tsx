@@ -46,7 +46,10 @@ const IdeaForm = (props: { initialValues: any; validate: any; onSubmit: (values:
 						{/* Description */ }
 						<FormGroup>
 							<Label for="description">Popis</Label>
-							<Input type="textarea" invalid={ !!touched.description && !!errors.description } tag={ Field } name="description" />
+							<Input type="textarea"
+							       invalid={ !!touched.description && !!errors.description }
+							       tag={ Field }
+							       name="description" />
 							<ErrorMessage name="description">{ (msg) =>
 								<FormFeedback>{ msg }</FormFeedback> }</ErrorMessage>
 							<FormText className={ classnames({ "d-none": !showHelp }) }>Popis námětu</FormText>
@@ -56,7 +59,10 @@ const IdeaForm = (props: { initialValues: any; validate: any; onSubmit: (values:
 						{/* TODO: Wouldn't select be better for this? */ }
 						<FormGroup>
 							<Label for="subject">Předmět</Label>
-							<Input type="text" invalid={ !!touched.subject && !!errors.subject } tag={ Field } name="subject" />
+							<Input type="text"
+							       invalid={ !!touched.subject && !!errors.subject }
+							       tag={ Field }
+							       name="subject" />
 							<ErrorMessage name="subject">{ (msg) =>
 								<FormFeedback>{ msg }</FormFeedback> }</ErrorMessage>
 							<FormText
@@ -66,7 +72,10 @@ const IdeaForm = (props: { initialValues: any; validate: any; onSubmit: (values:
 						{/* Resources */ }
 						<FormGroup>
 							<Label for="resources">Zdroje</Label>
-							<Input type="text" invalid={ !!touched.resources && !!errors.resources } tag={ Field } name="resources" />
+							<Input type="text"
+							       invalid={ !!touched.resources && !!errors.resources }
+							       tag={ Field }
+							       name="resources" />
 							<ErrorMessage name="resources">{ (msg) =>
 								<FormFeedback>{ msg }</FormFeedback> }</ErrorMessage>
 							<FormText className={ classnames({ "d-none": !showHelp }) }>Očekávané zdroje</FormText>
@@ -75,7 +84,10 @@ const IdeaForm = (props: { initialValues: any; validate: any; onSubmit: (values:
 						{/* Participants */ }
 						<FormGroup>
 							<Label for="participants">Počet řešitelů</Label>
-							<Input type="number" invalid={ !!touched.participants && !!errors.participants } tag={ Field } name="participants" />
+							<Input type="number"
+							       invalid={ !!touched.participants && !!errors.participants }
+							       tag={ Field }
+							       name="participants" />
 							<ErrorMessage name="participants">{ (msg) =>
 								<FormFeedback>{ msg }</FormFeedback> }</ErrorMessage>
 							<FormText

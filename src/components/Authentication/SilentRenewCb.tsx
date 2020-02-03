@@ -3,7 +3,7 @@ import { Redirect } from "react-router";
 import { useAppContext } from "../../providers";
 
 const SilentRenewCb = (props: any): ReactElement => {
-	const { userManager } = useAppContext();
+	const [{ userManager }] = useAppContext();
 	(async() => await userManager.signinSilentCallback())();
 	return <Redirect to="/" />;
 };

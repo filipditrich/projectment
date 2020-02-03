@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Genders } from '../../models';
+import { Genders, RequestMethod } from "../../models";
 import { useAppContext } from "../../providers";
 import { useFetch } from "../../utils";
 import { find } from "lodash";
@@ -12,20 +12,19 @@ import { loading, error } from "../../misc";
  * @constructor
  */
 export const IdeaUserDisplay = (props: any): ReactElement => {
-	const { accessToken } = useAppContext();
+	const [ { accessToken } ] = useAppContext();
 	
 	const {
-		userData,
+		userId,
 	} = props;
 	
-	// TODO: de-fake
-	const { response, error: err, isLoading } = useFetch(find(JSON.parse(localStorage.getItem("fakeUsersData") as string), { id: userData.id }));
-	// const { response, error: err, isLoading } = useFetch(process.env.REACT_APP_API_URL + "/users/" + props.id,{
-	//     method: "GET",
-	//     headers: {
-	//         Authorization: "Bearer " + accessToken
-	//     }
-	// });
+	const { response, error: err, isLoading }:
+		{ response: any, error: any, isLoading: boolean } = useFetch(process.env.REACT_APP_API_URL + "/users/" + userId, {
+			method: RequestMethod.GET,
+			headers: {
+				Authorization: "Bearer " + accessToken,
+			},
+		});
 	
 	if (isLoading) {
 		return loading();

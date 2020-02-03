@@ -10,9 +10,8 @@ import { useAppContext } from "../../providers";
  */
 export const ProtectedRoute = ({ children, ...rest }: { children?: ReactElement<any> | any, [key: string]: any }): ReactElement => {
 
-	// TODO: de-fake
-	const accessToken = "fake-token";
-	// const { accessToken } = useAppContext();
+	const [{ accessToken }] = useAppContext();
+	console.log(useAppContext());
 
 	return accessToken !== null
 		? <Route { ...rest }>{ children }</Route>

@@ -1,11 +1,15 @@
-// // Theme ID Variable
-//$themeId:                             4;
-//@value themeId #{$themeId};
+// Theme ID Variable
+$themeId: 0;
 
 // Color Themes
-$theme0:                              ( id: 0, primary: #232526, secondary: #414345, gradient-1: #232526, gradient-2: #414345, text: black );
-$theme1:                              ( id: 1, primary: #396EFF, secondary: #8E2DE2, gradient-1: #8E2DE2, gradient-2: #396EFF, text: black );
-$theme2:                              ( id: 2, primary: #DCE35B, secondary: #45B649, gradient-1: #DCE35B, gradient-2: #45B649, text: black );
-$theme3:                              ( id: 3, primary: #FF416C, secondary: #FF4B2B, gradient-1: #FF416C, gradient-2: #FF4B2B, text: black );
-$theme4:                              ( id: 4, primary: #4481eb, secondary: #04befe, gradient-1: #4481eb, gradient-2: #04befe, text: black );
-$active_theme:                        $theme0;
+$themes: (
+        theme0: ( id: 0, primary: #232526, secondary: #414345, gradient-1: #232526, gradient-2: #414345, text: black ),
+        theme1: ( id: 1, primary: #396EFF, secondary: #8E2DE2, gradient-1: #8E2DE2, gradient-2: #396EFF, text: black ),
+        theme2: ( id: 2, primary: #DCE35B, secondary: #45B649, gradient-1: #DCE35B, gradient-2: #45B649, text: black ),
+        theme3: ( id: 3, primary: #FF416C, secondary: #FF4B2B, gradient-1: #FF416C, gradient-2: #FF4B2B, text: black ),
+        theme4: ( id: 4, primary: #4481eb, secondary: #04befe, gradient-1: #4481eb, gradient-2: #04befe, text: black ),
+        theme5: ( id: 5, primary: #0C539A, secondary: #3C7EC1, gradient-1: #0C539A, gradient-2: #3C7EC1, text: black ),
+);
+
+// Active Theme
+$active_theme: map-get($themes, theme#{$themeId});

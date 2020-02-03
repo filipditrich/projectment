@@ -3,7 +3,8 @@
  * @author filipditrich
  */
 export default {
-	// TODO: inteface
+	// TODO: interface
+	// EDIT: ? tf i meant by this?
 	items: [
 		{
 			name: "Domů",
@@ -30,5 +31,20 @@ export default {
 				}
 			],
 		},
-	],
+		{
+			title: true,
+			name: "Uživatelé",
+		},
+		{
+			name: "Uživatelé",
+			icon: "icon-user",
+			children: [
+				{
+					name: "Seznam uživatelů",
+					url: "/users/list",
+					icon: "icon-people",
+				}
+			],
+		}
+	]
 };

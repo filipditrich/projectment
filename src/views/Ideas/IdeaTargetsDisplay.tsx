@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
+import { RequestMethod } from "../../models";
 import { useAppContext } from "../../providers";
-import { fakePromise, getRandomInt } from "../../utils";
 import { loading, error as errorFallback } from "../../misc";
 
 /**
@@ -11,7 +11,7 @@ import { loading, error as errorFallback } from "../../misc";
  */
 export const IdeaDisplayTargets = (props: any): ReactElement => {
 	
-	const { accessToken } = useAppContext();
+	const [ { accessToken } ] = useAppContext();
 	const [ isLoadingAll, setIsLoadingAll ]: any = useState(false);
 	const [ errorAll, setErrorAll ]: any = useState(false);
 	const [ dataAll, setDataAll ]: any = useState(null);
@@ -28,23 +28,10 @@ export const IdeaDisplayTargets = (props: any): ReactElement => {
 			
 			let res, json;
 			try {
-				// TODO: de-fake
-				res = await fakePromise(getRandomInt(500, 1000), {
-					ok: true,
-					json: () => {
-						return {
-							data: [
-								{ text: "T1" },
-								{ text: "T2" },
-								{ text: "T3" },
-							],
-						};
-					},
+				res = await fetch(process.env.REACT_APP_API_URL + "/targets", {
+					method: RequestMethod.GET,
+					headers: { Authorization: "Bearer " + accessToken },
 				});
-				// res = await fetch(process.env.REACT_APP_API_URL + "/targets", {
-				//     method: "GET",
-				//     headers: { Authorization: "Bearer " + accessToken }
-				// });
 				if (res.ok) {
 					json = await res.json();
 					setDataAll(json);
@@ -52,21 +39,17 @@ export const IdeaDisplayTargets = (props: any): ReactElement => {
 					throw new Error(res.statusText);
 				}
 			} catch (error) {
-				setErrorAll({ status: res.status, text: error.message });
+				setErrorAll({ status: error.status, text: error.message });
 			} finally {
 				setIsLoadingAll(false);
 			}
 			
 			try {
-				// TODO: de-fake
-				res = await fakePromise(getRandomInt(100, 500), {
-					ok: true,
-					json: () => [ { text: "T1" } ],
+				res = await fetch(process.env.REACT_APP_API_URL + "/ideas/" + props.id + "/targets", {
+					method: RequestMethod.GET,
+					headers: { Authorization: "Bearer " + accessToken },
 				});
-				// res = await fetch(process.env.REACT_APP_API_URL + "/ideas/" + props.id + "/targets", {
-				//     method: "GET",
-				//     headers: { Authorization: "Bearer " + accessToken }
-				// });
+				
 				if (res.ok) {
 					json = await res.json();
 					setData(json);
@@ -74,7 +57,7 @@ export const IdeaDisplayTargets = (props: any): ReactElement => {
 					throw new Error(res.statusText);
 				}
 			} catch (error) {
-				setError({ status: res.status, text: error.message });
+				setError({ status: error.status, text: error.message });
 			} finally {
 				setIsLoading(false);
 			}
@@ -88,7 +71,6 @@ export const IdeaDisplayTargets = (props: any): ReactElement => {
 		return loading();
 	}
 	if (data && dataAll) {
-		// console.log(data, dataAll);
 		return (
 			<>
 				<h3>Všechny cílové skupiny</h3>

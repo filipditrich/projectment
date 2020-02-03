@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from "react";
+import { RequestMethod } from "../../models";
 import { useAppContext } from "../../providers";
-import { fakePromise, getRandomInt, useFetch } from "../../utils";
-import { find } from "lodash";
+import { useFetch } from "../../utils";
 import { toast } from "react-toastify";
 import { Button } from "reactstrap";
 import { loading, error } from "../../misc";
@@ -13,11 +13,11 @@ import IdeaForm from "./IdeaForm";
  * @returns {*}
  * @constructor
  */
-export const IdeaEdit = (props: { switchEditMode: any , id: string | undefined }): ReactElement & any => {
+export const IdeaEdit = (props: { switchEditMode: any, id: string | undefined }): ReactElement & any => {
 	const {
 		switchEditMode,
 	} = props;
-	const { accessToken, userId } = useAppContext();
+	const [ { accessToken, userId } ] = useAppContext();
 	const [ failed, setFailed ]: any = useState(false);
 	const [ ok, setOk ]: any = useState(false);
 	
@@ -26,27 +26,19 @@ export const IdeaEdit = (props: { switchEditMode: any , id: string | undefined }
 		setOk(false);
 	}, []);
 	
-	// TODO: de-fake
-	const { response, error: err, isLoading } = useFetch(find(JSON.parse(localStorage.getItem("fakeIdeasData") as string), { id: props.id }), true);
-	// const {response, error: err, isLoading} = useFetch(process.env.REACT_APP_API_URL + "/ideas/" + props.id,{
-	//     method: "GET",
-	//     headers: {
-	//         Authorization: "Bearer " + accessToken
-	//     }
-	// });
+	const { response, error: err, isLoading }: { response: any, error: any, isLoading: boolean } = useFetch(process.env.REACT_APP_API_URL + "/ideas/" + props.id, {
+		method: RequestMethod.GET,
+		headers: {
+			Authorization: "Bearer " + accessToken,
+		},
+	});
 	
 	if (isLoading) {
 		return loading();
-	} else if (err) {
-		toast(`${ err.text } (${ err.status }).`, {
-			type: toast.TYPE.ERROR,
-			toastId: "T_ERR_EDIT_RESPONSE",
-			autoClose: false,
-		});
 	} else if (response) {
+		console.log(response);
 		return (
 			<>
-				<h1 className="mb-3">Upravit &quot;{ response.name }&quot;</h1>
 				<IdeaForm
 					initialValues={ {
 						name: response.name,
@@ -70,30 +62,25 @@ export const IdeaEdit = (props: { switchEditMode: any , id: string | undefined }
 					onSubmit={
 						async (values, { setSubmitting }) => {
 							setSubmitting(true);
-							// TODO: de-fake
-							const res = await fakePromise(getRandomInt(500, 1000), {
-								ok: true,
-								json: () => {},
-								statusText: "200 OK",
-								status: 200,
+							const res = await fetch(process.env.REACT_APP_API_URL + "/ideas/" + props.id, {
+							    method: RequestMethod.PUT,
+							    headers: {
+							        Authorization: "Bearer " + accessToken,
+							        "Content-Type": "application/json"
+							    },
+							    body: JSON.stringify({
+							        Id: response.id,
+							        Name: values.name,
+							        Description: values.description,
+							        Resources: values.resources,
+							        Participants: values.participants,
+							        Subject: values.subject,
+							        Offered: values.offered,
+							        UserId: userId
+							    })
 							});
-							// const res = await fetch(process.env.REACT_APP_API_URL + "/ideas/" + props.id, {
-							//     method: "PUT",
-							//     headers: {
-							//         Authorization: "Bearer " + accessToken,
-							//         "Content-Type": "application/json"
-							//     },
-							//     body: JSON.stringify({
-							//         Id: Number(props.id),
-							//         Name: values.name,
-							//         Description: values.description,
-							//         Resources: values.resources,
-							//         Participants: values.participants,
-							//         Subject: values.subject,
-							//         Offered: values.offered,
-							//         UserId: userId
-							//     })
-							// });
+							console.log(res);
+							
 							if (res.ok) {
 								setOk(true);
 								toast("Námět byl úspěšně uložen.", {
@@ -125,6 +112,14 @@ export const IdeaEdit = (props: { switchEditMode: any , id: string | undefined }
 				/>
 			</>
 		);
+	} else if (err) {
+		console.error(err);
+		toast(`${ err.text } (${ err.status }).`, {
+			type: toast.TYPE.ERROR,
+			toastId: "T_ERR_EDIT_RESPONSE",
+			autoClose: false,
+		});
+		return error(err.toString());
 	} else {
 		return error("Chybějící data");
 	}

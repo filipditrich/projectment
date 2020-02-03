@@ -1,26 +1,26 @@
 import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
-import IdeaList from "./IdeaList";
+import UserList from "./UserList";
 
 /**
- * Main Ideas View
+ * Main Users View
  * @constructor
  */
-export const Ideas = (props: any): ReactElement => {
+export const Users = (props: any): ReactElement => {
 	
 	return (
 		<>
 			<header className="table-pre-header">
-				<h1>Seznam námětů</h1>
+				<h1>Seznam uživatelů</h1>
 				<Link
 					className="button button-secondary"
-					to="/ideas/create">
+					to="/users/create">
 					<span>Nový</span>
 				</Link>
 			</header>
-			<IdeaList />
+			<UserList />
 		</>
 	);
 };
 
-export default Ideas;
+export default Users;

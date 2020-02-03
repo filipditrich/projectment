@@ -40,6 +40,7 @@ export const IdeaDetail = (props: any): ReactElement => {
 			<Row className="justify-content-center">
 				<Col sm="12">
 					<Card>
+						<CardHeader>Upravit námět</CardHeader>
 						<CardBody>
 							<IdeaEdit id={ id } switchEditMode={ setEditing } />
 						</CardBody>
@@ -57,9 +58,7 @@ export const IdeaDetail = (props: any): ReactElement => {
 							<Card>
 								<CardHeader>Obecná data</CardHeader>
 								<CardBody>
-									<IdeaDisplay id={ id } onResponse={ (res) => {
-										setResponse(res);
-									} } />
+									<IdeaDisplay id={ id } onResponse={ (res) => { setResponse(res); } } />
 								</CardBody>
 							</Card>
 							
@@ -69,7 +68,7 @@ export const IdeaDetail = (props: any): ReactElement => {
 								<CardBody>
 									{
 										response ? (
-											<IdeaUserDisplay userData={ response.user } />
+											<IdeaUserDisplay userId={ response.userId } />
 										) : loading()
 									}
 								</CardBody>

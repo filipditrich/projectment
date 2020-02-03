@@ -8,7 +8,7 @@ import React, {
 	ReactElement,
 	ReducerState,
 	Dispatch,
-	ReducerAction
+	ReducerAction,
 } from "react";
 import { IDENTITY_CONFIGURATION, METADATA_OIDC } from "../config";
 import { UserManager, WebStorageStateStore, Log, User } from "oidc-client";
@@ -34,8 +34,8 @@ const userManager: UserManager = new UserManager({
 	...IDENTITY_CONFIGURATION,
 	userStore: new WebStorageStateStore({ store: userStore }),
 	metadata: {
-		...METADATA_OIDC
-	}
+		...METADATA_OIDC,
+	},
 });
 
 const initialState: ReducerState<any> = {
@@ -47,7 +47,7 @@ const initialState: ReducerState<any> = {
 	isUserLoading: false,
 	title: null,
 	messages: [],
-	messageCounter: 0
+	messageCounter: 0,
 };
 
 Log.logger = console;
@@ -62,18 +62,18 @@ const parseJwt = (token: any): any => {
 };
 
 const reducer = (state: any, action: any): any => {
-	const newMessages: any[] = [...state.messages];
-
+	const newMessages: any[] = [ ...state.messages ];
+	
 	switch (action.type) {
 	case ADD_MESSAGE: {
 		newMessages.push({
-			text: (action.text)
+			text: (action.text),
 		});
-		return { ...state,  messages: newMessages, counter: state.counter + 1 };
+		return { ...state, messages: newMessages, counter: state.counter + 1 };
 	}
 	case DISMISS_MESSAGE: {
 		newMessages.splice(action.id, 1);
-		return { ...state,  messages: newMessages };
+		return { ...state, messages: newMessages };
 	}
 	case SET_TITLE: {
 		return { ...state, title: action.payload };
@@ -89,7 +89,14 @@ const reducer = (state: any, action: any): any => {
 	case CLEAR_ID_TOKEN:
 		return { ...state, idToken: null };
 	case USER_FOUND:
-		return { ...state, idToken: action.idToken, accessToken: action.accessToken, userId: action.userId, profile: action.profile, isUserLoading: false };
+		return {
+			...state,
+			idToken: action.idToken,
+			accessToken: action.accessToken,
+			userId: action.userId,
+			profile: action.profile,
+			isUserLoading: false,
+		};
 	case USER_EXPIRED:
 	case LOAD_USER_ERROR:
 	case SILENT_RENEW_ERROR:
@@ -103,10 +110,9 @@ const reducer = (state: any, action: any): any => {
 export const ApplicationContext: Context<any> = createContext(initialState);
 export const ApplicationConsumer: Consumer<any> = ApplicationContext.Consumer;
 export const ApplicationProvider = (props: any): ReactElement => {
-
 	const store: [ ReducerState<any>, Dispatch<ReducerAction<any>> ] = useReducer(reducer, initialState);
-	const [, dispatch] = store;
-
+	const [ , dispatch ] = store;
+	
 	useEffect(() => {
 		userManager.events.addUserLoaded((user: User) => {
 			const tokenData: any = parseJwt(user.access_token);
@@ -120,7 +126,7 @@ export const ApplicationProvider = (props: any): ReactElement => {
 			});
 		});
 		userManager.events.addUserUnloaded(() => {
-			//dispatchMessages({type: ADD_MESSAGE, text: "Informace o přihlášení byly zrušeny", kind: "success", dismisable: true, expiration: 3});
+			// //dispatchMessages({type: ADD_MESSAGE, text: "Informace o přihlášení byly zrušeny", kind: "success", dismisable: true, expiration: 3});
 			dispatch({
 				type: USER_EXPIRED
 			});
@@ -128,26 +134,26 @@ export const ApplicationProvider = (props: any): ReactElement => {
 		userManager.events.addAccessTokenExpiring(() => {
 			//dispatchMessages({type: ADD_MESSAGE, text: "Platnost Vašeho přihlášení brzy vyprší", kind: "warning", dismisable: true, expiration: 3});
 			dispatch({
-				type: USER_EXPIRING
+				type: USER_EXPIRING,
 			});
 		});
 		userManager.events.addAccessTokenExpired(() => {
 			//dispatchMessages({type: ADD_MESSAGE, text: "Platnost Vašeho přihlášení vypršela", kind: "info", dismisable: true, expiration: false});
 			dispatch({
-				type: USER_EXPIRED
+				type: USER_EXPIRED,
 			});
 		});
 		userManager.events.addSilentRenewError(() => {
 			//dispatchMessages({type: ADD_MESSAGE, text: "Nepodařilo se obnovit platnost Vašeho přihlášení", kind: "error", dismisable: true, expiration: false});
-			dispatch({type: SILENT_RENEW_ERROR});
+			dispatch({ type: SILENT_RENEW_ERROR });
 		});
 		userManager.events.addUserSignedOut(() => {
 			//dispatchMessages({type: ADD_MESSAGE, text: "Uživatel byl automaticky odhlášen", kind: "warning", dismisable: true, expiration: 3});
 			dispatch({
-				type: USER_SIGNED_OUT
+				type: USER_SIGNED_OUT,
 			});
 		});
-
+		
 		userManager.getUser()
 			.then((user: User | null) => {
 				if (user && !user.expired) {
@@ -157,21 +163,21 @@ export const ApplicationProvider = (props: any): ReactElement => {
 						accessToken: user.access_token,
 						idToken: user.id_token,
 						userId: tokenData.sub,
-						profile: user.profile
+						profile: user.profile,
 					});
 				} else if (!user || (user && user.expired)) {
 					dispatch({
-						type: USER_EXPIRED
+						type: USER_EXPIRED,
 					});
 				}
 			})
-			.catch(()=>{
+			.catch(() => {
 				dispatch({
-					type: LOAD_USER_ERROR
+					type: LOAD_USER_ERROR,
 				});
 			});
-	},[ dispatch ]);
-
+	}, [ dispatch ]);
+	
 	return (
 		<ApplicationContext.Provider value={ store }>
 			{ props.children }
@@ -179,4 +185,4 @@ export const ApplicationProvider = (props: any): ReactElement => {
 	);
 };
 
-export const useAppContext = (): any => useContext(ApplicationContext);
+export const useAppContext = () => useContext(ApplicationContext);

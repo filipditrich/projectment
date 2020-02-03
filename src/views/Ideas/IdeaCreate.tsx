@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
-// import { useAppContext } from "../../providers";
-import { fakePromise, getRandomInt } from "../../utils";
+import { RequestMethod } from "../../models";
+import { useAppContext } from "../../providers";
 import { Button } from "reactstrap";
 import { toast } from "react-toastify";
 import IdeaForm from "./IdeaForm";
@@ -13,7 +13,7 @@ import IdeaForm from "./IdeaForm";
  * @constructor
  */
 export const IdeaCreate = (props: any): ReactElement => {
-	// const { accessToken, userId } = useAppContext();
+	const [ { accessToken, userId } ] = useAppContext();
 	const [ failed, setFailed ]: any = useState(false);
 	const [ ok, setOk ]: any = useState(false);
 	const [ showHelp, setShowHelp ]: any = useState(false);
@@ -25,7 +25,6 @@ export const IdeaCreate = (props: any): ReactElement => {
 	
 	return (
 		<>
-			<h1 className="mb-3">Vytvořit námět</h1>
 			<IdeaForm
 				initialValues={ {
 					name: "",
@@ -50,31 +49,23 @@ export const IdeaCreate = (props: any): ReactElement => {
 					async (values, { setSubmitting }) => {
 						setSubmitting(true);
 						
-						// TODO: de-fake
-						const res = await fakePromise(getRandomInt(500, 1000), {
-							ok: true,
-							json: () => {
-								return { id: "fake-id" };
+						const res = await fetch(process.env.REACT_APP_API_URL + "/ideas", {
+							method: RequestMethod.POST,
+							headers: {
+								Authorization: "Bearer " + accessToken,
+								"Content-Type": "application/json"
 							},
-							statusText: "200 OK",
-							status: 200,
+							body: JSON.stringify({
+								Name: values.name,
+								Description: values.description,
+								Resources: values.resources,
+								Participants: values.participants,
+								Subject: values.subject,
+								Offered: values.offered,
+								UserId: userId
+							})
 						});
-						// const res = await fetch(process.env.REACT_APP_API_URL + "/ideas", {
-						//     method: "POST",
-						//     headers: {
-						//         Authorization: "Bearer " + accessToken,
-						//         "Content-Type": "application/json"
-						//     },
-						//     body: JSON.stringify({
-						//         Name: values.name,
-						//         Description: values.description,
-						//         Resources: values.resources,
-						//         Participants: values.participants,
-						//         Subject: values.subject,
-						//         Offered: values.offered,
-						//         UserId: userId
-						//     })
-						// });
+						
 						if (res.ok) {
 							let json = await res.json();
 							setOk(true);
@@ -94,7 +85,9 @@ export const IdeaCreate = (props: any): ReactElement => {
 				}
 				footerButtons={
 					({ isSubmitting }) => (
-						<Button className="button button-primary button-reverse" type="submit" disabled={ isSubmitting }>
+						<Button className="button button-primary button-reverse"
+						        type="submit"
+						        disabled={ isSubmitting }>
 							<span>{ !isSubmitting ? "Vytvořit" : "Pracuji..." }</span>
 						</Button>
 					)

@@ -1,13 +1,20 @@
-import React, { useState, useMemo, useCallback, ReactElement } from "react";
-import { CellValue } from "react-table";
+import { findAllByDisplayValue } from "@testing-library/dom";
+import { NamedColor } from "csstype";
+import React, { useState, useMemo, useCallback, ReactElement, CSSProperties } from "react";
+import { Cell, CellValue } from "react-table";
+import { Badge } from "reactstrap";
+import { TableColumn } from "../../components/common/Table";
+import { Genders, RequestMethod } from "../../models";
+import { DataJsonResponse } from "../../models/response";
 import { useAppContext } from "../../providers";
 import { Link } from "react-router-dom";
-import { BoolColumnFilter, Table } from "../../components";
-import { fakePromise, getRandomInt } from "../../utils";
+import { BoolColumnFilter, ListColumnFilter, Table } from "../../components";
+import { enumToArray, fakePromise, getRandomInt } from "../../utils";
 import { get, chunk, orderBy } from "lodash";
+import classNames from "classnames";
 
 /**
- * Idea IdeaList Component
+ * Idea List Component
  * @returns {*}
  * @constructor
  */
@@ -18,7 +25,7 @@ export const IdeaList = (props: any): ReactElement => {
 	const [ data, setData ]: any = useState([]);
 	const [ totalPages, setTotalPages ]: any = useState(0);
 	const [ totalRows, setTotalRows ]: any = useState(0);
-	const { accessToken } = useAppContext();
+	const [ { accessToken } ] = useAppContext();
 	
 	const columns = useMemo(() => [
 		{
@@ -33,26 +40,67 @@ export const IdeaList = (props: any): ReactElement => {
 		},
 		{ Header: "Název", accessor: "name" },
 		{ Header: "Předmět", accessor: "subject" },
-		{ Header: "Jméno", accessor: "user.firstName" },
-		{ Header: "Příjmení", accessor: "user.lastName" },
-		{ Header: "Cílové skupiny", accessor: "ideaTargets" },
+		{ Header: "Jméno", accessor: "userFirstName" },
+		{ Header: "Příjmení", accessor: "userLastName" },
+		{
+			Header: "Cílové skupiny",
+			accessor: "ideaTargets",
+			Cell: (data: CellValue): ReactElement => {
+				console.log(data);
+				return (
+					<div>
+						<span>{ data.cell.value }</span>
+						{
+							// TODO: need more data for this
+							// (data.cell.value as IIdeaTarget[]).map((target: IIdeaTarget, i: number): ReactElement => {
+							// 	return (
+							// 		<Badge
+							// 			className={ classNames({
+							// 				"mr-2": true,
+							// 				"bg-warning": target.id === 1 || target.id === 2,
+							// 				"bg-danger": target.id === 3,
+							// 				"bg-info": target.id === 4,
+							// 				"bg-success": target.id === 5,
+							// 			}) }
+							// 			key={ i }
+							// 			color="primary">
+							// 			{ target.text }
+							// 		</Badge>
+							// 	);
+							// })
+						}
+					</div>
+				);
+			},
+			Filter: (column: TableColumn<object>) => {
+				// TODO: custom filtering (need real data)
+				// const values: Array<{ key: string, value: string }> = ideaTargets
+				// 	.map((target: IIdeaTarget) => {
+				// 		return { key: target.id.toString(), value: target.text };
+				// 	});
+				// return ListColumnFilter({ column }, values);
+				return <></>;
+			},
+			disableSortBy: true,
+		},
 		{
 			Header: "Nabízený",
 			accessor: "offered",
 			disableSortBy: true,
-			Cell: (data: CellValue): ReactElement => (data.cell.value === true ? <i className="fa fa-check" /> : <i className="fa fa-ban" />),
+			Cell: (data: CellValue): ReactElement => {
+				return (data.cell.value === true ?
+					<i className="fa fa-check" />
+					: <i className="fa fa-ban" />);
+			},
 			Filter: BoolColumnFilter,
 		},
 	], []);
-	
-	// TODO: de-fake
-	const fakeData = JSON.parse(localStorage.getItem("fakeIdeasData") as string);
 	
 	const fetchData = useCallback(({ page, size, sort, filters }) => {
 		(async () => {
 			setIsLoading(true);
 			setError(false);
-			let res, json;
+			let res: Response, json: DataJsonResponse;
 			let parameters = [];
 			
 			let order = sort[0] ? sort[0].id : undefined;
@@ -95,69 +143,41 @@ export const IdeaList = (props: any): ReactElement => {
 			}
 			
 			try {
-				// TODO: de-fake
-				res = await fakePromise(getRandomInt(100, 750), {
-					ok: true,
-					json: () => {
-						return {
-							data: () => {
-								let data = fakeData;
-								
-								// filter
-								data = data.filter((value: any) => {
-									// value: { id: "123", name: "Testing", ... }
-									let filterOut = false;
-									for (let f of filters)
-										filterOut = get(value, f.id)
-											? !get(value, f.id).toString().toLowerCase().includes(f.value.toString().toLowerCase())
-											: true;
-									return !filterOut;
-								});
-								
-								// order + sort
-								if (order && sort.length)
-									data = orderBy(data, sort.map((sortee: any) => sortee.id), sort.map((sortee: any) => sortee.desc ? "desc" : "asc"));
-								
-								// page size + page
-								if (size) data = chunk(data, size)[page || 0];
-								
-								return data;
-							},
-						};
-					},
-					statusText: "200 OK",
-					status: 200,
+				res = await fetch(process.env.REACT_APP_API_URL + "/ideas?" + parameters.join("&"), {
+					method: RequestMethod.GET,
+					headers: { Authorization: "Bearer " + accessToken },
 				});
-				// res = await fetch(process.env.REACT_APP_API_URL + "/ideas?" + parameters.join("&"), {
-				//     method: "GET",
-				//     headers: { Authorization: "Bearer " + accessToken }
-				// });
 				
 				if (res.ok) {
-					json = await res.json().data();
-					setData(json || []);
-					// setTotalPages(json.pages); // TODO: de-comment
-					setTotalPages(size ? chunk(fakeData, size).length : 1);
-					setTotalRows(fakeData.length);
+					json = await res.json();
+					setData(json.data);
+					console.log(json.data);
+					setTotalPages(json.pages);
+					setTotalRows(json.total);
 				} else {
 					throw new Error(res.statusText);
 				}
 			} catch (error) {
-				setError({ status: res.status, text: error.message });
+				setError({ status: error.status, text: error.message });
 			} finally {
 				setIsLoading(false);
 			}
 		})();
 	}, [ accessToken ]);
 	
-	return <Table
-		columns={ columns }
-		data={ data }
-		fetchData={ fetchData }
-		isLoading={ isLoading }
-		error={ error }
-		totalPages={ totalPages }
-		totalRows={ totalRows } />;
+	return (
+		<>
+			<Table
+				columns={ columns }
+				data={ data }
+				fetchData={ fetchData }
+				isLoading={ isLoading }
+				error={ error }
+				totalPages={ totalPages }
+				totalRows={ totalRows } />
+			<br />
+		</>
+	);
 };
 
 export default IdeaList;

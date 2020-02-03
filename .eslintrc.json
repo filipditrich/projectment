@@ -45,6 +45,7 @@
             "warn"
         ],
         "switch-colon-spacing": "error",
-        "react/display-name": "off"
+        "react/display-name": "off",
+        "no-mixed-spaces-and-tabs": "off"
     }
 }

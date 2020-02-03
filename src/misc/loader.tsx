@@ -7,16 +7,16 @@ import { Application } from "../config";
  * @param innerContent
  */
 const loaderTemplate = (innerContent: Element | string | any): ReactElement => {
- 
+	
 	return (
 		<div className="preloader">
-   
+			
 			<div className="preloader-spinner" />
-   
+			
 			<div className="preloader-text">
 				{ innerContent }
 			</div>
-   
+			
 			<div className="preloader-logo">
 				<img src={ logo } alt={ Application.APP_NAME + " Logo" } />
 			</div>

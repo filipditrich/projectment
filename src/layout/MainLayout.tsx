@@ -20,43 +20,45 @@ import { loading } from "../misc";
 import { navigation, routes } from "../config";
 import { IRoute } from "../models/route";
 import { ToastContainer } from "react-toastify";
+import { useAppContext } from "../providers";
 
 // layout parts
 const HeaderLayout: LazyExoticComponent<any> = React.lazy(() => import("./HeaderLayout"));
 const FooterLayout: LazyExoticComponent<any> = React.lazy(() => import("./FooterLayout"));
 const AsideLayout: LazyExoticComponent<any> = React.lazy(() => import("./AsideLayout"));
 
-export default class MainLayout extends React.Component {
-
-	render(): ReactElement {
-		return(
+const MainLayout = (props: any): ReactElement => {
+	const [ { accessToken } ] = useAppContext();
+	
+	return accessToken !== null
+		? (
 			<div className="app">
-
-				{/* Header */}
+				
+				{/* Header */ }
 				<AppHeader fixed>
 					<React.Suspense fallback={ loading() }>
 						<HeaderLayout />
 					</React.Suspense>
 				</AppHeader>
-
-				{/* Toaster Container */}
+				
+				{/* Toaster Container */ }
 				<ToastContainer autoClose={ 7500 } />
-
-				{/* Main Content */}
+				
+				{/* Main Content */ }
 				<div className="app-body">
-
-					{/* Sidebar */}
+					
+					{/* Sidebar */ }
 					<AppSidebar fixed display="lg" minified="">
 						<AppSidebarHeader />
 						<AppSidebarForm />
 						<React.Suspense fallback={ loading() }>
-							<AppSidebarNav navConfig={ navigation }  { ...this.props } router={ router } />
+							<AppSidebarNav navConfig={ navigation }  { ...props } router={ router } />
 						</React.Suspense>
 						<AppSidebarFooter />
 						<AppSidebarMinimizer />
 					</AppSidebar>
-
-					{/* Main Routed Content */}
+					
+					{/* Main Routed Content */ }
 					<main className="main">
 						<AppBreadcrumb appRoutes={ routes } router={ router } />
 						<Container fluid>
@@ -80,7 +82,8 @@ export default class MainLayout extends React.Component {
 																				<Row className="justify-content-center">
 																					<Col sm="12">
 																						<Card>
-																							{ route.title ? (<CardHeader>{ route.title }</CardHeader>) : null }
+																							{ route.title ? (
+																								<CardHeader>{ route.title }</CardHeader>) : null }
 																							<CardBody>
 																								<route.component { ...props } />
 																							</CardBody>
@@ -102,23 +105,24 @@ export default class MainLayout extends React.Component {
 							</React.Suspense>
 						</Container>
 					</main>
-
-					{/* TODO: remove? */}
-					{/* App Aside */}
+					
+					{/* TODO: remove? */ }
+					{/* App Aside */ }
 					<AppAside fixed>
 						<React.Suspense fallback={ loading() }>
 							<AsideLayout />
 						</React.Suspense>
 					</AppAside>
 				</div>
-
-				{/* App Footer */}
+				
+				{/* App Footer */ }
 				<AppFooter className="d-md-down-none">
 					<React.Suspense fallback={ loading() }>
 						<FooterLayout />
 					</React.Suspense>
 				</AppFooter>
 			</div>
-		);
-	}
-}
+		) : <Redirect to="/unauthorized" />;
+};
+
+export default MainLayout;

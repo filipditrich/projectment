@@ -12,8 +12,11 @@ export function getRandomInt(min: number, max: number): number {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+
 /**
  * Returns a random true / false value
  * @returns {boolean}
  */
-export const randomBoolean: boolean = !(+new Date() % 2);
+export function randomBoolean() {
+	return !(+new Date() % 2);
+}
