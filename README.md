@@ -1,4 +1,4 @@
-This project was bootstrapped with [IdeaCreate React App](https://github.com/facebook/create-react-app).
+# Aplikace pro správu dlouhodobých a maturitních prací (ProjectMent)
 
 ## Available Scripts
 

@@ -5,60 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5726637-2915-46d8-85ce-db261ec60771" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/models/idea.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/response.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/user.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/helpers.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/Users/UserList.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/Users/Users.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/Users/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Authentication/ProtectedRoute.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authentication/ProtectedRoute.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Authentication/SignIn.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authentication/SignIn.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Authentication/SignInCb.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authentication/SignInCb.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Authentication/SignOut.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authentication/SignOut.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Authentication/SignOutCb.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authentication/SignOutCb.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Authentication/SilentRenewCb.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authentication/SilentRenewCb.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NotFound.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NotFound.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Unauthorized.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Unauthorized.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/common/Table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/Table.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/application.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/application.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/authorization.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/authorization.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/navigation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/navigation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/theme.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layout/AsideLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/AsideLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layout/FooterLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/FooterLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layout/HeaderLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/HeaderLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layout/MainLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/MainLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/misc/error.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/misc/error.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/misc/loader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/misc/loader.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/misc/loading.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/misc/loading.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/request.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/providers/ApplicationProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/providers/ApplicationProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scss/_custom.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/_custom.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scss/_themes.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/_themes.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/fakers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fakers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/fetch.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fetch.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/random.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/random.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Home/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/IdeaCreate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/IdeaCreate.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/IdeaDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/IdeaDetail.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/IdeaDisplay.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/IdeaDisplay.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/IdeaEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/IdeaEdit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/IdeaForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/IdeaForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/IdeaList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/IdeaList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/IdeaTargetsDisplay.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/IdeaTargetsDisplay.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/IdeaUserDisplay.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/IdeaUserDisplay.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Ideas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Ideas.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TODO.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +102,7 @@
       <workItem from="1579507354149" duration="277000" />
       <workItem from="1579507723975" duration="97000" />
       <workItem from="1579507848628" duration="3781000" />
-      <workItem from="1580471426363" duration="20723000" />
+      <workItem from="1580471426363" duration="20906000" />
     </task>
     <servers />
   </component>
