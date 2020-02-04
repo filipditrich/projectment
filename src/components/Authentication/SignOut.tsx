@@ -15,12 +15,12 @@ const SignOut = (): ReactElement => {
 	useEffect(() => {
 		(async () => {
 			setMessage("Probíhá odhlašování uživatele...");
-
-			const signOutResult = await userManager.signoutRedirect();
-
-			if (signOutResult)
+			try {
+				await userManager.signoutRedirect();
 				setOk(true);
-			else setMessage("Nastala chyba při odhlašování uživatele.");
+			} catch (error) {
+				setMessage("Nastala chyba při odhlašování uživatele: " + error);
+			}
 		})();
 	}, [ userManager ]);
 

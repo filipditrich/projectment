@@ -15,7 +15,7 @@ const axiosInstance: AxiosInstance = axios.create({
 		patch: {
 			"Content-Type": "application/json",
 		},
-	}
+	},
 });
 
 // Add a request interceptor
@@ -40,7 +40,7 @@ axiosInstance.interceptors.response.use(function (response) {
 	return Promise.reject(error);
 });
 
-export default function(accessToken?: string): AxiosInstance {
+export default function (accessToken?: string): AxiosInstance {
 	if (accessToken)
 		axiosInstance.defaults.headers.common["Authorization"] = accessToken;
 	return axiosInstance;
