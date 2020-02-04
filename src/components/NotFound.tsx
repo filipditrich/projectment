@@ -7,6 +7,7 @@ import { Col, Container, Row } from "reactstrap";
  * @author filipditrich
  */
 const NotFound = (): ReactElement => {
+	
 	return (
 		<div className="app flex-row align-items-center">
 			<Container>

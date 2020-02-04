@@ -1,26 +1,26 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import IdeaList from "./IdeaList";
+import { ErrorHandler } from "../../components";
+import { DefaultProps } from "../../models/props";
+import IdeaList from "./List";
 
 /**
- * Main Ideas View
+ * Main Ideas Component
+ * @param title
  * @constructor
  */
-export const Ideas = (props: any): ReactElement => {
-	
-	return (
-		<>
-			<header className="table-pre-header">
-				<h1>Seznam námětů</h1>
-				<Link
-					className="button button-secondary"
-					to="/ideas/create">
-					<span>Nový</span>
-				</Link>
-			</header>
-			<IdeaList />
-		</>
-	);
-};
+export const Ideas: React.FC<DefaultProps> = ({ title }: DefaultProps) => (
+	<ErrorHandler>
+		<header className="table-pre-header">
+			<h1>{ title }</h1>
+			<Link
+				className="button button-secondary"
+				to="/ideas/create">
+				<span>Nový</span>
+			</Link>
+		</header>
+		<IdeaList />
+	</ErrorHandler>
+);
 
 export default Ideas;

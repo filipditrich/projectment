@@ -5,7 +5,7 @@ import { useFetch } from "../../utils";
 import { toast } from "react-toastify";
 import { Button } from "reactstrap";
 import { loading, error } from "../../misc";
-import IdeaForm from "./IdeaForm";
+import _IdeaForm from "./IdeaForm";
 
 /**
  * Idea IdeaEdit Component
@@ -13,7 +13,7 @@ import IdeaForm from "./IdeaForm";
  * @returns {*}
  * @constructor
  */
-export const IdeaEdit = (props: { switchEditMode: any, id: string | undefined }): ReactElement & any => {
+export const _IdeaEdit = (props: { switchEditMode: any, id: string | undefined }): ReactElement & any => {
 	const {
 		switchEditMode,
 	} = props;
@@ -39,7 +39,7 @@ export const IdeaEdit = (props: { switchEditMode: any, id: string | undefined })
 		console.log(response);
 		return (
 			<>
-				<IdeaForm
+				<_IdeaForm
 					initialValues={ {
 						name: response.name,
 						description: response.description,
@@ -125,4 +125,4 @@ export const IdeaEdit = (props: { switchEditMode: any, id: string | undefined })
 	}
 };
 
-export default IdeaEdit;
+export default _IdeaEdit;

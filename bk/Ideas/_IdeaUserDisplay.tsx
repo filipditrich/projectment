@@ -11,7 +11,7 @@ import { loading, error } from "../../misc";
  * @returns {*}
  * @constructor
  */
-export const IdeaUserDisplay = (props: any): ReactElement => {
+export const _IdeaUserDisplay = (props: any): ReactElement => {
 	const [ { accessToken } ] = useAppContext();
 	
 	const {
@@ -52,4 +52,4 @@ export const IdeaUserDisplay = (props: any): ReactElement => {
 	}
 };
 
-export default IdeaUserDisplay;
+export default _IdeaUserDisplay;

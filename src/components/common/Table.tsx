@@ -15,7 +15,7 @@ import {
 	UseTableCellProps,
 } from "react-table";
 import { Table as ReactstrapTable, Input, Pagination, PaginationItem, PaginationLink } from "reactstrap";
-import { loading } from "../../misc";
+import { loading, error as errorPartial } from "../../misc";
 import classnames from "classnames";
 
 /**
@@ -45,6 +45,14 @@ export interface TableColumn<D extends object = {}>
 export interface SortableColumnInstance<D extends object = {}>
 	extends ColumnInstance<D>,
 		UseSortByColumnProps<D> {
+}
+
+export interface FetchDataProps {
+	// TODO
+	page: number;
+	size: number;
+	sort: any;
+	filters: any;
 }
 
 /**
@@ -222,7 +230,7 @@ export const Table: FC<Props> = ({ columns, data, fetchData, isLoading, error, t
 						// Error Message
 							error ? (
 								<tr>
-									<td colSpan={ 1000 }>{ error.text } ({ error.status })</td>
+									<td colSpan={ 1000 }>{ errorPartial(error) }</td>
 								</tr>
 							) : (
 							// Loading

@@ -5,6 +5,7 @@ import { Color } from "csstype";
  */
 export interface IIdea {
 	// TODO
+	[key: string]: any;
 }
 
 /**

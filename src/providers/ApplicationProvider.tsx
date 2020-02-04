@@ -65,45 +65,47 @@ const reducer = (state: any, action: any): any => {
 	const newMessages: any[] = [ ...state.messages ];
 	
 	switch (action.type) {
-	case ADD_MESSAGE: {
-		newMessages.push({
-			text: (action.text),
-		});
-		return { ...state, messages: newMessages, counter: state.counter + 1 };
-	}
-	case DISMISS_MESSAGE: {
-		newMessages.splice(action.id, 1);
-		return { ...state, messages: newMessages };
-	}
-	case SET_TITLE: {
-		return { ...state, title: action.payload };
-	}
-	case LOADING_USER:
-		return { ...state, isUserLoading: true };
-	case SET_ACCESS_TOKEN:
-		return { ...state, accessToken: action.payload };
-	case CLEAR_ACCESS_TOKEN:
-		return { ...state, accessToken: null };
-	case SET_ID_TOKEN:
-		return { ...state, idToken: action.payload };
-	case CLEAR_ID_TOKEN:
-		return { ...state, idToken: null };
-	case USER_FOUND:
-		return {
-			...state,
-			idToken: action.idToken,
-			accessToken: action.accessToken,
-			userId: action.userId,
-			profile: action.profile,
-			isUserLoading: false,
-		};
-	case USER_EXPIRED:
-	case LOAD_USER_ERROR:
-	case SILENT_RENEW_ERROR:
-	case USER_SIGNED_OUT:
-	case SESSION_TERMINATED:
-		return { ...state, idToken: null, accessToken: null, userId: null, profile: null, isUserLoading: false };
-	default: { return state; }
+		case ADD_MESSAGE: {
+			newMessages.push({
+				text: (action.text),
+			});
+			return { ...state, messages: newMessages, counter: state.counter + 1 };
+		}
+		case DISMISS_MESSAGE: {
+			newMessages.splice(action.id, 1);
+			return { ...state, messages: newMessages };
+		}
+		case SET_TITLE: {
+			return { ...state, title: action.payload };
+		}
+		case LOADING_USER:
+			return { ...state, isUserLoading: true };
+		case SET_ACCESS_TOKEN:
+			return { ...state, accessToken: action.payload };
+		case CLEAR_ACCESS_TOKEN:
+			return { ...state, accessToken: null };
+		case SET_ID_TOKEN:
+			return { ...state, idToken: action.payload };
+		case CLEAR_ID_TOKEN:
+			return { ...state, idToken: null };
+		case USER_FOUND:
+			return {
+				...state,
+				idToken: action.idToken,
+				accessToken: action.accessToken,
+				userId: action.userId,
+				profile: action.profile,
+				isUserLoading: false,
+			};
+		case USER_EXPIRED:
+		case LOAD_USER_ERROR:
+		case SILENT_RENEW_ERROR:
+		case USER_SIGNED_OUT:
+		case SESSION_TERMINATED:
+			return { ...state, idToken: null, accessToken: null, userId: null, profile: null, isUserLoading: false };
+		default: {
+			return state;
+		}
 	}
 };
 

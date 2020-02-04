@@ -2,12 +2,12 @@ import { LocationState } from "history";
 import * as H from "history";
 import React, { ReactElement, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import IdeaDisplay from "./IdeaDisplay";
+import _IdeaDisplay from "./IdeaDisplay";
 // import DisplayTargets from "./DisplayTargets";
-import IdeaEdit from "./IdeaEdit";
+import _IdeaEdit from "./IdeaEdit";
 import IdeaDisplayTargets from "./IdeaTargetsDisplay";
 import { Card, CardBody, CardDeck, CardHeader, Col, Row } from "reactstrap";
-import IdeaUserDisplay from "./IdeaUserDisplay";
+import _IdeaUserDisplay from "./IdeaUserDisplay";
 import { fakePromise, getRandomInt } from "../../utils";
 import { Modal } from "../../components/common";
 import { loading } from "../../misc";
@@ -18,7 +18,7 @@ import { loading } from "../../misc";
  * @returns {*}
  * @constructor
  */
-export const IdeaDetail = (props: any): ReactElement => {
+export const _IdeaDetail = (props: any): ReactElement => {
 	const { id } = useParams();
 	const [ editing, setEditing ]: any = useState(false);
 	const [ showDelete, setShowDelete ]: any = useState(false);
@@ -42,7 +42,7 @@ export const IdeaDetail = (props: any): ReactElement => {
 					<Card>
 						<CardHeader>Upravit námět</CardHeader>
 						<CardBody>
-							<IdeaEdit id={ id } switchEditMode={ setEditing } />
+							<_IdeaEdit id={ id } switchEditMode={ setEditing } />
 						</CardBody>
 					</Card>
 				</Col>
@@ -58,7 +58,7 @@ export const IdeaDetail = (props: any): ReactElement => {
 							<Card>
 								<CardHeader>Obecná data</CardHeader>
 								<CardBody>
-									<IdeaDisplay id={ id } onResponse={ (res) => { setResponse(res); } } />
+									<_IdeaDisplay id={ id } onResponse={ (res) => { setResponse(res); } } />
 								</CardBody>
 							</Card>
 							
@@ -68,7 +68,7 @@ export const IdeaDetail = (props: any): ReactElement => {
 								<CardBody>
 									{
 										response ? (
-											<IdeaUserDisplay userId={ response.userId } />
+											<_IdeaUserDisplay userId={ response.userId } />
 										) : loading()
 									}
 								</CardBody>
@@ -135,4 +135,4 @@ export const IdeaDetail = (props: any): ReactElement => {
 	}
 };
 
-export default IdeaDetail;
+export default _IdeaDetail;

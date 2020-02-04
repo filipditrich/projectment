@@ -1,12 +1,12 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { toast } from "react-toastify";
+import { ErrorHandler } from "../../components";
 import { getRandomInt } from "../../utils";
 
 /**
  * Home Component
- * @author filipditrich
  */
-const Home = (props: any): ReactElement => {
+export const Home: React.FC = () => {
 	
 	const toastIt = (type: any): void => {
 		toast("Lorem ipsum dolor si amet.", {
@@ -17,7 +17,7 @@ const Home = (props: any): ReactElement => {
 	};
 	
 	return (
-		<>
+		<ErrorHandler>
 			<div className="button-container">
 				<button onClick={ () => toastIt(toast.TYPE.DEFAULT) } className="button button-primary">
 					<span>Primary</span></button>
@@ -48,7 +48,7 @@ const Home = (props: any): ReactElement => {
 				<button onClick={ () => toastIt(toast.TYPE.SUCCESS) } className="button button-success button-reverse">
 					<span>Success Reverse</span></button>
 			</div>
-		</>
+		</ErrorHandler>
 	);
 };
 

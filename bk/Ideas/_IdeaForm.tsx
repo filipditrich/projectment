@@ -9,7 +9,7 @@ import classnames from "classnames";
  * @returns {*}
  * @constructor
  */
-const IdeaForm = (props: { initialValues: any; validate: any; onSubmit: (values: any, { setSubmitting }: any) => Promise<any> | void; footerButtons: ({ isSubmitting }: any) => ReactElement }): any => {
+const _IdeaForm = (props: { initialValues: any; validate: any; onSubmit: (values: any, { setSubmitting }: any) => Promise<any> | void; footerButtons: ({ isSubmitting }: any) => ReactElement }): any => {
 	const {
 		initialValues,
 		validate,
@@ -136,4 +136,4 @@ const IdeaForm = (props: { initialValues: any; validate: any; onSubmit: (values:
 	);
 };
 
-export default IdeaForm;
+export default _IdeaForm;

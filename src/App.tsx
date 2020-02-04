@@ -11,7 +11,6 @@ import { createBrowserHistory } from "history";
 import { SignInCb, SignOutCb, SilentRenewCb } from "./components/Authentication";
 import { ApplicationProvider } from "./providers";
 import { loader } from "./misc";
-import { ProtectedRoute } from "./components";
 import TextLoop from "react-text-loop";
 import "./App.scss";
 
@@ -75,6 +74,7 @@ export default class App extends Component {
 							<Route path="/oidc-signout-callback" component={ SignOutCb } />
 							<Route path="/oidc-silent-renew" component={ SilentRenewCb } />
 							<Route path="/unauthorized" component={ Unauthorized } />
+							
 							<Route path="/sign-in" component={ SignIn } />
 							<Route path="/sign-out" component={ SignOut } />
 							

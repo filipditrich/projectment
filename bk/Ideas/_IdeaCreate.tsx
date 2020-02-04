@@ -4,7 +4,7 @@ import { RequestMethod } from "../../models";
 import { useAppContext } from "../../providers";
 import { Button } from "reactstrap";
 import { toast } from "react-toastify";
-import IdeaForm from "./IdeaForm";
+import _IdeaForm from "./IdeaForm";
 
 /**
  * IdeaCreate Idea Component
@@ -12,7 +12,7 @@ import IdeaForm from "./IdeaForm";
  * @returns {*}
  * @constructor
  */
-export const IdeaCreate = (props: any): ReactElement => {
+export const _IdeaCreate = (props: any): ReactElement => {
 	const [ { accessToken, userId } ] = useAppContext();
 	const [ failed, setFailed ]: any = useState(false);
 	const [ ok, setOk ]: any = useState(false);
@@ -25,7 +25,7 @@ export const IdeaCreate = (props: any): ReactElement => {
 	
 	return (
 		<>
-			<IdeaForm
+			<_IdeaForm
 				initialValues={ {
 					name: "",
 					description: "",
@@ -80,6 +80,7 @@ export const IdeaCreate = (props: any): ReactElement => {
 								autoClose: false,
 							});
 							setSubmitting(false);
+							
 						}
 					}
 				}
@@ -97,4 +98,4 @@ export const IdeaCreate = (props: any): ReactElement => {
 	);
 };
 
-export default withRouter(IdeaCreate);
+export default withRouter(_IdeaCreate);

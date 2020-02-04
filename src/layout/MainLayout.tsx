@@ -15,6 +15,7 @@ import {
 	// @ts-ignore
 } from "@coreui/react";
 import { Card, CardBody, CardHeader, Col, Container, Row } from "reactstrap";
+import { ErrorHandler } from "../components";
 import { ReactHelmetHead } from "../components/common";
 import { loading } from "../misc";
 import { navigation, routes } from "../config";
@@ -32,96 +33,98 @@ const MainLayout = (props: any): ReactElement => {
 	
 	return accessToken !== null
 		? (
-			<div className="app">
-				
-				{/* Header */ }
-				<AppHeader fixed>
-					<React.Suspense fallback={ loading() }>
-						<HeaderLayout />
-					</React.Suspense>
-				</AppHeader>
-				
-				{/* Toaster Container */ }
-				<ToastContainer autoClose={ 7500 } />
-				
-				{/* Main Content */ }
-				<div className="app-body">
+			<ErrorHandler>
+				<div className="app">
 					
-					{/* Sidebar */ }
-					<AppSidebar fixed display="lg" minified="">
-						<AppSidebarHeader />
-						<AppSidebarForm />
+					{/* Header */ }
+					<AppHeader fixed>
 						<React.Suspense fallback={ loading() }>
-							<AppSidebarNav navConfig={ navigation }  { ...props } router={ router } />
+							<HeaderLayout />
 						</React.Suspense>
-						<AppSidebarFooter />
-						<AppSidebarMinimizer />
-					</AppSidebar>
+					</AppHeader>
 					
-					{/* Main Routed Content */ }
-					<main className="main">
-						<AppBreadcrumb appRoutes={ routes } router={ router } />
-						<Container fluid>
+					{/* Toaster Container */ }
+					<ToastContainer autoClose={ 7500 } />
+					
+					{/* Main Content */ }
+					<div className="app-body">
+						
+						{/* Sidebar */ }
+						<AppSidebar fixed display="lg" minified="">
+							<AppSidebarHeader />
+							<AppSidebarForm />
 							<React.Suspense fallback={ loading() }>
-								<Switch>
-									{
-										routes.map((route: IRoute, idx: number) => {
-											return route.component ?
-												<Route
-													key={ idx }
-													path={ route.path }
-													exact={ route.exact }
-													render={
-														(props: any) => {
-															return (
-																<React.Fragment>
-																	<div className="animated fadeIn">
-																		<ReactHelmetHead title={ route.name } />
-																		{
-																			route.card ? (
-																				<Row className="justify-content-center">
-																					<Col sm="12">
-																						<Card>
-																							{ route.title ? (
-																								<CardHeader>{ route.title }</CardHeader>) : null }
-																							<CardBody>
-																								<route.component { ...props } />
-																							</CardBody>
-																						</Card>
-																					</Col>
-																				</Row>
-																			) : <route.component { ...props } />
-																		}
-																	</div>
-																</React.Fragment>
-															);
-														}
-													}
-												/> : (null);
-										})
-									}
-									<Redirect from="/" to="/home" />
-								</Switch>
+								<AppSidebarNav navConfig={ navigation }  { ...props } router={ router } />
 							</React.Suspense>
-						</Container>
-					</main>
+							<AppSidebarFooter />
+							<AppSidebarMinimizer />
+						</AppSidebar>
+						
+						{/* Main Routed Content */ }
+						<main className="main">
+							<AppBreadcrumb appRoutes={ routes } router={ router } />
+							<Container fluid>
+								<React.Suspense fallback={ loading() }>
+									<Switch>
+										{
+											routes.map((route: IRoute, idx: number) => {
+												return route.component ?
+													<Route
+														key={ idx }
+														path={ route.path }
+														exact={ route.exact }
+														render={
+															(props: any) => {
+																return (
+																	<React.Fragment>
+																		<div className="animated fadeIn">
+																			<ReactHelmetHead title={ route.name } />
+																			{
+																				route.card ? (
+																					<Row className="justify-content-center">
+																						<Col sm="12">
+																							<Card>
+																								{ route.title ? (
+																									<CardHeader>{ route.title }</CardHeader>) : null }
+																								<CardBody>
+																									<route.component { ...props } />
+																								</CardBody>
+																							</Card>
+																						</Col>
+																					</Row>
+																				) : <route.component title={ route.name } { ...props } />
+																			}
+																		</div>
+																	</React.Fragment>
+																);
+															}
+														}
+													/> : (null);
+											})
+										}
+										<Redirect from="/" to="/home" />
+									</Switch>
+								</React.Suspense>
+							</Container>
+						</main>
+						
+						{/* TODO: remove? */ }
+						{/* App Aside */ }
+						<AppAside fixed>
+							<React.Suspense fallback={ loading() }>
+								<AsideLayout />
+							</React.Suspense>
+						</AppAside>
+					</div>
 					
-					{/* TODO: remove? */ }
-					{/* App Aside */ }
-					<AppAside fixed>
+					{/* App Footer */ }
+					<AppFooter className="d-md-down-none">
 						<React.Suspense fallback={ loading() }>
-							<AsideLayout />
+							<FooterLayout />
 						</React.Suspense>
-					</AppAside>
+					</AppFooter>
 				</div>
-				
-				{/* App Footer */ }
-				<AppFooter className="d-md-down-none">
-					<React.Suspense fallback={ loading() }>
-						<FooterLayout />
-					</React.Suspense>
-				</AppFooter>
-			</div>
+			</ErrorHandler>
 		) : <Redirect to="/unauthorized" />;
 };
 

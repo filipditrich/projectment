@@ -12,7 +12,7 @@ import { loading, error } from "../../misc";
  * @returns {*}
  * @constructor
  */
-export const IdeaDisplay = (props: { onResponse: (response: any) => void, id: string | undefined }): ReactElement => {
+export const _IdeaDisplay = (props: { onResponse: (response: any) => void, id: string | undefined }): ReactElement => {
 	const [ { accessToken } ] = useAppContext();
 	
 	const {
@@ -58,4 +58,4 @@ export const IdeaDisplay = (props: { onResponse: (response: any) => void, id: st
 	}
 };
 
-export default IdeaDisplay;
+export default _IdeaDisplay;

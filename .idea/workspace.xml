@@ -5,8 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5726637-2915-46d8-85ce-db261ec60771" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TODO.md" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ErrorHandler.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/props.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/axios.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/Ideas/List.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/projectment.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/projectment.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NotFound.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NotFound.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/Table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/Table.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layout/MainLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/MainLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/idea.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/idea.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/response.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/response.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/providers/ApplicationProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/providers/ApplicationProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/fetch.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Home/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/IdeaCreate.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/IdeaDetail.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/IdeaDisplay.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/IdeaEdit.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/IdeaForm.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/IdeaList.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/IdeaTargetsDisplay.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/IdeaUserDisplay.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Ideas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Ideas.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Users/UserList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/bk/Users/UserList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Users/Users.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/bk/Users/Users.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Users/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/bk/Users/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +71,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/assets/img" />
@@ -53,20 +86,20 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.HTML" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.TypeScript" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/assets/img" />
-      <recent name="$PROJECT_DIR$/src/scss" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/bk" />
+      <recent name="$PROJECT_DIR$/bk/Ideas" />
       <recent name="$PROJECT_DIR$/src/layout" />
       <recent name="$PROJECT_DIR$/src/config" />
       <recent name="$PROJECT_DIR$/src/components/Authentication" />
-      <recent name="$PROJECT_DIR$/src/components" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/assets/img" />
+      <recent name="$PROJECT_DIR$/src/scss" />
     </key>
   </component>
   <component name="ServiceViewManager">
@@ -102,7 +135,7 @@
       <workItem from="1579507354149" duration="277000" />
       <workItem from="1579507723975" duration="97000" />
       <workItem from="1579507848628" duration="3781000" />
-      <workItem from="1580471426363" duration="20906000" />
+      <workItem from="1580471426363" duration="34927000" />
     </task>
     <servers />
   </component>
@@ -110,14 +143,23 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="283" y="-785" key="#ESLint" timestamp="1580771292702">
+      <screen x="-37" y="-900" width="1440" height="900" />
+    </state>
+    <state x="283" y="-785" key="#ESLint/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580771292702" />
     <state x="328" y="130" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1579507740111">
       <screen x="0" y="23" width="1280" height="744" />
     </state>
     <state x="328" y="130" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1280.744@0.23.1280.744" timestamp="1579507740111" />
-    <state x="141" y="39" key="SettingsEditor" timestamp="1580737418517">
-      <screen x="0" y="0" width="1280" height="800" />
+    <state x="421" y="-696" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1580777023486">
+      <screen x="-37" y="-900" width="1440" height="900" />
+    </state>
+    <state x="421" y="-696" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580777023486" />
+    <state x="122" y="-856" key="SettingsEditor" timestamp="1580771076033">
+      <screen x="-37" y="-900" width="1440" height="900" />
     </state>
     <state x="141" y="39" key="SettingsEditor/0.0.1280.800@0.0.1280.800" timestamp="1580737418517" />
+    <state x="122" y="-856" key="SettingsEditor/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580771076033" />
     <state x="352" y="-804" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1580474409316">
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
@@ -126,17 +168,17 @@
       <screen x="0" y="0" width="1280" height="800" />
     </state>
     <state x="426" y="319" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.800@0.0.1280.800" timestamp="1580736665559" />
-    <state x="300" y="159" width="680" height="482" key="find.popup" timestamp="1580738832964">
-      <screen x="0" y="0" width="1280" height="800" />
+    <state x="301" y="-721" width="828" height="546" key="find.popup" timestamp="1580768313804">
+      <screen x="-37" y="-900" width="1440" height="900" />
     </state>
-    <state x="300" y="159" width="680" height="482" key="find.popup/0.0.1280.800@0.0.1280.800" timestamp="1580738832964" />
-    <state x="301" y="-721" width="828" height="546" key="find.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580489480188" />
+    <state x="300" y="159" width="680" height="482" key="find.popup/0.0.1280.800@0.0.1280.800" timestamp="1580741278765" />
+    <state x="301" y="-721" width="828" height="546" key="find.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580768313804" />
     <state x="301" y="-721" width="828" height="546" key="find.popup/0.23.1680.1027/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580486582108" />
-    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup" timestamp="1580738613134">
-      <screen x="0" y="0" width="1280" height="800" />
+    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup" timestamp="1580776922743">
+      <screen x="-37" y="-900" width="1440" height="900" />
     </state>
-    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1580738613134" />
-    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580487859258" />
+    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1580739439389" />
+    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580776922743" />
     <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.23.1680.1027/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580486402026" />
   </component>
 </project>

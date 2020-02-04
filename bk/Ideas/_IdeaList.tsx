@@ -18,7 +18,7 @@ import classNames from "classnames";
  * @returns {*}
  * @constructor
  */
-export const IdeaList = (props: any): ReactElement => {
+export const _IdeaList = (props: any): ReactElement => {
 	const [ isLoading, setIsLoading ]: any = useState(false);
 	const [ error, setError ]: any = useState(false);
 	
@@ -180,4 +180,4 @@ export const IdeaList = (props: any): ReactElement => {
 	);
 };
 
-export default IdeaList;
+export default _IdeaList;
