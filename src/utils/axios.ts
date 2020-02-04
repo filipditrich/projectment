@@ -1,6 +1,5 @@
-import axios, { AxiosInstance, AxiosResponse } from "axios";
-
-// TODO
+import axios, { AxiosInstance, AxiosResponse, AxiosError } from "axios";
+import { oc } from "ts-optchain";
 
 // Set config defaults when creating the instance
 const axiosInstance: AxiosInstance = axios.create({
@@ -40,16 +39,42 @@ axiosInstance.interceptors.response.use(function (response) {
 	return Promise.reject(error);
 });
 
+/**
+ * Returns an axios instance with Authorization token set (if signed in)
+ * @param accessToken
+ */
 export default function (accessToken?: string): AxiosInstance {
 	if (accessToken)
-		axiosInstance.defaults.headers.common["Authorization"] = accessToken;
+		axiosInstance.defaults.headers.common["Authorization"] = "Bearer " + accessToken;
 	return axiosInstance;
 }
 
-export function statusOk<T = any>(res: AxiosResponse<T>): boolean {
+/**
+ * Returns whether the response returned an OK response
+ * @param res
+ */
+export function isStatusOk<T = any>(res: AxiosResponse<T>): boolean {
 	return (
 		res.status === 200 ||
 		res.status === 201 ||
 		res.statusText === "OK"
 	);
+}
+
+/**
+ * Returns an error from the given response that failed (was not of status OK)
+ * @param res
+ * @param fallbackMessage
+ */
+export function responseFail<T = any>(res: AxiosResponse<T>, fallbackMessage?: string): Error {
+	return new Error(`${res.data instanceof String ? res.data : fallbackMessage || `${ res.statusText || res.status }`}`);
+}
+
+/**
+ * Returns a formatted error from the caught error
+ * @param error
+ * @param fallbackMessage
+ */
+export function responseError(error: Partial<AxiosError & Error>, fallbackMessage?: string): Error {
+	return new Error(oc(error).response.data(fallbackMessage || `${ error.message }`));
 }

@@ -1,38 +1,50 @@
 import React, { ReactElement, useState } from "react";
 import { Modal as ReactstrapModal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { DefaultProps } from "../../models/props";
+
+/**
+ * Modal Props Interface
+ */
+interface ModalProps extends DefaultProps {
+	isOpen: boolean;
+	onDismiss: (e: Event) => void;
+	actions?: ReactElement;
+	buttonLabel?: string;
+	className?: string;
+}
 
 /**
  * Modal Component
- * @param props
+ * @param isOpen
+ * @param onDismiss
+ * @param actions
+ * @param children
+ * @param title
+ * @param buttonLabel
+ * @param className
  * @constructor
  */
-const Modal = (props: any): ReactElement => {
-	const {
-		buttonLabel,
-		className,
-		onDismiss,
-		isOpen
-	} = props;
-
+export const Modal: React.FC<ModalProps> = ({ isOpen, onDismiss, actions, children, title, buttonLabel, className }: ModalProps) => {
 	const [ , setIsOpen ] = useState(isOpen);
-	const closeBtn: ReactElement = <button className="close" onClick={ (e: any) => props.onDismiss(e) }>{ buttonLabel || "×" }</button>;
-
+	const closeBtn: ReactElement =
+		<button className="close" onClick={ (e: any) => onDismiss(e) }>{ buttonLabel || "×" }</button>;
+	
 	return (
 		<div>
 			<ReactstrapModal
 				isOpen={ isOpen }
 				toggle={ (e: any) => onDismiss(e) }
 				className={ className }>
-				{ props.title
+				{ title
 					? <ModalHeader
 						toggle={ (e: any) => onDismiss(e) }
 						close={ closeBtn }
-					>{ props.title }</ModalHeader>
+					>{ title }</ModalHeader>
 					: "" }
 				<ModalBody>
-					{ props.children }
+					{ children }
 				</ModalBody>
-				{ props.actions ? <ModalFooter>{ props.actions }</ModalFooter> : "" }
+				{ actions ? <ModalFooter>{ actions }</ModalFooter> : "" }
 			</ReactstrapModal>
 		</div>
 	);

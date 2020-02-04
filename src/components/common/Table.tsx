@@ -22,9 +22,9 @@ import classnames from "classnames";
  * Types
  */
 type Data = object;
-export type Props = {
-	columns: Column<Data>[],
-	data: Data[],
+export type Props<D extends Data = any> = {
+	columns: Column<D>[],
+	data: D[],
 	fetchData: any,
 	isLoading: boolean,
 	error: any | null,
@@ -85,7 +85,6 @@ export const TextColumnFilter = ({ column: { filterValue, setFilter } }: { colum
  * @constructor
  */
 export const BoolColumnFilter = ({ column: { filterValue, setFilter } }: { column: TableColumn<object> }): ReactElement => {
-	// TODO: fix, filtering on "false" value not working
 	return (
 		<Input
 			type="select"

@@ -6,4 +6,5 @@ export {
 	loading,
 	loader,
 	error,
+	error as errorPartial,
 };

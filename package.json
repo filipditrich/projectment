@@ -48,6 +48,7 @@
     "react-toastify": "^5.5.0",
     "reactstrap": "^8.2.0",
     "simple-line-icons": "^2.4.1",
+    "ts-optchain": "^0.1.8",
     "typescript": "^3.7.3"
   },
   "scripts": {

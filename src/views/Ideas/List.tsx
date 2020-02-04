@@ -1,12 +1,13 @@
 import React, { ReactElement, useCallback, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { CellValue, Column } from "react-table";
+import { CellProps, Column } from "react-table";
+import { Badge } from "reactstrap";
 import { BoolColumnFilter, FetchDataProps, Table, TableColumn } from "../../components/common/Table";
-import { IIdea } from "../../models/idea";
-import { DataJsonResponse } from "../../models/response";
+import { IIdea, IIdeaTarget } from "../../models/idea";
+import { TableDataJsonResponse } from "../../models/response";
 import { AxiosResponse } from "axios";
 import { useAppContext } from "../../providers";
-import { Axios, statusOk } from "../../utils";
+import { Axios, isStatusOk } from "../../utils";
 
 /**
  * Idea List Component
@@ -26,21 +27,30 @@ export const IdeaList: React.FC = () => {
 	const columns = useMemo<Column<IIdea>[]>(() => [
 		{
 			Header: "Akce",
-			Cell: (data: CellValue): ReactElement => (
+			Cell: (data: CellProps<IIdea>): ReactElement => (
 				<div className="d-flex justify-content-center">
-					<Link to={ "/ideas/list/" + data.row.original.id }><i className="icon-info font-lg" /></Link>
+					<Link to={ "/ideas/detail/" + data.row.original.id }><i className="icon-info font-lg" /></Link>
 				</div>
 			),
 		},
 		{ Header: "Název", accessor: "name" },
 		{ Header: "Předmět", accessor: "subject" },
-		{ Header: "Jméno", accessor: "userFirstName" },
-		{ Header: "Příjmení", accessor: "userLastName" },
+		{ Header: "Jméno", accessor: "userFirstName" }, // TODO: filtering not working
+		{ Header: "Příjmení", accessor: "userLastName" }, // TODO: filtering not working
 		{
 			Header: "Cílové skupiny",
-			accessor: "ideaTargets",
-			Cell: (data: CellValue): ReactElement => (
-				<span>TODO</span>
+			accessor: "targets",
+			Cell: (data: CellProps<IIdea>): ReactElement => (
+				<div className="badge-container">
+					{
+						// TODO: badge colors
+						(data.cell.value as IIdeaTarget[]).map((target: IIdeaTarget, i: number): ReactElement => (
+							<Badge key={ i }>
+								{ target.text }
+							</Badge>
+						))
+					}
+				</div>
 			),
 			Filter: (column: TableColumn<IIdea>) => (
 				<span>TODO</span>
@@ -51,7 +61,7 @@ export const IdeaList: React.FC = () => {
 			Header: "Nabízený",
 			accessor: "offered",
 			disableSortBy: true,
-			Cell: (data: CellValue): ReactElement => (
+			Cell: (data: CellProps<IIdea>): ReactElement => (
 				data.cell.value
 					? <i className="fa fa-check" />
 					: <i className="fa fa-ban" />
@@ -106,10 +116,10 @@ export const IdeaList: React.FC = () => {
 			}
 			
 			try {
-				const res: AxiosResponse<DataJsonResponse<IIdea[]>> = await Axios(accessToken)
-					.get<DataJsonResponse<IIdea[]>>("/ideas?" + parameters.join("&"));
+				const res: AxiosResponse<TableDataJsonResponse<IIdea[]>> = await Axios(accessToken)
+					.get<TableDataJsonResponse<IIdea[]>>("/ideas?" + parameters.join("&"));
 				
-				if (statusOk(res)) {
+				if (isStatusOk(res)) {
 					setData(res.data.data);
 					setTotalPages(res.data.pages || 0);
 					setTotalRows(res.data.total || 0);

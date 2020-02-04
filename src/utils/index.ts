@@ -3,7 +3,7 @@ import { enumToArray } from "./helpers";
 import { useQuery } from "./query";
 import { getRandomInt, randomBoolean } from "./random";
 import { fakePromise } from "./fakers";
-import Axios, { statusOk } from "./axios";
+import Axios, { isStatusOk } from "./axios";
 
 export {
 	pad,
@@ -12,7 +12,7 @@ export {
 	randomBoolean,
 	enumToArray,
 	Axios,
-	statusOk,
+	isStatusOk,
 	
 	// fakers
 	fakePromise,
