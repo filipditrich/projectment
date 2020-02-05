@@ -5,16 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5726637-2915-46d8-85ce-db261ec60771" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/common/react-table-config.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/generic.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/DragCard.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Goals.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Info.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Outlines.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/Ideas/Edit.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/common/Table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/Table.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/common/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scss/_custom.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/_custom.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/List.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/List.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Create.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Form.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,8 +31,8 @@
       <list>
         <option value="tsconfig.json" />
         <option value="SCSS File" />
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -63,7 +65,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="tasks.timeTracking" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.HTML" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
@@ -113,7 +115,7 @@
       <workItem from="1579507723975" duration="97000" />
       <workItem from="1579507848628" duration="3781000" />
       <workItem from="1580471426363" duration="35119000" />
-      <workItem from="1580777323318" duration="33495000" />
+      <workItem from="1580777323318" duration="40286000" />
     </task>
     <servers />
   </component>
@@ -134,11 +136,11 @@
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
     <state x="421" y="-696" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580777023486" />
-    <state x="122" y="-856" key="SettingsEditor" timestamp="1580925975695">
+    <state x="122" y="-856" key="SettingsEditor" timestamp="1580931253520">
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
     <state x="141" y="39" key="SettingsEditor/0.0.1280.800@0.0.1280.800" timestamp="1580737418517" />
-    <state x="122" y="-856" key="SettingsEditor/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580925975695" />
+    <state x="122" y="-856" key="SettingsEditor/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580931253520" />
     <state x="352" y="-804" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1580474409316">
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
@@ -153,11 +155,11 @@
     <state x="300" y="159" width="828" height="546" key="find.popup/0.0.1280.800@0.0.1280.800" timestamp="1580816485189" />
     <state x="301" y="-721" width="828" height="546" key="find.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580927018724" />
     <state x="301" y="-721" width="828" height="546" key="find.popup/0.23.1680.1027/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580486582108" />
-    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup" timestamp="1580923656882">
+    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup" timestamp="1580930981181">
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
     <state x="305" y="124" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1580889266362" />
-    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580923656882" />
+    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580930981181" />
     <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.23.1680.1027/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580486402026" />
   </component>
 </project>

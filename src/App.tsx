@@ -10,6 +10,9 @@ import { Router } from "react-router";
 import { createBrowserHistory } from "history";
 import { SignInCb, SignOutCb, SilentRenewCb } from "./components/Authentication";
 import { ApplicationProvider } from "./providers";
+import { DndProvider } from "react-dnd";
+import Backend from "react-dnd-html5-backend";
+// import TouchBackend from "react-dnd-touch-backend";
 import { loader } from "./misc";
 import TextLoop from "react-text-loop";
 import "./App.scss";
@@ -70,16 +73,18 @@ export default class App extends Component {
 				<Router history={ history }>
 					<React.Suspense fallback={ preloader() }>
 						<Switch>
-							<Route path="/oidc-callback" component={ SignInCb } />
-							<Route path="/oidc-signout-callback" component={ SignOutCb } />
-							<Route path="/oidc-silent-renew" component={ SilentRenewCb } />
-							<Route path="/unauthorized" component={ Unauthorized } />
-							
-							<Route path="/sign-in" component={ SignIn } />
-							<Route path="/sign-out" component={ SignOut } />
-							
-							<Route path="/" component={ DefaultLayout } />
-							<Route component={ NotFound } />
+							<DndProvider backend={ Backend }>
+								<Route path="/oidc-callback" component={ SignInCb } />
+								<Route path="/oidc-signout-callback" component={ SignOutCb } />
+								<Route path="/oidc-silent-renew" component={ SilentRenewCb } />
+								<Route path="/unauthorized" component={ Unauthorized } />
+								
+								<Route path="/sign-in" component={ SignIn } />
+								<Route path="/sign-out" component={ SignOut } />
+								
+								<Route path="/" component={ DefaultLayout } />
+								<Route component={ NotFound } />
+							</DndProvider>
 						</Switch>
 					</React.Suspense>
 				</Router>

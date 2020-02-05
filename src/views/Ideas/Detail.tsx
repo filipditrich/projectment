@@ -11,6 +11,10 @@ import { DataJsonResponse } from "../../models/response";
 import { useAppContext } from "../../providers";
 import { Axios, isStatusOk } from "../../utils";
 import { responseError, responseFail } from "../../utils/axios";
+import IdeaGoals from "./Detail/Goals";
+import IdeaInfo from "./Detail/Info";
+import IdeaOutlines from "./Detail/Outlines";
+import IdeaEditor from "./Edit";
 
 /**
  * Idea Detail Component
@@ -18,9 +22,11 @@ import { responseError, responseFail } from "../../utils/axios";
  */
 export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailProps) => {
 	const { id } = useParams();
+	
 	const [ editing, setEditing ] = useState<boolean>(false);
 	const [ showDelete, setShowDelete ] = useState<boolean>(false);
 	const [ isDeleting, setIsDeleting ] = useState<boolean>(false);
+	
 	const [ isLoading, setIsLoading ] = useState<boolean>(true);
 	const [ error, setError ] = useState<boolean | string>(false);
 	const [ response, setResponse ] = useState<IIdea>();
@@ -59,55 +65,25 @@ export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailPro
 					<Col sm="12">
 						<CardDeck>
 							{/* Idea Details */ }
-							<Card>
-								<CardHeader>Popis námětu</CardHeader>
-								<CardBody>
-									{
-										(editing ? (<span>TODO: edit</span>) : JSON.stringify(response))
-									}
-								</CardBody>
-								<CardFooter>
-									<button className="button button-primary button-reverse" onClick={
-										() => { setEditing(!editing); }
-									}>
-										<span>Editace</span>
-									</button>
-								</CardFooter>
-							</Card>
+							{
+								!editing ? (
+									<IdeaInfo idea={ response } setEditing={ setEditing } />
+								) : (
+									<IdeaEditor idea={ response } setEditing={ setEditing } />
+								)
+							}
 							
 							{/* Idea Goals */ }
-							<Card>
-								<CardHeader>Cíle námětu</CardHeader>
-								<CardBody>TODO</CardBody>
-								<CardFooter>
-									<button className="button button-primary button-reverse" onClick={
-										() => { console.warn("TODO"); }
-									}>
-										<span>Editace</span>
-									</button>
-								</CardFooter>
-							</Card>
+							<IdeaGoals />
 							
 							{/* Idea Outlines */ }
-							<Card>
-								<CardHeader>Body osnovy</CardHeader>
-								<CardBody>TODO</CardBody>
-								<CardFooter>
-									<button className="button button-primary button-reverse" onClick={
-										() => { console.warn("TODO"); }
-									}>
-										<span>Editace</span>
-									</button>
-								</CardFooter>
-							</Card>
+							{/*<IdeaOutlines />*/}
 						</CardDeck>
 						
 						{/* Actions */ }
 						<Card className="mt-3">
-							<CardBody>
-								<button className="button button-danger button-reverse" onClick={ () => {
-									setShowDelete(true);
-								} }>
+							<CardBody className="d-flex">
+								<button className="button button-danger button-reverse ml-auto" onClick={ () => { setShowDelete(true); } }>
 									<span>Smazání</span>
 								</button>
 							</CardBody>

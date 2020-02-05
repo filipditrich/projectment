@@ -8,7 +8,7 @@ import { useAppContext } from "../../providers";
 import { Axios, isStatusOk } from "../../utils";
 import { AxiosResponse } from "axios";
 import { responseError, responseFail } from "../../utils/axios";
-import IdeaForm, { IdeaFormPropOnSubmit, IdeaFormPropValidate } from "./Form";
+import IdeaForm, { IdeaFormPropOnSubmit } from "./Form";
 
 /**
  * Create Idea Component
@@ -28,15 +28,6 @@ export const IdeaCreate: React.FC<IdeaCreateProps> = ({ history }: IdeaCreatePro
 	};
 	
 	// hooks
-	const validate: IdeaFormPropValidate = (values: IIdeaInit) => {
-		const errors: any = {};
-		if (!values.name) errors.name = "Vyplňte název námětu";
-		if (!values.description) errors.description = "Vyplňte popis námětu";
-		if (!values.resources) errors.resources = "Vyplňte očekávané zdroje";
-		if (values.participants === null || !values.participants) errors.participants = "Vyplňte počet autorů";
-		if (!values.subject) errors.subject = "Vyplňte zkratu předmětu, do kterého by zadání spadalo";
-		return errors;
-	};
 	const onSubmit: IdeaFormPropOnSubmit = async (values: IIdeaInit, { setSubmitting }) => {
 		try {
 			setSubmitting(true);
@@ -74,7 +65,6 @@ export const IdeaCreate: React.FC<IdeaCreateProps> = ({ history }: IdeaCreatePro
 	return (
 		<IdeaForm
 			initialValues={ initialValues }
-			validate={ validate }
 			onSubmit={ onSubmit }
 			buttons={ buttons }
 		/>

@@ -9,9 +9,21 @@ import { IIdeaInit } from "../../models/idea";
  * Idea From Component
  * @constructor
  */
-export const IdeaForm: React.FC<IdeaFormProps> = ({ initialValues, validate, onSubmit, buttons }: IdeaFormProps) => {
+export const IdeaForm: React.FC<IdeaFormProps> = ({ initialValues, validate, onSubmit, buttons, id }: IdeaFormProps) => {
 	const [ showHelp, setShowHelp ] = useState<boolean>(false);
 	const [ helpTooltipOpen, setHelpTooltipOpen ] = useState<boolean>(false);
+	
+	if (!validate) {
+		validate = (values: IIdeaInit) => {
+			const errors: any = {};
+			if (!values.name) errors.name = "Vyplňte název námětu";
+			if (!values.description) errors.description = "Vyplňte popis námětu";
+			if (!values.resources) errors.resources = "Vyplňte očekávané zdroje";
+			if (values.participants === null || !values.participants) errors.participants = "Vyplňte počet autorů";
+			if (!values.subject) errors.subject = "Vyplňte zkratu předmětu, do kterého by zadání spadalo";
+			return errors;
+		};
+	}
 	
 	return (
 		<Formik
@@ -20,7 +32,7 @@ export const IdeaForm: React.FC<IdeaFormProps> = ({ initialValues, validate, onS
 			onSubmit={ onSubmit }>
 			{
 				({ isSubmitting, errors, touched, values, setFieldValue }: IdeaFormikProps) => (
-					<Form>
+					<Form id={ id || "idea-form" }>
 						{/* Name */ }
 						<FormGroup>
 							<Label for="name">Název</Label>
@@ -92,28 +104,33 @@ export const IdeaForm: React.FC<IdeaFormProps> = ({ initialValues, validate, onS
 								className={ classnames({ "d-none": !showHelp }) }>Zda bude námět nabízen jako zadání</FormText>
 						</FormGroup>
 						
-						{/* Buttons */ }
-						<FormGroup className="d-flex flex-wrap justify-content-between align-items-center mb-0">
-							
-							<div className="form-footer-buttons">
-								{ buttons(isSubmitting) }
-							</div>
-							
-							{/* Help */ }
-							<a className="link-muted" href="#help" id="help-button" onClick={ (e) => {
-								e.preventDefault();
-								setShowHelp(!showHelp);
-							} }>
-								<span>Nápověda</span>
-							</a>
-							<Tooltip
-								placement="top"
-								isOpen={ helpTooltipOpen }
-								target="help-button"
-								toggle={ () => setHelpTooltipOpen(!helpTooltipOpen) }>
-								Zobrazit nápovědu k formuláři
-							</Tooltip>
-						</FormGroup>
+						{/* Form Footer */}
+						{
+							buttons ? (
+								<FormGroup className="d-flex flex-wrap justify-content-between align-items-center mb-0">
+									
+									{/* Buttons */}
+									<div className="form-footer-buttons">
+										{ buttons(isSubmitting) }
+									</div>
+									
+									{/* Help */ }
+									<a className="link-muted" href="#help" id="help-button" onClick={ (e) => {
+										e.preventDefault();
+										setShowHelp(!showHelp);
+									} }>
+										<span>Nápověda</span>
+									</a>
+									<Tooltip
+										placement="top"
+										isOpen={ helpTooltipOpen }
+										target="help-button"
+										toggle={ () => setHelpTooltipOpen(!helpTooltipOpen) }>
+										Zobrazit nápovědu k formuláři
+									</Tooltip>
+								</FormGroup>
+							) : null
+						}
 					</Form>
 				)
 			}
@@ -125,10 +142,11 @@ export type IdeaFormPropValidate = (values: IIdeaInit) => void | object | Promis
 export type IdeaFormPropOnSubmit = (values: IIdeaInit, formikHelpers: FormikHelpers<IIdeaInit>) => void | Promise<any>;
 
 export interface IdeaFormProps {
+	id?: string;
 	initialValues: IIdeaInit;
-	validate: IdeaFormPropValidate;
+	validate?: IdeaFormPropValidate;
 	onSubmit: IdeaFormPropOnSubmit;
-	buttons: (isSubmitting: boolean) => ReactNode;
+	buttons?: (isSubmitting: boolean) => ReactNode;
 }
 
 export interface IdeaFormikProps {
