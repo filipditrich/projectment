@@ -1,8 +1,14 @@
-import React, { ReactElement, useCallback, useMemo, useState } from "react";
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { CellProps, Column } from "react-table";
+import { CellProps, Column, TableInstance } from "react-table";
 import { Badge } from "reactstrap";
-import { BoolColumnFilter, FetchDataProps, Table, TableColumn } from "../../components/common/Table";
+import {
+	BoolColumnFilter,
+	FetchDataProps,
+	ListColumnFilter,
+	DataTable,
+} from "../../components/common/Table";
+import { KeyValue } from "../../models/generic";
 import { IIdea, IIdeaTarget } from "../../models/idea";
 import { TableDataJsonResponse } from "../../models/response";
 import { AxiosResponse } from "axios";
@@ -17,21 +23,63 @@ export const IdeaList: React.FC = () => {
 	const [ isLoading, setIsLoading ] = useState<boolean>(false);
 	const [ error, setError ] = useState<boolean | string>(false);
 	
+	const [ targets, setTargets ] = useState<IIdeaTarget[]>([]);
+	
 	const [ data, setData ] = useState<IIdea[]>([]);
 	const [ totalPages, setTotalPages ] = useState<number>(0);
 	const [ totalRows, setTotalRows ] = useState<number>(0);
 	
 	const [ { accessToken } ] = useAppContext();
 	
+	// get idea targets
+	useEffect(() => {
+		(async () => {
+			setIsLoading(true);
+			
+			try {
+				const res: AxiosResponse<TableDataJsonResponse<IIdeaTarget[]>> = await Axios(accessToken)
+					.get<TableDataJsonResponse<IIdeaTarget[]>>("/targets");
+				
+				if (isStatusOk(res)) {
+					setTargets(res.data.data);
+				} else {
+					throw new Error(res.statusText || res.status.toString());
+				}
+			} catch (error) {
+				setError(error.message);
+			} finally {
+				setIsLoading(false);
+			}
+		})();
+	}, [ accessToken ]);
+	
 	// columns
 	const columns = useMemo<Column<IIdea>[]>(() => [
 		{
 			Header: "Akce",
 			Cell: (data: CellProps<IIdea>): ReactElement => (
-				<div className="d-flex justify-content-center">
-					<Link to={ "/ideas/detail/" + data.row.original.id }><i className="icon-info font-lg" /></Link>
+				<div className="table-icon">
+					<Link to={ "/ideas/detail/" + data.row.original.id }>
+						<i className="icon-info font-lg"
+						   title="Detail námětu"
+						   aria-label="Detail námětu" />
+					</Link>
 				</div>
 			),
+			Filter: (column: TableInstance<IIdea>) => {
+				return (
+					<div className="table-icon">
+						<i className="icon-close font-lg"
+						   title="Zrušit všechny filtry"
+						   aria-label="Zrušit všechny filtry"
+						   onClick={ () => {
+							   column.setAllFilters([]);
+						   } } />
+					</div>
+				);
+			},
+			disableFilters: false,
+			defaultCanFilter: true,
 		},
 		{ Header: "Název", accessor: "name" },
 		{ Header: "Předmět", accessor: "subject" },
@@ -52,8 +100,12 @@ export const IdeaList: React.FC = () => {
 					}
 				</div>
 			),
-			Filter: (column: TableColumn<IIdea>) => (
-				<span>TODO</span>
+			Filter: (column: TableInstance<IIdea>) => (
+				ListColumnFilter({ column }, [ ...targets
+					.map((target: IIdeaTarget): KeyValue => {
+						return { key: target.id, value: target.text };
+					})
+				])
 			),
 			disableSortBy: true,
 		},
@@ -68,7 +120,7 @@ export const IdeaList: React.FC = () => {
 			),
 			Filter: BoolColumnFilter,
 		},
-	], []);
+	], [ targets ]);
 	
 	// fetch data
 	const fetchData = useCallback(({ page, size, sort, filters }: FetchDataProps): void => {
@@ -85,33 +137,31 @@ export const IdeaList: React.FC = () => {
 			if (size) parameters.push("pageSize=" + size);
 			if (order) parameters.push("order=" + order);
 			
-			if (Array.isArray(filters)) {
-				for (let f of filters) {
-					switch (f.id) {
-						case "name":
-							parameters.push("name=" + f.value);
-							break;
-						case "subject":
-							parameters.push("subject=" + f.value);
-							break;
-						case "userId":
-							parameters.push("userId=" + f.value);
-							break;
-						case "firstname":
-							parameters.push("firstname=" + f.value);
-							break;
-						case "lastname":
-							parameters.push("lastname=" + f.value);
-							break;
-						case "offered":
-							parameters.push("offered=" + f.value);
-							break;
-						case "target":
-							parameters.push("target=" + f.value);
-							break;
-						default:
-							break;
-					}
+			for (let f of filters) {
+				switch (f.id) {
+					case "name":
+						parameters.push("name=" + f.value);
+						break;
+					case "subject":
+						parameters.push("subject=" + f.value);
+						break;
+					case "userId":
+						parameters.push("userId=" + f.value);
+						break;
+					case "userFirstName":
+						parameters.push("firstName=" + f.value);
+						break;
+					case "userLastName":
+						parameters.push("lastName=" + f.value);
+						break;
+					case "offered":
+						parameters.push("offered=" + f.value);
+						break;
+					case "targets":
+						parameters.push("target=" + f.value);
+						break;
+					default:
+						break;
 				}
 			}
 			
@@ -135,7 +185,7 @@ export const IdeaList: React.FC = () => {
 	}, [ accessToken ]);
 	
 	return (
-		<Table
+		<DataTable
 			columns={ columns }
 			data={ data }
 			fetchData={ fetchData }

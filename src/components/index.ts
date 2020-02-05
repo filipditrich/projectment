@@ -2,7 +2,7 @@ import NotFound from "./NotFound";
 import Unauthorized from "./Unauthorized";
 import ErrorHandler from "./ErrorHandler";
 import { ProtectedRoute, SignIn } from "./Authentication";
-import { BoolColumnFilter, ListColumnFilter, TextColumnFilter, Table, ReactHelmetHead, Modal } from "./common";
+import { BoolColumnFilter, ListColumnFilter, TextColumnFilter, DataTable, ReactHelmetHead, Modal } from "./common";
 
 export {
 	// misc
@@ -16,7 +16,7 @@ export {
 	BoolColumnFilter,
 	ListColumnFilter,
 	TextColumnFilter,
-	Table,
+	DataTable,
 	// etc
 	Modal,
 	ReactHelmetHead,

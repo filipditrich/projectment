@@ -1,4 +1,4 @@
-import { BoolColumnFilter, TextColumnFilter, ListColumnFilter, Table } from "./Table";
+import { BoolColumnFilter, TextColumnFilter, ListColumnFilter, DataTable } from "./Table";
 import Modal from "./Modal";
 import ReactHelmetHead from "./ReactHelmetHead";
 
@@ -6,7 +6,7 @@ export {
 	BoolColumnFilter,
 	TextColumnFilter,
 	ListColumnFilter,
-	Table,
+	DataTable,
 	Modal,
 	ReactHelmetHead,
 };

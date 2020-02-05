@@ -1,58 +1,44 @@
-import { filter } from "minimatch";
 import React, { FC, ReactElement, useEffect, useMemo } from "react";
 import {
+	Cell,
+	Column,
+	ColumnInstance,
+	Filters,
+	HeaderGroup,
+	Row,
+	SortingRule,
+	TableInstance,
+	TableOptions,
 	useFilters,
+	UseFiltersColumnProps,
 	usePagination,
 	useSortBy,
 	useTable,
-	ColumnInstance,
-	UseSortByColumnProps,
-	UseResizeColumnsColumnProps,
-	UseFiltersColumnProps,
-	Column,
-	TableOptions,
-	UseTableRowProps,
-	UseTableCellProps,
 } from "react-table";
 import { Table as ReactstrapTable, Input, Pagination, PaginationItem, PaginationLink } from "reactstrap";
 import { loading, error as errorPartial } from "../../misc";
 import classnames from "classnames";
+import { KeyValue } from "../../models/generic";
 
 /**
  * Types
  */
-type Data = object;
-export type Props<D extends Data = any> = {
-	columns: Column<D>[],
-	data: D[],
-	fetchData: any,
-	isLoading: boolean,
-	error: any | null,
-	totalPages: number,
-	totalRows: number,
-}
-
-/**
- * Table Column Interface
- */
-export interface TableColumn<D extends object = {}>
-	extends ColumnInstance<D>,
-		UseSortByColumnProps<D>,
-		UseResizeColumnsColumnProps<D>,
-		UseFiltersColumnProps<D> {
-}
-
-export interface SortableColumnInstance<D extends object = {}>
-	extends ColumnInstance<D>,
-		UseSortByColumnProps<D> {
-}
-
+type Data = any;
+export type DataTablePropFetchData = ({ page, size, sort, filters }: FetchDataProps) => void;
 export interface FetchDataProps {
-	// TODO
-	page: number;
-	size: number;
-	sort: any;
-	filters: any;
+	page: number,
+	size: number,
+	sort: Array<SortingRule<Data>>,
+	filters: Filters<Data>
+}
+export interface DataTableProps<T extends object = Data> {
+	columns: Array<Column<T>>;
+	data: T[];
+	fetchData: DataTablePropFetchData;
+	isLoading: boolean;
+	error: boolean | string;
+	totalPages: number;
+	totalRows: number;
 }
 
 /**
@@ -63,15 +49,17 @@ export interface FetchDataProps {
  * @returns {*}
  * @constructor
  */
-export const TextColumnFilter = ({ column: { filterValue, setFilter } }: { column: TableColumn<object> }): ReactElement => {
+export const TextColumnFilter = ({ column: { filterValue, setFilter } }: { column: UseFiltersColumnProps<Data> }): ReactElement => {
 	return (
 		<Input
 			type="text"
 			placeholder="Zadejte hledaný výraz"
 			value={ filterValue || "" }
-			onChange={ (e) => {
-				setFilter(e.target.value || undefined);
-			} }
+			onChange={
+				(e) => {
+					setFilter(e.target.value || undefined);
+				}
+			}
 		/>
 	);
 };
@@ -84,14 +72,16 @@ export const TextColumnFilter = ({ column: { filterValue, setFilter } }: { colum
  * @returns {*}
  * @constructor
  */
-export const BoolColumnFilter = ({ column: { filterValue, setFilter } }: { column: TableColumn<object> }): ReactElement => {
+export const BoolColumnFilter = ({ column: { filterValue, setFilter } }: { column: UseFiltersColumnProps<Data> }): ReactElement => {
 	return (
 		<Input
 			type="select"
 			value={ filterValue }
-			onChange={ (e) => {
-				setFilter(e.target.value || undefined);
-			} }>
+			onChange={
+				(e) => {
+					setFilter(e.target.value || undefined);
+				}
+			}>
 			<option value="">Vše</option>
 			<option value="true">Ano</option>
 			<option value="false">Ne</option>
@@ -108,18 +98,19 @@ export const BoolColumnFilter = ({ column: { filterValue, setFilter } }: { colum
  * @returns {*}
  * @constructor
  */
-export const ListColumnFilter = ({ column: { filterValue, setFilter } }: { column: TableColumn<object> }, options: Array<{ key: any, value: any }>): ReactElement => {
-	// TODO: fix, error on setFilter()
+export const ListColumnFilter = ({ column: { filterValue, setFilter, id } }: { column: TableInstance<Data> }, options: Array<KeyValue>): ReactElement => {
 	return (
 		<Input
 			type="select"
 			value={ filterValue }
-			onChange={ (e) => {
-				setFilter(e.target.value || undefined);
-			} }>
+			onChange={
+				(e) => {
+					setFilter("targets", e.target.value);
+				}
+			}>
 			<option value="">Vše</option>
 			{
-				options.map((value: { key: string | number, value: string | number }, index: number) => (
+				options.map((value: KeyValue, index: number) => (
 					<option key={ index } value={ value.key }>{ value.value }</option>
 				))
 			}
@@ -139,12 +130,12 @@ export const ListColumnFilter = ({ column: { filterValue, setFilter } }: { colum
  * @returns {*}
  * @constructor
  */
-export const Table: FC<Props> = ({ columns, data, fetchData, isLoading, error, totalPages, totalRows }: Props): ReactElement => {
-	const defaultColumn: any = useMemo(() => ({
+export const DataTable: FC<DataTableProps> = ({ columns, data, fetchData, isLoading, error, totalPages, totalRows }: DataTableProps): ReactElement => {
+	const defaultColumn = useMemo<any>(() => ({
 		Filter: TextColumnFilter,
 	}), []);
 	
-	const tableOptions: TableOptions<Data> & any = {
+	const tableOptions: TableOptions<Data> = {
 		columns,
 		data,
 		defaultColumn,
@@ -174,7 +165,7 @@ export const Table: FC<Props> = ({ columns, data, fetchData, isLoading, error, t
 		previousPage,
 		setPageSize,
 		state: { pageIndex, pageSize, sortBy, filters },
-	}: any = useTable<Data>(tableOptions, useFilters, useSortBy, usePagination);
+	} = useTable<Data>(tableOptions, useFilters, useSortBy, usePagination);
 	
 	useEffect(() => {
 		fetchData({ page: pageIndex, size: pageSize, sort: sortBy, filters });
@@ -182,21 +173,21 @@ export const Table: FC<Props> = ({ columns, data, fetchData, isLoading, error, t
 	
 	const countFrom: number = data.length ? (pageSize * pageIndex) + 1 : 0;
 	const countTo: number = (pageSize * pageIndex) + data.length;
-	
+
 	return (
 		<>
 			{/* Table */ }
 			<div className="table-container">
 				<ReactstrapTable { ...getTableProps() } className="rt-table" striped hover responsive>
-					
+
 					{/* Table Head */ }
 					<thead className="rt-head">
 						{
-						// Header Titles
-							headerGroups.map((headerGroup: any, headerIndex: number) => (
+							// Header Titles
+							headerGroups.map((headerGroup: HeaderGroup<Data>, headerIndex: number) => (
 								<tr { ...headerGroup.getHeaderGroupProps() } className="-headerGroups" key={ headerIndex }>
 									{
-										headerGroup.headers.map((column: SortableColumnInstance<Data>, columnIndex: number) => (
+										headerGroup.headers.map((column: ColumnInstance<Data>, columnIndex: number) => (
 											<th { ...column.getHeaderProps(column.getSortByToggleProps()) } key={ columnIndex }>
 												{ column.render("Header") }
 												<span
@@ -208,11 +199,11 @@ export const Table: FC<Props> = ({ columns, data, fetchData, isLoading, error, t
 							))
 						}
 						{
-						// Header Filters
-							headerGroups.map((headerGroup: any, headerIndex: number) => (
+							// Header Filters
+							headerGroups.map((headerGroup: HeaderGroup<Data>, headerIndex: number) => (
 								<tr { ...headerGroup.getHeaderGroupProps() } className="-filters" key={ headerIndex }>
 									{
-										headerGroup.headers.map((column: SortableColumnInstance<Data> & UseFiltersColumnProps<Data>, columnIndex: number) => (
+										headerGroup.headers.map((column: ColumnInstance<Data>, columnIndex: number) => (
 											<th { ...column.getHeaderProps() } className="rt-th" key={ columnIndex }>
 												{ column.canFilter ? column.render("Filter") : null }
 											</th>
@@ -222,30 +213,31 @@ export const Table: FC<Props> = ({ columns, data, fetchData, isLoading, error, t
 							))
 						}
 					</thead>
-					
+
 					{/* Table Body */ }
 					<tbody { ...getTableBodyProps() } className="rt-body">
 						{
-						// Error Message
+							// Error Message
 							error ? (
 								<tr>
 									<td colSpan={ 1000 }>{ errorPartial(error) }</td>
 								</tr>
 							) : (
-							// Loading
+								// Loading
 								isLoading ? (
 									<tr>
 										<td colSpan={ 1000 }>{ loading() }</td>
 									</tr>
-								// Cell
-								) : page.map((row: UseTableRowProps<Data>, rowIndex: number) => {
+									// Cell
+								) : page.map((row: Row<Data>, rowIndex: number) => {
 									prepareRow(row);
 									return (
 										<tr { ...row.getRowProps() } className="rt-tr" key={ rowIndex }>
 											{
-												row.cells.map((cell: UseTableCellProps<Data>, cellIndex: number) => {
-													return <td { ...cell.getCellProps() } className="rt-td" key={ cellIndex }>{ cell.render("Cell") }</td>;
-												})
+												row.cells.map((cell: Cell<Data>, cellIndex: number) => (
+													<td { ...cell.getCellProps() } className="rt-td"
+													    key={ cellIndex }>{ cell.render("Cell") }</td>
+												))
 											}
 										</tr>
 									);
@@ -255,10 +247,10 @@ export const Table: FC<Props> = ({ columns, data, fetchData, isLoading, error, t
 					</tbody>
 				</ReactstrapTable>
 			</div>
-			
+
 			{/* Paginator */ }
 			<div className="paginator">
-				
+
 				{/* Pagination */ }
 				<Pagination>
 					<PaginationItem
@@ -303,11 +295,11 @@ export const Table: FC<Props> = ({ columns, data, fetchData, isLoading, error, t
 							disabled={ !canNextPage } />
 					</PaginationItem>
 				</Pagination>
-				
+
 				{/* Total + IPP */ }
 				<div className="d-flex align-items-center mt-3 mt-lg-0">
 					<span className="mr-3 text-muted">{ countFrom } - { countTo } z { totalRows } záznamů</span>
-					
+
 					<Input
 						type="select"
 						value={ pageSize }

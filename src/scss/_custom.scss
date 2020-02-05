@@ -421,6 +421,10 @@ table, .table {
     border-top: none !important;
   }
 
+  th, td {
+    vertical-align: middle;
+  }
+
   thead {
     th {
       border-width: 1px;
@@ -572,6 +576,17 @@ table, .table {
 
   a, a i {
     color: inherit;
+  }
+}
+
+.table-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  i {
+    line-height: 2;
+    cursor: pointer;
   }
 }
 
