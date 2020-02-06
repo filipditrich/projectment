@@ -639,3 +639,13 @@ table, .table {
     margin-right: 0.25rem;
   }
 }
+
+.error-screen {
+  position: fixed;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  background: navajowhite;
+  top: 0;
+  left: 0;
+}
