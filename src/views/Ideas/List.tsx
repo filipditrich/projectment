@@ -14,6 +14,7 @@ import { TableDataJsonResponse } from "../../models/response";
 import { AxiosResponse } from "axios";
 import { useAppContext } from "../../providers";
 import { Axios, isStatusOk } from "../../utils";
+import classNames from "classnames";
 
 /**
  * Idea List Component
@@ -83,17 +84,22 @@ export const IdeaList: React.FC = () => {
 		},
 		{ Header: "Název", accessor: "name" },
 		{ Header: "Předmět", accessor: "subject" },
-		{ Header: "Jméno", accessor: "userFirstName" }, // TODO: filtering not working
-		{ Header: "Příjmení", accessor: "userLastName" }, // TODO: filtering not working
+		{ Header: "Jméno", accessor: "userFirstName" },
+		{ Header: "Příjmení", accessor: "userLastName" },
 		{
 			Header: "Cílové skupiny",
 			accessor: "targets",
 			Cell: (data: CellProps<IIdea>): ReactElement => (
 				<div className="badge-container">
 					{
-						// TODO: badge colors
 						(data.cell.value as IIdeaTarget[]).map((target: IIdeaTarget, i: number): ReactElement => (
-							<Badge key={ i }>
+							<Badge key={ i } className={ classNames({
+								"mr-2": true,
+								"bg-warning": target.id === 1 || target.id === 2,
+								"bg-danger": target.id === 3,
+								"bg-info": target.id === 4,
+								"bg-success": target.id === 5,
+							}) }>
 								{ target.text }
 							</Badge>
 						))

@@ -31,9 +31,7 @@ export const Home: React.FC = () => {
 					        className="button button-secondary button-reverse"><span>Secondary Reverse</span></button>
 				</div>
 				<div className="button-container">
-					<button onClick={ () => {
-						throw new Error("wrong button dick");
-					} } className="button button-danger"><span>Danger</span>
+					<button onClick={ () => toastIt(toast.TYPE.ERROR) } className="button button-danger"><span>Danger</span>
 					</button>
 					<button onClick={ () => toastIt(toast.TYPE.ERROR) } className="button button-danger button-reverse">
 						<span>Danger Reverse</span></button>
