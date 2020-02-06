@@ -1,0 +1,11 @@
+@import "../functions";
+
+.badge-container {
+  & > *:not(:last-of-type) {
+    margin-right: 0.25rem;
+  }
+}
+
+.badge-primary {
+  background: linear-gradient-theme(1);
+}

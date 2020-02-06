@@ -1,0 +1,126 @@
+@import "../mixins";
+@import "../variables";
+
+button:active,
+button:focus {
+  outline: none;
+}
+
+.button {
+  display: inline-block;
+  letter-spacing: 1px;
+  font-weight: 600;
+  line-height: 2.5rem;
+  outline: none !important;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  border: double 2px transparent;
+  border-radius: 50em;
+  font-size: $font-size-sm;
+  text-decoration: none;
+  transition: all 250ms ease-in-out;
+  padding: 0;
+
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  & > span {
+    padding: 0 2rem;
+    white-space: nowrap;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &.button-primary {
+    @include button-style($primary, $white, $gradient-color-1, $gradient-color-2);
+  }
+
+  &.button-secondary {
+    @include button-style($black, $white, rgba($white, 0.1), rgba($white, 0.1));
+    &:hover {
+      background: transparent;
+      border: 2px solid $white;
+    }
+  }
+
+  &.button-success {
+    @include button-style(
+                    $success,
+                    $white,
+                    $success-gradient-1,
+                    $success-gradient-2
+    );
+  }
+
+  &.button-info {
+    @include button-style($info, $white, $info-gradient-1, $info-gradient-2);
+  }
+
+  &.button-danger {
+    @include button-style(
+                    $danger,
+                    $white,
+                    $danger-gradient-1,
+                    $danger-gradient-2
+    );
+  }
+
+  &.button-warning {
+    @include button-style(
+                    $warning,
+                    $white,
+                    $warning-gradient-1,
+                    $warning-gradient-2
+    );
+  }
+}
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  .button {
+    margin: 0.5rem 1rem;
+    flex-grow: 1;
+  }
+}
+
+.reset-button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+
+  background: transparent;
+
+  /* inherit font & color from ancestor */
+  color: inherit;
+  font: inherit;
+
+  /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+  line-height: normal;
+
+  /* Corrects font smoothing for webkit */
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+
+  /* Corrects inability to style clickable `input` types in iOS */
+  -webkit-appearance: none;
+}
+
+.button-icon {
+  @extend .reset-button;
+  padding: 0.25rem;
+
+  &.circular {
+    width: 24px;
+    height: 24px;
+    border-radius: 50rem;
+  }
+}

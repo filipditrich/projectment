@@ -1,0 +1,12 @@
+.cursor-pointer {
+  cursor: pointer;
+}
+
+[disabled] {
+  cursor: not-allowed;
+}
+
+//.bg-danger { background: linear-gradient-style($danger-gradient-1, $danger-gradient-2) };
+//.bg-warning { background: linear-gradient-style($warning-gradient-1, $warning-gradient-2) };
+//.bg-info { background: linear-gradient-style($info-gradient-1, $info-gradient-2) };
+//.bg-success { background: linear-gradient-style($success-gradient-1, $success-gradient-2) };

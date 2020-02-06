@@ -5,9 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5726637-2915-46d8-85ce-db261ec60771" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/scss/custom/_app.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scss/custom/_badges.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scss/custom/_buttons.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scss/custom/_forms.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scss/custom/_links.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scss/custom/_loaders.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scss/custom/_misc.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scss/custom/_modals.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scss/custom/_tables.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scss/custom/_toasts.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Home/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/List.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/List.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/application.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/application.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/theme.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layout/FooterLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/FooterLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scss/_custom.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/_custom.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,9 +34,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="tsconfig.json" />
-        <option value="SCSS File" />
         <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="SCSS File" />
       </list>
     </option>
   </component>
@@ -106,7 +119,7 @@
       <workItem from="1579507723975" duration="97000" />
       <workItem from="1579507848628" duration="3781000" />
       <workItem from="1580471426363" duration="35119000" />
-      <workItem from="1580777323318" duration="65435000" />
+      <workItem from="1580777323318" duration="67017000" />
     </task>
     <servers />
   </component>

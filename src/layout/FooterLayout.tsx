@@ -6,7 +6,6 @@ import React, { ReactElement } from "react";
  */
 const FooterLayout = (): ReactElement => {
 
-	// TODO: footer from app config
 	return (
 		<React.Fragment>
 			<span><small>&copy; 2020 <a className="link" href="https://projectment.pslib.cloud" target="_blank" rel="noopener noreferrer">ProjectMent</a>. All Rights Reserved.</small></span>

@@ -1,0 +1,15 @@
+@import "../variables";
+
+.custom-control-input {
+  &:checked ~ .custom-control-label::before {
+    background: $custom-control-indicator-checked-bg;
+  }
+
+  &:focus ~ .custom-control-label::before {
+    @if $enable-shadows {
+      box-shadow: $input-box-shadow, $input-focus-box-shadow;
+    } @else {
+      box-shadow: 0 0 0 0.2rem rgba($custom-control-indicator-focus-box-shadow, 0.2);
+    }
+  }
+}

@@ -1,0 +1,7 @@
+.#{$rt-namespace}__toast {
+  opacity: 0.95;
+
+  &:hover {
+    opacity: 0.98;
+  }
+}
