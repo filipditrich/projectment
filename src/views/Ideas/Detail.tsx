@@ -21,7 +21,8 @@ import IdeaEditor from "./Edit";
  * @constructor
  */
 export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailProps) => {
-	const { id } = useParams();
+	let { id } = useParams();
+	if (!id) throw new Error(); // shouldn't happen at all
 	
 	const [ editing, setEditing ] = useState<boolean>(false);
 	const [ showDelete, setShowDelete ] = useState<boolean>(false);
@@ -74,10 +75,10 @@ export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailPro
 							}
 							
 							{/* Idea Goals */ }
-							<IdeaGoals />
+							<IdeaGoals id={ id } />
 							
 							{/* Idea Outlines */ }
-							{/*<IdeaOutlines />*/}
+							<IdeaOutlines id={ id } />
 						</CardDeck>
 						
 						{/* Actions */ }

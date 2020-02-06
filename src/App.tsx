@@ -12,10 +12,11 @@ import { SignInCb, SignOutCb, SilentRenewCb } from "./components/Authentication"
 import { ApplicationProvider } from "./providers";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
-// import TouchBackend from "react-dnd-touch-backend";
+import TouchBackend from "react-dnd-touch-backend";
 import { loader } from "./misc";
 import TextLoop from "react-text-loop";
 import "./App.scss";
+import { isTouchDevice } from "./utils/helpers";
 
 // screen preloader
 const preloader = (): NonNullable<ReactNode> => {
@@ -58,22 +59,13 @@ const history = createBrowserHistory();
 export default class App extends Component {
 	
 	render(): ReactNode {
-		/*
-		* TODO: convert all components to functional components as following:
-		* const Component = (props: any): ReactNode => {}
-		* export default Component
-		* */
-		
-		/**
-		 * TODO: make all API requests go through one fetcher (to easily catch errors etc.)
-		 */
 		
 		return (
 			<ApplicationProvider>
 				<Router history={ history }>
 					<React.Suspense fallback={ preloader() }>
-						<Switch>
-							<DndProvider backend={ Backend }>
+						<DndProvider backend={ isTouchDevice() ? TouchBackend : Backend }>
+							<Switch>
 								<Route path="/oidc-callback" component={ SignInCb } />
 								<Route path="/oidc-signout-callback" component={ SignOutCb } />
 								<Route path="/oidc-silent-renew" component={ SilentRenewCb } />
@@ -84,8 +76,8 @@ export default class App extends Component {
 								
 								<Route path="/" component={ DefaultLayout } />
 								<Route component={ NotFound } />
-							</DndProvider>
-						</Switch>
+							</Switch>
+						</DndProvider>
 					</React.Suspense>
 				</Router>
 			</ApplicationProvider>

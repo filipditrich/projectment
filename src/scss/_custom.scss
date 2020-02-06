@@ -119,6 +119,41 @@ button:active, button:focus {
   }
 }
 
+.reset-button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+
+  background: transparent;
+
+  /* inherit font & color from ancestor */
+  color: inherit;
+  font: inherit;
+
+  /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+  line-height: normal;
+
+  /* Corrects font smoothing for webkit */
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+
+  /* Corrects inability to style clickable `input` types in iOS */
+  -webkit-appearance: none;
+}
+
+.button-icon {
+  @extend .reset-button;
+  padding: 0.25rem;
+
+  &.circular {
+    width: 24px;
+    height: 24px;
+    border-radius: 50rem;
+  }
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -128,7 +163,7 @@ button:active, button:focus {
 }
 
 .badge-primary {
-  //background: linear-gradient-theme(1);
+  background: linear-gradient-theme(1);
 }
 
 .sidebar {
@@ -313,6 +348,11 @@ button:active, button:focus {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  &.loading-overlay {
+    position: absolute;
+    opacity: 0.9;
+  }
 
   .preloader-logo {
     position: absolute;
@@ -552,6 +592,10 @@ table, .table {
       box-shadow: 0 0 0 0.2rem rgba($custom-control-indicator-focus-box-shadow, 0.2);
     }
   }
+}
+
+.card-deck .card {
+  margin-bottom: 1.5rem;
 }
 
 .card-header {

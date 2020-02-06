@@ -41,3 +41,18 @@ export interface IIdeaTarget {
 		name: string;
 	};
 }
+
+/**
+ * Idea Goal Interface
+ */
+export interface IIdeaGoal {
+	ideaId: number;
+	order: number;
+	text: string;
+}
+
+/**
+ * Idea Outline Interface
+ */
+export interface IIdeaOutline
+	extends IIdeaGoal {}

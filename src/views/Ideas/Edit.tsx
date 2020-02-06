@@ -3,6 +3,7 @@ import { Card, CardBody, CardFooter, CardHeader } from "reactstrap";
 import { AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { Button } from "reactstrap";
+import LoadingOverlay from "../../components/common/LoadingOverlay";
 import { IIdea, IIdeaInit } from "../../models/idea";
 import { useAppContext } from "../../providers";
 import { Axios, isStatusOk } from "../../utils";
@@ -33,7 +34,7 @@ export const IdeaEditor: React.FC<IdeaEditorProps> = ({ idea, setEditing}: IdeaE
 			setSubmitting(true);
 			setIsSubmitting(true);
 			const res: AxiosResponse<IIdea> = await Axios(accessToken)
-				.put("/ideas" + idea.id, {
+				.put("/ideas/" + idea.id, {
 					Name: values.name,
 					Description: values.description,
 					Resources: values.resources,
@@ -54,7 +55,7 @@ export const IdeaEditor: React.FC<IdeaEditorProps> = ({ idea, setEditing}: IdeaE
 	};
 	
 	return (
-		<Card>
+		<LoadingOverlay active={ isSubmitting } tag={ Card } styles={{ minWidth: "40vw" }}>
 			<CardHeader>Upravit &quot;{ idea.name }&ldquo;</CardHeader>
 			<CardBody>
 				<IdeaForm
@@ -63,8 +64,8 @@ export const IdeaEditor: React.FC<IdeaEditorProps> = ({ idea, setEditing}: IdeaE
 					onSubmit={ onSubmit }
 				/>
 			</CardBody>
-			<CardFooter className="d-flex justify-content-around">
-				<Button className="button button-primary button-reverse"
+			<CardFooter>
+				<Button className="button button-primary button-reverse mr-3"
 				        type="submit"
 				        form="idea-edit-form"
 				        disabled={ isSubmitting }>
@@ -76,7 +77,7 @@ export const IdeaEditor: React.FC<IdeaEditorProps> = ({ idea, setEditing}: IdeaE
 					<span>Zrušit</span>
 				</Button>
 			</CardFooter>
-		</Card>
+		</LoadingOverlay>
 	);
 };
 
