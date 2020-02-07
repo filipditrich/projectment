@@ -1,9 +1,10 @@
 import { AxiosResponse } from "axios";
+import classNames from "classnames";
 import update from "immutability-helper";
 import { isEqual, sortBy } from "lodash";
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Card, CardBody, CardFooter, CardHeader, ListGroup } from "reactstrap";
+import { Card, CardBody, CardFooter, CardHeader, Col, ListGroup } from "reactstrap";
 import LoadingOverlay from "../../../components/common/LoadingOverlay";
 import { IIdeaOutline } from "../../../models/idea";
 import { DataJsonResponse } from "../../../models/response";
@@ -28,12 +29,12 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesPr
 		(async () => {
 			try {
 				setIsLoading(true);
-				const res: AxiosResponse<DataJsonResponse<any>> = await Axios(accessToken)
-					.get<DataJsonResponse<any>>(`/ideas/${ id }/outlines`);
+				const res: AxiosResponse<DataJsonResponse<IIdeaOutline[]>> = await Axios(accessToken)
+					.get<DataJsonResponse<IIdeaOutline[]>>(`/ideas/${ id }/outlines`);
 				
 				if (isStatusOk(res)) {
 					// TODO: de-fake
-					// setList(res.data.data);
+					// setList(res.data);
 					setList([
 						{ ideaId: 1, order: 1, text: "Write a cool JS library" },
 						{ ideaId: 1, order: 2, text: "Make it generic enough" },
@@ -76,13 +77,13 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesPr
 	// add outline hook
 	const addOutline = useCallback(() => {
 		// TODO: de-fake
-		setList([ ...list, { ideaId: 1, order: list.length + 1, text: "Nový bod osnovy", isEditing: true } ]);
+		setList([ ...list, { ideaId: 1, order: list.length + 1, text: `Bod osnovy ${list.length + 1}`, isEditing: true } ]);
 		// (async () => {
 		// 	try {
 		//      setIsLoading(true);
 		// 		const res: AxiosResponse<DataJsonResponse<any>> = await Axios(accessToken)
 		// 			.post<DataJsonResponse<any>>(`/ideas/${ id }/outlines`, {
-		//				id, goalText: "Nový body osnovy"
+		//				id, goalText: `Bod osnovy ${list.length + 1}`
 		// 			});
 		//
 		// 		if (isStatusOk(res)) {
@@ -139,25 +140,33 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesPr
 			<CardHeader className="d-flex justify-content-between">
 				<span>Osnova námětu</span>
 				<button className="reset-button" onClick={ addOutline }>
-					<i className="icon-plus font-lg" />
+					<i className="icon-plus font-xl" />
 				</button>
 			</CardHeader>
-			<CardBody>
-				<p className="text-muted">Osnova shrnuje veškeré kroky, které student bude muset učinit, aby dosáhl cílů práce: co bude muset nastudovat, vyrobit, promyslet.</p>
-				<ListGroup>
-					{
-						list.map((item: IIdeaOutlineList, index: number) => (
-							<IdeaListItem
-								listItem={ item }
-								index={ index }
-								accept="outline"
-								showBadges={ showBadges }
-								key={ index }
-								removeItem={ removeOutline }
-								updateItem={ moveOutline } />
-						))
-					}
-				</ListGroup>
+			<CardBody className={ classNames({ "d-flex flex-column": true, "justify-content-center": !list.length }) }>
+				{
+					list.length ? (
+						<>
+							<p className="text-muted">Osnova shrnuje veškeré kroky, které student bude muset učinit, aby dosáhl cílů práce: co bude muset nastudovat, vyrobit, promyslet.</p>
+							<ListGroup>
+								{
+									list.map((item: IIdeaOutlineList, index: number) => (
+										<IdeaListItem
+											listItem={ item }
+											index={ index }
+											accept="outline"
+											showBadges={ showBadges }
+											key={ index }
+											removeItem={ removeOutline }
+											updateItem={ moveOutline } />
+									))
+								}
+							</ListGroup>
+						</>
+					) : (
+						<p className="text-muted text-center my-5">Nový bod námětu přidáte kliknutím na tlačítko <i className="icon-plus" /> v pravém horním rohu této karty.</p>
+					)
+				}
 			</CardBody>
 			{
 				isChanged ? (

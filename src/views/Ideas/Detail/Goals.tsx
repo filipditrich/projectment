@@ -11,6 +11,7 @@ import { sortBy, isEqual } from "lodash";
 import { responseError, responseFail } from "../../../utils/axios";
 import IdeaListItem from "./ListItem";
 import update from "immutability-helper";
+import classNames from "classnames";
 
 /**
  * Idea Goals Component
@@ -28,12 +29,12 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 		(async () => {
 			try {
 				setIsLoading(true);
-				const res: AxiosResponse<DataJsonResponse<any>> = await Axios(accessToken)
-					.get<DataJsonResponse<any>>(`/ideas/${ id }/goals`);
+				const res: AxiosResponse<DataJsonResponse<IIdeaGoal[]>> = await Axios(accessToken)
+					.get<DataJsonResponse<IIdeaGoal[]>>(`/ideas/${ id }/goals`);
 				
 				if (isStatusOk(res)) {
 					// TODO: de-fake
-					// setList(res.data.data);
+					// setList(res.data);
 					setList([
 						{ ideaId: 1, order: 1, text: "JS Library" },
 						{ ideaId: 1, order: 2, text: "TypeScript Definitions" },
@@ -69,13 +70,13 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 	// add goal hook
 	const addGoal = useCallback(() => {
 		// TODO: de-fake
-		setList([ ...list, { ideaId: 1, order: list.length + 1, text: "Nový cíl", isEditing: true } ]);
+		setList([ ...list, { ideaId: 1, order: list.length + 1, text: `Cíl číslo ${list.length + 1}`, isEditing: true } ]);
 		// (async () => {
 		// 	try {
 		//      setIsLoading(true);
 		// 		const res: AxiosResponse<DataJsonResponse<any>> = await Axios(accessToken)
 		// 			.post<DataJsonResponse<any>>(`/ideas/${ id }/goals`, {
-		//				id, goalText: "Nový cíl"
+		//				id, goalText: `Cíl číslo ${list.length + 1}`
 		// 			});
 		//
 		// 		if (isStatusOk(res)) {
@@ -132,25 +133,33 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 			<CardHeader className="d-flex justify-content-between">
 				<span>Cíle námětu</span>
 				<button className="reset-button" onClick={ addGoal }>
-					<i className="icon-plus font-lg" />
+					<i className="icon-plus font-xl" />
 				</button>
 			</CardHeader>
-			<CardBody>
-				<p className="text-muted">Cíle popisují vše, co v práci v době jejího odevzdání má být hotovo a odevzdáno.</p>
-				<ListGroup>
-					{
-						list.map((item: IIdeaGoalList, index: number) => (
-							<IdeaListItem
-								listItem={ item }
-								index={ index }
-								accept="goal"
-								showBadges={ showBadges }
-								key={ index }
-								removeItem={ removeGoal }
-								updateItem={ moveGoal } />
-						))
-					}
-				</ListGroup>
+			<CardBody className={ classNames({ "d-flex flex-column": true, "justify-content-center": !list.length }) }>
+				{
+					list.length ? (
+						<>
+							<p className="text-muted">Cíle popisují vše, co v práci v době jejího odevzdání má být hotovo a odevzdáno.</p>
+							<ListGroup>
+								{
+									list.map((item: IIdeaGoalList, index: number) => (
+										<IdeaListItem
+											listItem={ item }
+											index={ index }
+											accept="goal"
+											showBadges={ showBadges }
+											key={ index }
+											removeItem={ removeGoal }
+											updateItem={ moveGoal } />
+									))
+								}
+							</ListGroup>
+						</>
+					) : (
+						<p className="text-muted text-center my-5">Nový cíl námětu přidáte kliknutím na tlačítko <i className="icon-plus" /> v pravém horním rohu této karty.</p>
+					)
+				}
 			</CardBody>
 			{
 				isChanged ? (

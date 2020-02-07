@@ -5,7 +5,7 @@ import { DefaultProps } from "../../models/props";
 /**
  * Modal Props Interface
  */
-interface ModalProps extends DefaultProps {
+export interface ModalProps extends DefaultProps {
 	isOpen: boolean;
 	onDismiss: (e: Event) => void;
 	actions?: ReactElement;

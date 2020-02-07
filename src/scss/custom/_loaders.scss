@@ -16,6 +16,7 @@
   &.loading-overlay {
     position: absolute;
     opacity: 0.9;
+    min-height: 128px;
   }
 
   .preloader-logo {
@@ -36,8 +37,8 @@
     font-size: 10px;
     margin: 2rem auto;
     text-indent: -9999em;
-    width: 64px;
-    height: 64px;
+    min-width: 64px;
+    min-height: 64px;
     border-radius: 50%;
     background: $preloader-spinner-color;
     background: linear-gradient(to right, $preloader-spinner-color 10%, rgba($preloader-spinner-color, 0) 42%);

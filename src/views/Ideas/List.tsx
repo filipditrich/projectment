@@ -1,6 +1,7 @@
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { CellProps, Column, TableInstance } from "react-table";
+import { CellProps, Column, ColumnInstance, TableInstance } from "react-table";
+import { toast } from "react-toastify";
 import { Badge } from "reactstrap";
 import {
 	BoolColumnFilter,
@@ -8,6 +9,7 @@ import {
 	ListColumnFilter,
 	DataTable,
 } from "../../components/common/Table";
+import TargetBadges from "../../components/common/TargetBadges";
 import { KeyValue } from "../../models/generic";
 import { IIdea, IIdeaTarget } from "../../models/idea";
 import { TableDataJsonResponse } from "../../models/response";
@@ -15,6 +17,7 @@ import { AxiosResponse } from "axios";
 import { useAppContext } from "../../providers";
 import { Axios, isStatusOk } from "../../utils";
 import classNames from "classnames";
+import { responseError, responseFail } from "../../utils/axios";
 
 /**
  * Idea List Component
@@ -43,11 +46,9 @@ export const IdeaList: React.FC = () => {
 				
 				if (isStatusOk(res)) {
 					setTargets(res.data.data);
-				} else {
-					throw new Error(res.statusText || res.status.toString());
-				}
+				} else throw responseFail(res);
 			} catch (error) {
-				setError(error.message);
+				toast.error(responseError(error).message);
 			} finally {
 				setIsLoading(false);
 			}
@@ -90,21 +91,7 @@ export const IdeaList: React.FC = () => {
 			Header: "Cílové skupiny",
 			accessor: "targets",
 			Cell: (data: CellProps<IIdea>): ReactElement => (
-				<div className="badge-container">
-					{
-						(data.cell.value as IIdeaTarget[]).map((target: IIdeaTarget, i: number): ReactElement => (
-							<Badge key={ i } className={ classNames({
-								"mr-2": true,
-								"bg-warning": target.id === 1 || target.id === 2,
-								"bg-danger": target.id === 3,
-								"bg-info": target.id === 4,
-								"bg-success": target.id === 5,
-							}) }>
-								{ target.text }
-							</Badge>
-						))
-					}
-				</div>
+				<TargetBadges targets={ data.cell.value }/>
 			),
 			Filter: (column: TableInstance<IIdea>) => (
 				ListColumnFilter({ column }, [ ...targets
@@ -179,11 +166,9 @@ export const IdeaList: React.FC = () => {
 					setData(res.data.data);
 					setTotalPages(res.data.pages || 0);
 					setTotalRows(res.data.total || 0);
-				} else {
-					throw new Error(res.statusText || res.status.toString());
-				}
+				} else throw responseFail(res);
 			} catch (error) {
-				setError(error.message);
+				toast.error(responseError(error).message);
 			} finally {
 				setIsLoading(false);
 			}

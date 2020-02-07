@@ -8,7 +8,7 @@ import { IIdea, IIdeaInit } from "../../models/idea";
 import { useAppContext } from "../../providers";
 import { Axios, isStatusOk } from "../../utils";
 import { responseError, responseFail } from "../../utils/axios";
-import IdeaForm, { IdeaFormPropOnSubmit, IdeaFormPropValidate } from "./Form";
+import IdeaForm, { IdeaFormPropOnSubmit } from "./Form";
 
 /**
  * Idea Editor Component
