@@ -47,12 +47,12 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 				setIsLoading(false);
 			}
 		})();
-	}, [ accessToken ]);
+	}, [ accessToken, id ]);
 	
 	// show badges with old index on reorder
 	useEffect(() => {
 		setShowBadges(isChanged);
-	}, [ list ]);
+	}, [ list, isChanged ]);
 	
 	// move goal hook
 	const moveGoal = useCallback((dragIndex: number, hoverIndex: number, text: string) => {

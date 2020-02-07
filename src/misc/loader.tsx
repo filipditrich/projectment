@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
-import logo from "../assets/img/logo-projectment-text.png";
 import { Application } from "../config";
+import importLogo from "../utils/logo";
 
 /**
  * Loader Template
@@ -18,7 +18,7 @@ const loaderTemplate = (innerContent: Element | string | any): ReactElement => {
 			</div>
 			
 			<div className="preloader-logo">
-				<img src={ logo } alt={ Application.APP_NAME + " Logo" } />
+				<img src={ importLogo("text") } alt={ "Logo " + Application.APP_NAME } />
 			</div>
 		</div>
 	);

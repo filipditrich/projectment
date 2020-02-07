@@ -5,7 +5,7 @@ import { useAppContext } from "../../providers";
 const SignOutCb = (props: any): ReactElement => {
 	const [{ userManager }] = useAppContext();
 	(async() => await userManager.signoutRedirectCallback())();
-	return <Redirect to="/" />;
+	return <Redirect to="/entry" />;
 };
 
 export default SignOutCb;

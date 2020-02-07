@@ -125,7 +125,7 @@ const MainLayout = (props: any): ReactElement => {
 					</AppFooter>
 				</div>
 			</ErrorHandler>
-		) : <Redirect to="/unauthorized" />;
+		) : <Redirect to="/entry" />;
 };
 
 export default MainLayout;

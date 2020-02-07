@@ -50,7 +50,7 @@ export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailPro
 				setIsLoading(false);
 			}
 		})();
-	}, [ accessToken ]);
+	}, [ accessToken, id ]);
 	
 	if (isLoading) {
 		return loading();

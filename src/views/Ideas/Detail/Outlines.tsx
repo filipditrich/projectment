@@ -54,12 +54,12 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesPr
 				setIsLoading(false);
 			}
 		})();
-	}, [ accessToken ]);
+	}, [ accessToken, id ]);
 	
 	// show badges with old index on reorder
 	useEffect(() => {
 		setShowBadges(isChanged);
-	}, [ list ]);
+	}, [ list, isChanged ]);
 	
 	// move outline hook
 	const moveOutline = useCallback((dragIndex: number, hoverIndex: number, text: string) => {

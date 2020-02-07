@@ -50,6 +50,7 @@ const SignIn: LazyExoticComponent<any> = React.lazy(() => import("./components/A
 const SignOut: LazyExoticComponent<any> = React.lazy(() => import("./components/Authentication/SignOut"));
 const NotFound: LazyExoticComponent<any> = React.lazy(() => import("./components/NotFound"));
 const Unauthorized: LazyExoticComponent<any> = React.lazy(() => import("./components/Unauthorized"));
+const Entry: LazyExoticComponent<any> = React.lazy(() => import("./components/Entry"));
 
 const history = createBrowserHistory();
 
@@ -74,6 +75,7 @@ export default class App extends Component {
 								<Route path="/sign-in" component={ SignIn } />
 								<Route path="/sign-out" component={ SignOut } />
 								
+								<Route path="/entry" component={ Entry } />
 								<Route path="/" component={ DefaultLayout } />
 								<Route component={ NotFound } />
 							</Switch>

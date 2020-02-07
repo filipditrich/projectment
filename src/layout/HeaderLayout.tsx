@@ -9,11 +9,7 @@ import {
 } from "@coreui/react";
 import { Application } from "../config";
 import { useAppContext } from "../providers";
-
-// logo import
-const logo = (size: "lg" | "sm"): ImageData | any => {
-	return require(`../assets/img/${ Application.APP_LOGO.NAME }-${ size }.${ Application.APP_LOGO.EXT }`);
-};
+import importLogo from "../utils/logo";
 
 /**
  * Main Header Layout
@@ -31,16 +27,16 @@ const HeaderLayout = (): ReactElement => {
 			<div className="navbar-brand-container d-md-down-none">
 				<AppNavbarBrand
 					full={ {
-						src: logo("lg"),
+						src: importLogo("lg"),
 						width: 89,
 						height: 25,
-						alt: `${ Application.APP_NAME } Logo`,
+						alt: `Logo ${ Application.APP_NAME }`,
 					} }
 					minimized={ {
-						src: logo("sm"),
+						src: importLogo("sm"),
 						width: 30,
 						height: 30,
-						alt: `${ Application.APP_NAME } Logo`,
+						alt: `Logo ${ Application.APP_NAME }`,
 					} }
 				/>
 				<AppSidebarToggler className="d-md-down-none" display="lg" />

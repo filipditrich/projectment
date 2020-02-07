@@ -15,7 +15,7 @@ const Unauthorized = (): ReactElement => {
 						<h1 className="display-3">403</h1>
 						<h4 className="pt-3">Zde podle všeho nemáte co dělat.</h4>
 						<p className="text-muted">Nemáte dostatečná oprávnění k zobrazení této stránky.</p>
-						<Link to="/sign-in" className="button button-primary mt-3"><span>Přihlásit se</span></Link>
+						<Link to="/entry" className="button button-primary mt-3"><span>Domů</span></Link>
 					</Col>
 				</Row>
 			</Container>
