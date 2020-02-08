@@ -2,9 +2,7 @@
  * Side Navigation Menu Items
  * @author filipditrich
  */
-export default {
-	// TODO: interface
-	// EDIT: ? tf i meant by this?
+const navigation: INavigation = {
 	items: [
 		{
 			name: "Domů",
@@ -48,3 +46,19 @@ export default {
 		}
 	]
 };
+
+export interface INavigation {
+	items: INavigationItem[]
+}
+
+export interface INavigationItem {
+	name: string;
+	url?: string;
+	icon?: string;
+	title?: boolean;
+	exact?: boolean;
+	children?: INavigationItem[];
+}
+
+
+export default navigation;

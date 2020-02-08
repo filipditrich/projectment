@@ -20,7 +20,6 @@ import { ReactHelmetHead } from "../components/common";
 import { loading } from "../misc";
 import { navigation, routes } from "../config";
 import { IRoute } from "../models/route";
-import { ToastContainer } from "react-toastify";
 import { useAppContext } from "../providers";
 
 // layout parts
@@ -42,9 +41,6 @@ const MainLayout = (props: any): ReactElement => {
 							<HeaderLayout />
 						</React.Suspense>
 					</AppHeader>
-					
-					{/* Toaster Container */ }
-					<ToastContainer autoClose={ 7500 } />
 					
 					{/* Main Content */ }
 					<div className="app-body">
@@ -99,7 +95,7 @@ const MainLayout = (props: any): ReactElement => {
 																);
 															}
 														}
-													/> : (null);
+													/> : null;
 											})
 										}
 										<Redirect from="/" to="/home" />

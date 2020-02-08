@@ -7,7 +7,7 @@ import { useAppContext } from "../../providers";
  * SignOut Page
  * @constructor
  */
-const SignOut = (): ReactElement => {
+export const SignOut: React.FC = (): ReactElement => {
 	const [ message, setMessage ] = useState("");
 	const [ ok, setOk ] = useState(false);
 	const [{ userManager }] = useAppContext();

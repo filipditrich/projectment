@@ -8,6 +8,7 @@ import React, {
 import { Route, Switch } from "react-router-dom";
 import { Router } from "react-router";
 import { createBrowserHistory } from "history";
+import { ToastContainer } from "react-toastify";
 import { SignInCb, SignOutCb, SilentRenewCb } from "./components/Authentication";
 import { ApplicationProvider } from "./providers";
 import { DndProvider } from "react-dnd";
@@ -30,9 +31,9 @@ const preloader = (): NonNullable<ReactNode> => {
 	};
 	
 	const texts: Array<DetailedReactHTMLElement<HTMLAttributes<any>, HTMLElement>> = [
-		centeredText("Connecting to servers...", 1),
-		centeredText("Loading components...", 2),
-		centeredText("Rendering components...", 3),
+		centeredText("Načítání komponenů...", 1),
+		centeredText("Vykreslování komponentů...", 2),
+		centeredText("Spojování se servery...", 3),
 	];
 	
 	return loader(
@@ -62,27 +63,33 @@ export default class App extends Component {
 	render(): ReactNode {
 		
 		return (
-			<ApplicationProvider>
-				<Router history={ history }>
-					<React.Suspense fallback={ preloader() }>
-						<DndProvider backend={ isTouchDevice() ? TouchBackend : Backend }>
-							<Switch>
-								<Route path="/oidc-callback" component={ SignInCb } />
-								<Route path="/oidc-signout-callback" component={ SignOutCb } />
-								<Route path="/oidc-silent-renew" component={ SilentRenewCb } />
-								<Route path="/unauthorized" component={ Unauthorized } />
-								
-								<Route path="/sign-in" component={ SignIn } />
-								<Route path="/sign-out" component={ SignOut } />
-								
-								<Route path="/entry" component={ Entry } />
-								<Route path="/" component={ DefaultLayout } />
-								<Route component={ NotFound } />
-							</Switch>
-						</DndProvider>
-					</React.Suspense>
-				</Router>
-			</ApplicationProvider>
+			<>
+				{/* Toaster Container */}
+				<ToastContainer autoClose={ 7500 } />
+				
+				{/* App */}
+				<ApplicationProvider>
+					<Router history={ history }>
+						<React.Suspense fallback={ preloader() }>
+							<DndProvider backend={ isTouchDevice() ? TouchBackend : Backend }>
+								<Switch>
+									<Route path="/oidc-callback" component={ SignInCb } />
+									<Route path="/oidc-signout-callback" component={ SignOutCb } />
+									<Route path="/oidc-silent-renew" component={ SilentRenewCb } />
+									<Route path="/unauthorized" component={ Unauthorized } />
+									
+									<Route path="/sign-in" component={ SignIn } />
+									<Route path="/sign-out" component={ SignOut } />
+									
+									<Route path="/entry" component={ Entry } />
+									<Route path="/" component={ DefaultLayout } />
+									<Route component={ NotFound } />
+								</Switch>
+							</DndProvider>
+						</React.Suspense>
+					</Router>
+				</ApplicationProvider>
+			</>
 		);
 	}
 }

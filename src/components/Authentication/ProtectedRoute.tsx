@@ -8,7 +8,7 @@ import { useAppContext } from "../../providers";
  * @param rest
  * @constructor
  */
-export const ProtectedRoute = ({ children, ...rest }: { children?: ReactElement<any> | any, [key: string]: any }): ReactElement => {
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, ...rest }: ProtectedRouteProps): ReactElement => {
 
 	const [{ accessToken }] = useAppContext();
 	console.log(useAppContext());
@@ -17,5 +17,10 @@ export const ProtectedRoute = ({ children, ...rest }: { children?: ReactElement<
 		? <Route { ...rest }>{ children }</Route>
 		: <Redirect to="/unauthorized" />;
 };
+
+interface ProtectedRouteProps {
+	children?: ReactElement;
+	[key: string]: any;
+}
 
 export default ProtectedRoute;

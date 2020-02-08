@@ -3,6 +3,7 @@
 .sidebar {
   .nav-dropdown {
     &.open {
+      background: linear-gradient-theme(0.1);
       .nav-link {
         color: $sidebar-nav-link-color;
 
@@ -30,6 +31,21 @@
 }
 
 .sidebar-minimized .sidebar {
+  .nav-dropdown {
+    border-right: $border-width solid $border-color;
+
+    &.open {
+      background: linear-gradient-theme(0.9);
+
+      .nav-icon {
+        color: $white;
+      }
+
+      &:hover .nav-icon {
+          color: inherit;
+      }
+    }
+  }
   .sidebar-minimizer {
     background: $sidebar-minimizer-bg;
     @include borders($sidebar-minimizer-borders);
