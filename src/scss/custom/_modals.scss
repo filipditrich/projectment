@@ -2,20 +2,20 @@
 @import "../variables";
 
 .modal-primary {
-  @include modal($primary, linear-gradient-theme());
+  @include modal($gradient-color-1, $gradient-color-2);
 }
 .modal-secondary {
   @include modal($secondary, $white);
 }
 .modal-danger {
-  @include modal($danger, linear-gradient-style($danger-gradient-1, $danger-gradient-2));
+  @include modal($danger-gradient-1, $danger-gradient-2);
 }
 .modal-warning {
-  @include modal($warning, linear-gradient-style($warning-gradient-1, $warning-gradient-2));
+  @include modal($warning-gradient-1, $warning-gradient-2);
 }
 .modal-info {
-  @include modal($info, linear-gradient-style($info-gradient-1, $info-gradient-2));
+  @include modal($info-gradient-1, $info-gradient-2);
 }
 .modal-success {
-  @include modal($success, linear-gradient-style($success-gradient-1, $success-gradient-2));
+  @include modal($success-gradient-1, $success-gradient-2);
 }

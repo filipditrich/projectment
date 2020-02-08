@@ -55,7 +55,7 @@ export const IdeaCreate: React.FC<IdeaCreateProps> = ({ history }: IdeaCreatePro
 	
 	// footer buttons
 	const buttons = (isSubmitting: boolean) => (
-		<Button className="button button-primary button-reverse"
+		<Button className="button button-primary"
 		        type="submit"
 		        disabled={ isSubmitting }>
 			<span>{ !isSubmitting ? "Vytvořit" : "Pracuji..." }</span>

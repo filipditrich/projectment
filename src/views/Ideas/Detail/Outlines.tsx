@@ -4,7 +4,7 @@ import update from "immutability-helper";
 import { isEqual, sortBy } from "lodash";
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Card, CardBody, CardFooter, CardHeader, Col, ListGroup } from "reactstrap";
+import { Button, Card, CardBody, CardFooter, CardHeader, Col, ListGroup } from "reactstrap";
 import LoadingOverlay from "../../../components/common/LoadingOverlay";
 import { IIdeaOutline } from "../../../models/idea";
 import { DataJsonResponse } from "../../../models/response";
@@ -170,11 +170,11 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesPr
 			</CardBody>
 			{
 				isChanged ? (
-					<CardFooter>
-						<button className="button button-primary button-reverse"
+					<CardFooter className="d-flex">
+						<Button className="button button-primary ml-auto"
 						        onClick={ submitReorderingChanges }>
 							<span>Potvrdit změny</span>
-						</button>
+						</Button>
 					</CardFooter>
 				) : null
 			}

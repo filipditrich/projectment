@@ -23,60 +23,82 @@ button:focus {
   padding: 0;
 
   &[disabled] {
-    cursor: not-allowed;
-    opacity: 0.5;
+	cursor: not-allowed;
+	opacity: 0.5;
   }
 
   & > span {
-    padding: 0 2rem;
-    white-space: nowrap;
+	padding: 0 2rem;
+	white-space: nowrap;
   }
 
   &:hover {
-    text-decoration: none;
+	text-decoration: none;
   }
 
   &.button-primary {
-    @include button-style($primary, $white, $gradient-color-1, $gradient-color-2);
+	@include button-style($primary, $white, $gradient-color-1, $gradient-color-2);
   }
 
   &.button-secondary {
-    @include button-style($black, $white, rgba($white, 0.1), rgba($white, 0.1));
-    &:hover {
-      background: transparent;
-      border: 2px solid $white;
-    }
+	@include button-style($black, $black, mix($gradient-color-1, $white, 20), mix($gradient-color-2, $white, 20));
+
+	&.button-reverse, &.button-alt {
+	  span {
+		background: linear-gradient-style($gradient-color-1, $gradient-color-2);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	  }
+
+	  &:hover {
+		span {
+		  background: linear-gradient-style($gradient-color-1, $gradient-color-2);
+		  -webkit-background-clip: text;
+		  -webkit-text-fill-color: transparent;
+		}
+	  }
+	}
+
+	&.button-alt {
+	  &:hover {
+		span {
+		  background: linear-gradient-style(mix($gradient-color-1, $white, 60), mix($gradient-color-2, $white, 60));
+		  -webkit-background-clip: text;
+		  -webkit-text-fill-color: transparent;
+		}
+	  }
+	}
   }
 
   &.button-success {
-    @include button-style(
-                    $success,
-                    $white,
-                    $success-gradient-1,
-                    $success-gradient-2
-    );
+	@include button-style(
+					$success,
+					$white,
+					$success-gradient-1,
+					$success-gradient-2
+	);
   }
 
   &.button-info {
-    @include button-style($info, $white, $info-gradient-1, $info-gradient-2);
+	@include button-style($info, $white, $info-gradient-1, $info-gradient-2);
   }
 
   &.button-danger {
-    @include button-style(
-                    $danger,
-                    $white,
-                    $danger-gradient-1,
-                    $danger-gradient-2
-    );
+	@include button-style(
+					$danger,
+					$white,
+					$danger-gradient-1,
+					$danger-gradient-2
+	);
   }
 
   &.button-warning {
-    @include button-style(
-                    $warning,
-                    $white,
-                    $warning-gradient-1,
-                    $warning-gradient-2
-    );
+	@include button-style(
+					$warning,
+					$white,
+					$warning-gradient-1,
+					$warning-gradient-2
+	);
   }
 }
 
@@ -85,8 +107,8 @@ button:focus {
   flex-wrap: wrap;
 
   .button {
-    margin: 0.5rem 1rem;
-    flex-grow: 1;
+	margin: 0.5rem 1rem;
+	flex-grow: 1;
   }
 }
 
@@ -119,8 +141,8 @@ button:focus {
   padding: 0.25rem;
 
   &.circular {
-    width: 24px;
-    height: 24px;
-    border-radius: 50rem;
+	width: 24px;
+	height: 24px;
+	border-radius: 50rem;
   }
 }

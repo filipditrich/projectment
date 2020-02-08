@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Card, CardBody, CardFooter, CardHeader } from "reactstrap";
+import { Button, Card, CardBody, CardFooter, CardHeader } from "reactstrap";
 import LoadingOverlay from "../../../components/common/LoadingOverlay";
 import { loading } from "../../../misc";
 import { IIdea } from "../../../models/idea";
@@ -60,15 +60,15 @@ export const IdeaInfo: React.FC<IdeaInfoProps> = ({ id }: IdeaInfoProps) => {
 					<dd className="text-muted">{ idea?.subject }</dd>
 					<dt>Počet řešitelů</dt>
 					<dd className="text-muted">{ idea?.participants }</dd>
-					<dt>Cílové skupiny</dt>
+					<dt className="mb-1">Cílové skupiny</dt>
 					<dd><IdeaTargets setIsLoading={ setIsLoading } id={ id } /></dd>
 				</dl>
 			</CardBody>
-			<CardFooter>
-				<button className="button button-primary button-reverse"
+			<CardFooter className="d-flex">
+				<Button className="button button-primary ml-auto"
 				        onClick={ () => { setEditing(true); } }>
 					<span>Editovat</span>
-				</button>
+				</Button>
 			</CardFooter>
 		</LoadingOverlay>
 	);

@@ -107,7 +107,7 @@ export const IdeaForm: React.FC<IdeaFormProps> = ({ initialValues, validate, onS
 						{/* Form Footer */}
 						{
 							buttons ? (
-								<FormGroup className="d-flex flex-wrap justify-content-between align-items-center mb-0">
+								<FormGroup className="d-flex flex-wrap justify-content-between align-items-center mb-0 mt-5">
 									
 									{/* Buttons */}
 									<div className="form-footer-buttons">

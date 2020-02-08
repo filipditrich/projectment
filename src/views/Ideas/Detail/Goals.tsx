@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { AxiosResponse } from "axios";
 import { toast } from "react-toastify";
-import { Card, CardBody, CardFooter, CardHeader, ListGroup } from "reactstrap";
+import { Button, Card, CardBody, CardFooter, CardHeader, ListGroup } from "reactstrap";
 import LoadingOverlay from "../../../components/common/LoadingOverlay";
 import { IIdeaGoal } from "../../../models/idea";
 import { DataJsonResponse } from "../../../models/response";
@@ -163,11 +163,11 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 			</CardBody>
 			{
 				isChanged ? (
-					<CardFooter>
-						<button className="button button-primary button-reverse"
+					<CardFooter className="d-flex">
+						<Button className="button button-primary ml-auto"
 						        onClick={ submitReorderingChanges }>
 							<span>Potvrdit změny</span>
-						</button>
+						</Button>
 					</CardFooter>
 				) : null
 			}

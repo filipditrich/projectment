@@ -3,7 +3,7 @@ import { History } from "history";
 import React, { useState } from "react";
 import { withRouter, useParams } from "react-router";
 import { toast } from "react-toastify";
-import { Card, CardBody, CardDeck, Col, Row } from "reactstrap";
+import { Button, Card, CardBody, CardDeck, Col, Row } from "reactstrap";
 import { Modal } from "../../components";
 import { useAppContext } from "../../providers";
 import { Axios, isStatusOk } from "../../utils";
@@ -42,9 +42,9 @@ export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailPro
 					{/* Actions */ }
 					<Card>
 						<CardBody className="d-flex">
-							<button className="button button-danger button-reverse ml-auto" onClick={ () => { setShowDelete(true); } }>
+							<Button className="button button-danger ml-auto" onClick={ () => { setShowDelete(true); } }>
 								<span>Smazání</span>
-							</button>
+							</Button>
 						</CardBody>
 					</Card>
 				</Col>
@@ -58,7 +58,7 @@ export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailPro
 				className="modal-danger"
 				actions={
 					<>
-						<button
+						<Button
 							onClick={
 								() => {
 									(async () => {
@@ -80,17 +80,17 @@ export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailPro
 									})();
 								}
 							}
-							className="button button-danger button-reverse"
+							className="button button-danger"
 							disabled={ isDeleting }>
 							<span>{ !isDeleting ? "Odstranit" : "Pracuji..." }</span>
-						</button>
-						<button
+						</Button>
+						<Button
 							onClick={ () => {
 								setShowDelete(false);
 							} }
-							className="button button-danger">
+							className="button button-danger button-alt">
 							<span>Zavřít</span>
-						</button>
+						</Button>
 					</>
 				}
 			>

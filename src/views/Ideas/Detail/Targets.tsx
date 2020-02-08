@@ -91,7 +91,7 @@ export const IdeaTargets: React.FC<IdeaTargetsProps> = ({ id, setIsLoading }: Id
 		<>
 			<TargetBadges targets={
 				allTargets.map((target: IIdeaTarget): TargetBadgesTarget => {
-					return { ...target, inactive: !isTargetUsed(target), classes: "cursor-pointer" };
+					return { ...target, inactive: !isTargetUsed(target), classes: "cursor-pointer p-1" };
 				})
 			}
 			              onClick={ onClick } />
@@ -102,15 +102,15 @@ export const IdeaTargets: React.FC<IdeaTargetsProps> = ({ id, setIsLoading }: Id
 						onDismiss={ closeModal }
 						actions={
 							<>
+								<Button className="button button-primary button-alt"
+								        onClick={ closeModal }
+								        type="submit">
+									<span>Zrušit</span>
+								</Button>
 								<Button className="button button-primary"
 								        onClick={ () => { toggleTarget(modal.target as TargetBadgesTarget); } }
 								        type="submit">
 									<span>{ modal.target?.inactive ? "Aktivovat" : "Deaktivovat" }</span>
-								</Button>
-								<Button className="button button-secondary"
-								        onClick={ closeModal }
-								        type="submit">
-									<span>Zrušit</span>
 								</Button>
 							</>
 						}

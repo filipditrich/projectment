@@ -64,17 +64,17 @@ export const IdeaEditor: React.FC<IdeaEditorProps> = ({ idea, setEditing}: IdeaE
 					onSubmit={ onSubmit }
 				/>
 			</CardBody>
-			<CardFooter>
-				<Button className="button button-primary button-reverse mr-3"
+			<CardFooter className="d-flex">
+				<Button className="button button-primary button-alt ml-auto"
+				        onClick={ () => { setEditing(false); } }
+				        disabled={ isSubmitting }>
+					<span>Zrušit</span>
+				</Button>
+				<Button className="button button-primary ml-3"
 				        type="submit"
 				        form="idea-edit-form"
 				        disabled={ isSubmitting }>
 					<span>{ !isSubmitting ? "Uložit" : "Pracuji..." }</span>
-				</Button>
-				<Button className="button button-primary"
-				        onClick={ () => { setEditing(false); } }
-				        disabled={ isSubmitting }>
-					<span>Zrušit</span>
 				</Button>
 			</CardFooter>
 		</LoadingOverlay>

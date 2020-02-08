@@ -1,53 +1,134 @@
-@import './functions';
+@import "./variables";
+@import "./functions";
 
 @mixin button-style($color-1, $color-2, $gradient-1, $gradient-2) {
-  color: $color-1;
-  background-image: linear-gradient(white, white), radial-gradient-style($gradient-1, $gradient-2);
   background-origin: border-box;
   background-clip: content-box, border-box;
-
-  &.button-reverse {
-    background-image: linear-gradient-style($gradient-1, $gradient-2), radial-gradient-style($gradient-1, $gradient-2);
-    border: 2px solid transparent;
-    color: $color-2;
-  }
+  background-image: linear-gradient-style($gradient-1, $gradient-2), radial-gradient-style($gradient-1, $gradient-2);
+  border: 2px solid transparent;
+  color: $color-2;
 
   &:hover {
-    background-image: linear-gradient-style($gradient-1, $gradient-2), radial-gradient-style($gradient-1, $gradient-2);
-    color: $color-2;
-    box-shadow: 0 10px 30px rgba(darken($color-1, 20), 0.2);
-    border: 2px solid transparent;
+	box-shadow: 0 10px 50px rgba(darken($color-1, 15), 0.2);
+	background-image: linear-gradient-style(darken($gradient-1, 5), darken($gradient-2, 5)), radial-gradient-style(darken($gradient-1, 5), darken($gradient-2, 5));
+  }
 
-    &.button-reverse {
-      background-image: linear-gradient(white, white), radial-gradient-style($gradient-1, $gradient-2);
-      color: $color-1;
-    }
+  &:not(.button-alt) {
+	&:focus {
+	  box-shadow: 0 0 0 0.2rem rgba($gradient-1, 0.2) !important;
+	}
+
+	&:active {
+	  box-shadow: 0 0 0 0.2rem rgba($gradient-1, 0.3) !important;
+	  color: mix($color-2, $gradient-1, 85%) !important;
+	  border-color: transparent !important;
+	  background-image: linear-gradient-style(darken($gradient-1, 10), darken($gradient-2, 10)), radial-gradient-style(darken($gradient-1, 10), darken($gradient-2, 10));
+	}
+  }
+
+  &.button-reverse {
+	color: $color-1;
+	background-image: linear-gradient(white, white), radial-gradient-style($gradient-1, $gradient-2);
+
+	span {
+	  background: linear-gradient-style($gradient-1, $gradient-2);
+	  -webkit-background-clip: text;
+	  -webkit-text-fill-color: transparent;
+	}
+
+	&:hover {
+	  background-image: linear-gradient(white, white), radial-gradient-style(darken($gradient-1, 10), darken($gradient-2, 10));
+
+	  span {
+		background: linear-gradient-style(darken($gradient-1, 10), darken($gradient-2, 10));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	  }
+	}
+  }
+
+  &.button-alt {
+	background: transparent;
+
+	span {
+	  background: linear-gradient-style($gradient-1, $gradient-2);
+	  -webkit-background-clip: text;
+	  -webkit-text-fill-color: transparent;
+	  padding: 0;
+	  margin: 0 2rem;
+	}
+
+	&:hover {
+	  box-shadow: none;
+	  background: transparent;
+
+	  span {
+		background: linear-gradient-style(darken($gradient-1, 10), darken($gradient-2, 10));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	  }
+	}
+
+	&:focus {
+	  box-shadow: none !important;
+
+	  span {
+		background: linear-gradient-style(darken($gradient-1, 10), darken($gradient-2, 10));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	  }
+	}
+
+	&:active {
+	  background-color: transparent !important;
+	  border-color: transparent !important;
+
+	  span {
+		background: linear-gradient-style(darken($gradient-1, 20), darken($gradient-2, 20));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	  }
+	}
   }
 }
 
-@mixin modal($border, $background) {
+@mixin modal($gradient-1, $gradient-2) {
   .modal-content {
-    border-color: $border;
+	border-color: transparent;
+	background-origin: border-box;
+	background-clip: content-box, border-box;
+	background-image: linear-gradient(white, white), radial-gradient-style($gradient-1, $gradient-2);
   }
 
   .modal-header {
-    border-radius: $border-radius $border-radius 0 0;
-    background: $background;
+	border-radius: $border-radius $border-radius 0 0;
+	background: linear-gradient-style($gradient-1, $gradient-2);
 
-    .close {
-      color: $white;
-    }
+	.close {
+	  color: $white;
+	}
   }
 
   .modal-footer {
-    border-color: rgba($border, 0.25);
+	border-color: transparent;
+	background-origin: border-box;
+	background-clip: content-box, border-box;
+	background-image: linear-gradient(white, white), radial-gradient-style(mix($gradient-1, $white, 15%), mix($gradient-2, $white, 15%));
+	padding: 0;
+
+	& > .inner {
+	  padding: 1rem
+	}
   }
 
   .modal-body {
-    padding: 1.5rem 1rem;
+	padding: 1.5rem 1rem;
 
-    p {
-      margin: 0;
-    }
+	p {
+	  margin: 0;
+	  background: linear-gradient-style($gradient-1, $gradient-2);
+	  -webkit-background-clip: text;
+	  -webkit-text-fill-color: transparent;
+	}
   }
 }

@@ -44,7 +44,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onDismiss, actions, childr
 				<ModalBody>
 					{ children }
 				</ModalBody>
-				{ actions ? <ModalFooter>{ actions }</ModalFooter> : "" }
+				{ actions ? <ModalFooter><div className="inner">{ actions }</div></ModalFooter> : "" }
 			</ReactstrapModal>
 		</div>
 	);
