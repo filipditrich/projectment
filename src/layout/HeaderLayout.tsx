@@ -1,5 +1,6 @@
 import { Profile, UserManager } from "oidc-client";
 import React, { ReactElement } from "react";
+import { withRouter } from "react-router";
 import { UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, Badge } from "reactstrap";
 import {
 	AppSidebarToggler,
@@ -10,12 +11,13 @@ import {
 import { Application } from "../config";
 import { useAppContext } from "../providers";
 import importLogo from "../utils/logo";
+import { History } from "history";
 
 /**
  * Main Header Layout
  * @author filipditrich
  */
-const HeaderLayout = (): ReactElement => {
+const HeaderLayout = ({ history }: { history: History }): ReactElement => {
 	
 	const [ { accessToken, idToken, userManager, profile } ]:
 		[ { accessToken: string, idToken: string, userManager: UserManager, profile: Profile } ] = useAppContext();
@@ -44,6 +46,15 @@ const HeaderLayout = (): ReactElement => {
 			
 			<Nav className="flex-grow-1" navbar>
 				
+				{
+					history.location.pathname !== "/home" ? (
+						<button
+							className="reset-button cursor-pointer p-3"
+							onClick={ () => history.goBack() }>
+							<i className="icon-arrow-left"/>
+						</button>
+					) : null
+				}
 				<div className="ml-auto" />
 				
 				<UncontrolledDropdown nav direction="down" className="ml-3">
@@ -74,5 +85,4 @@ const HeaderLayout = (): ReactElement => {
 		</React.Fragment>
 	);
 };
-
-export default HeaderLayout;
+export default withRouter(HeaderLayout);
