@@ -34,20 +34,20 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesPr
 				
 				if (isStatusOk(res)) {
 					// TODO: de-fake
-					// setList(res.data);
-					setList([
-						{ ideaId: 1, order: 1, text: "Write a cool JS library" },
-						{ ideaId: 1, order: 2, text: "Make it generic enough" },
-						{ ideaId: 1, order: 3, text: "Write README" },
-						{ ideaId: 1, order: 4, text: "Create some examples" },
-						{
-							ideaId: 1,
-							order: 5,
-							text: "Spam in Twitter and IRC to promote it (note that this element is taller than the others)"
-						},
-						{ ideaId: 1, order: 6, text: "???" },
-						{ ideaId: 1, order: 7, text: "PROFIT" },
-					]);
+					setList(res.data);
+					// setList([
+					// 	{ ideaId: 1, order: 1, text: "Write a cool JS library" },
+					// 	{ ideaId: 1, order: 2, text: "Make it generic enough" },
+					// 	{ ideaId: 1, order: 3, text: "Write README" },
+					// 	{ ideaId: 1, order: 4, text: "Create some examples" },
+					// 	{
+					// 		ideaId: 1,
+					// 		order: 5,
+					// 		text: "Spam in Twitter and IRC to promote it (note that this element is taller than the others)"
+					// 	},
+					// 	{ ideaId: 1, order: 6, text: "???" },
+					// 	{ ideaId: 1, order: 7, text: "PROFIT" },
+					// ]);
 				} else throw responseFail(res);
 			} catch (error) {
 				toast.error(responseError(error).message);
@@ -78,12 +78,13 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesPr
 	const addOutline = useCallback(() => {
 		// TODO: de-fake
 		setList([ ...list, { ideaId: 1, order: list.length + 1, text: `Bod osnovy ${list.length + 1}`, isEditing: true } ]);
+		// TODO: returning an error from db (cannot insert NULL)
 		// (async () => {
 		// 	try {
 		//      setIsLoading(true);
 		// 		const res: AxiosResponse<DataJsonResponse<any>> = await Axios(accessToken)
 		// 			.post<DataJsonResponse<any>>(`/ideas/${ id }/outlines`, {
-		//				id, goalText: `Bod osnovy ${list.length + 1}`
+		// 				outlineText: { Text: `Bod osnovy ${list.length + 1}` }
 		// 			});
 		//
 		// 		if (isStatusOk(res)) {

@@ -48,6 +48,7 @@ export const IdeaList: React.FC = () => {
 					setTargets(res.data.data);
 				} else throw responseFail(res);
 			} catch (error) {
+				console.log(error.response);
 				toast.error(responseError(error).message);
 			} finally {
 				setIsLoading(false);

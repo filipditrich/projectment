@@ -34,13 +34,13 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 				
 				if (isStatusOk(res)) {
 					// TODO: de-fake
-					// setList(res.data);
-					setList([
-						{ ideaId: 1, order: 1, text: "JS Library" },
-						{ ideaId: 1, order: 2, text: "TypeScript Definitions" },
-						{ ideaId: 1, order: 3, text: "README" },
-						{ ideaId: 1, order: 4, text: "Documentation" },
-					]);
+					setList(res.data);
+					// setList([
+					// 	{ ideaId: 1, order: 1, text: "JS Library" },
+					// 	{ ideaId: 1, order: 2, text: "TypeScript Definitions" },
+					// 	{ ideaId: 1, order: 3, text: "README" },
+					// 	{ ideaId: 1, order: 4, text: "Documentation" },
+					// ]);
 				} else throw responseFail(res);
 			} catch (error) {
 				toast.error(responseError(error).message);
@@ -70,16 +70,18 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 	// add goal hook
 	const addGoal = useCallback(() => {
 		// TODO: de-fake
-		setList([ ...list, { ideaId: 1, order: list.length + 1, text: `Cíl číslo ${list.length + 1}`, isEditing: true } ]);
+		setList([ ...list, { ideaId: id, order: list.length + 1, text: `Cíl číslo ${list.length + 1}`, isEditing: true } ]);
+		// TODO: returning an error from db (cannot insert NULL)
 		// (async () => {
 		// 	try {
 		//      setIsLoading(true);
 		// 		const res: AxiosResponse<DataJsonResponse<any>> = await Axios(accessToken)
 		// 			.post<DataJsonResponse<any>>(`/ideas/${ id }/goals`, {
-		//				id, goalText: `Cíl číslo ${list.length + 1}`
+		// 				goalText: { Text: `Cíl číslo ${list.length + 1}` }
 		// 			});
 		//
 		// 		if (isStatusOk(res)) {
+		// 			console.log(res);
 		// 			toast.success("Cíl byl úspěšně vytvořen.");
 		// 		} else throw responseFail(res);
 		// 	} catch (error) {

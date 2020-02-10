@@ -2,6 +2,9 @@
 @import "../variables";
 
 .badge-container {
+  display: flex;
+  flex-wrap: wrap;
+
   & > *:not(:last-of-type) {
     margin-right: 0.25rem;
   }

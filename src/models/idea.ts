@@ -14,7 +14,7 @@ export interface IIdeaInit {
  * Full Idea Interface
  */
 export interface IIdea extends IIdeaInit {
-	id: number;
+	id: number | string;
 	userId: string;
 	userFirstName: string;
 	userLastName: string;
@@ -46,7 +46,7 @@ export interface IIdeaTarget {
  * Idea Goal Interface
  */
 export interface IIdeaGoal {
-	ideaId: number;
+	ideaId: number | string;
 	order: number;
 	text: string;
 }

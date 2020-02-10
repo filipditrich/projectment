@@ -2,6 +2,7 @@ import { XYCoord } from "dnd-core";
 import React, { CSSProperties, useRef, useState } from "react";
 import { DragObjectWithType, DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 import { Badge, Button, Input, ListGroupItem, ListGroupItemText } from "reactstrap";
+import ConfirmationWrapper from "../../../components/common/ConfirmationWrapper";
 import { IIdeaGoalList } from "./Goals";
 
 /**
@@ -115,11 +116,23 @@ export const IdeaListItem: React.FC<IdeaListItemProps> = ({ listItem, index, acc
 						)
 					}
 				</div>
-				<Button className="button-icon circular ml-3"
-				        color="danger"
-				        onClick={ () => { removeItem(listItem.ideaId, listItem.order); } }>
-					<i className="icon-trash" />
-				</Button>
+				<ConfirmationWrapper
+					onPositive={
+						async (sdo) => {
+							await removeItem(listItem.ideaId, listItem.order);
+							sdo(false);
+						}
+					}
+					orderSwap={ true }
+					positiveText="Odstranit"
+					dialogTitle="Odstranění položky"
+					dialogContent="Opravdu si přejete tuto položku odstranit?"
+					type="danger">
+					<Button className="button-icon circular ml-3"
+					        color="danger">
+						<i className="icon-trash" />
+					</Button>
+				</ConfirmationWrapper>
 			</div>
 		</li>
 	);

@@ -29,7 +29,7 @@ export const IdeaInfo: React.FC<IdeaInfoProps> = ({ id }: IdeaInfoProps) => {
 					.get<DataJsonResponse<IIdea>>("/ideas/" + id);
 				
 				if (isStatusOk(res)) {
-					setIdea(res.data);
+					setIdea({ ...res.data, id });
 				} else throw responseFail(res);
 			} catch (error) {
 				toast.error(responseError(error).message);
@@ -51,7 +51,7 @@ export const IdeaInfo: React.FC<IdeaInfoProps> = ({ id }: IdeaInfoProps) => {
 					<dt>Popis</dt>
 					<dd className="text-muted">{ idea?.description }</dd>
 					<dt>Id</dt>
-					<dd className="text-muted">{ id }</dd>
+					<dd className="text-muted">{ idea?.id }</dd>
 					<dt>Nabízené</dt>
 					<dd className="text-muted">{ idea?.offered ? "Ano" : "Ne" }</dd>
 					<dt>Prostředky</dt>
