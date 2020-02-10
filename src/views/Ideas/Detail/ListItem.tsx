@@ -120,7 +120,6 @@ export const IdeaListItem: React.FC<IdeaListItemProps> = ({ listItem, index, acc
 					onPositive={
 						async (sdo) => {
 							await removeItem(listItem.ideaId, listItem.order);
-							sdo(false);
 						}
 					}
 					orderSwap={ true }

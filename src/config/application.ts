@@ -14,4 +14,4 @@ const config = (prod?: boolean) => {
 	};
 };
 
-export default config(true);
+export default config(false);

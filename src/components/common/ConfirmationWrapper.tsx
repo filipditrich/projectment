@@ -1,7 +1,7 @@
 import React, {
 	Dispatch, ReactElement,
 	ReactNode,
-	SetStateAction,
+	SetStateAction, useEffect,
 	useState
 } from "react";
 import { Button } from "reactstrap";
@@ -27,19 +27,22 @@ export const ConfirmationWrapper: React.FC<ConfirmationWrapperProps> = ({ onNega
 	trigger = trigger || "onClick";
 	positiveText = positiveText || "Pokračovat";
 	negativeText = negativeText || "Zrušit";
-	dialogContent = typeof dialogContent === "string" ? <p>{ dialogContent }</p> : dialogContent || <p>Opravdu si přejete pokračovat?</p>;
+	dialogContent = typeof dialogContent === "string" ? <p>{ dialogContent }</p> : dialogContent ||
+		<p>Opravdu si přejete pokračovat?</p>;
 	dialogTitle = dialogTitle || "Potvrzení akce";
 	const onNegativeAction: (sdo: Dispatch<SetStateAction<boolean>>) => void = onNegative
-		? (async(sdo) => {
-			setIsWorking(true); await onNegative(sdo); setIsWorking(false);
-		}) : () => setDialogOpen(false);
-	const onPositiveAction: (sdo: Dispatch<SetStateAction<boolean>>) => void = (async(sdo) => {
-		setIsWorking(true); await onPositive(sdo); setIsWorking(false);
+		? (async (sdo) => {
+			setIsWorking(true);
+			await onNegative(sdo);
+		}) : async () => setDialogOpen(false);
+	const onPositiveAction: (sdo: Dispatch<SetStateAction<boolean>>) => void = (async (sdo) => {
+		setIsWorking(true);
+		await onPositive(sdo);
 	});
 	
 	return (
 		<>
-			{/* Children Wrapper */}
+			{/* Children Wrapper */ }
 			<div
 				className={ className }
 				onClick={ () => trigger === "onClick" ? setDialogOpen(true) : null }
@@ -47,25 +50,25 @@ export const ConfirmationWrapper: React.FC<ConfirmationWrapperProps> = ({ onNega
 				{ children }
 			</div>
 			
-			{/* Confirmation Modal */}
+			{/* Confirmation Modal */ }
 			<Modal
 				isOpen={ dialogOpen }
 				onDismiss={ () => setDialogOpen(false) }
-				className={ `modal-${type}` }
+				className={ `modal-${ type }` }
 				title={ dialogTitle }
 				actions={
 					<>
 						<Button
-							className={ `button button-${type} button-alt` }
+							className={ `button button-${ type } button-alt` }
 							disabled={ isWorking }
-							onClick={ () => onNegativeAction(setDialogOpen) }>
+							onClick={ async () => await onNegativeAction(setDialogOpen) }>
 							<span>{ negativeText }</span>
 						</Button>
 						<Button
-							className={ `button button-${type}` }
-							style={{ order: orderSwap ? -1 : 0 }}
+							className={ `button button-${ type }` }
+							style={ { order: orderSwap ? -1 : 0 } }
 							disabled={ isWorking }
-							onClick={ () => onPositiveAction(setDialogOpen) }>
+							onClick={ async () => await onPositiveAction(setDialogOpen) }>
 							<span>{ positiveText }</span>
 						</Button>
 					</>
