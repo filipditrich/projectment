@@ -44,11 +44,10 @@ export const IdeaCreate: React.FC<IdeaCreateProps> = ({ history }: IdeaCreatePro
 			
 			if (isStatusOk(res)) {
 				toast.success("Námět byl úspěšně vytvořen.");
-				history.push("/ideas/list/" + res.data.id);
+				history.push("/ideas/detail/" + res.data.id);
 			} else throw responseFail(res);
 		} catch (error) {
 			toast.error(responseError(error).message);
-		} finally {
 			setSubmitting(false);
 		}
 	};

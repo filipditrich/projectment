@@ -6,10 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="b5726637-2915-46d8-85ce-db261ec60771" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Authentication/SignInCb.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authentication/SignInCb.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/common/ConfirmationWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/ConfirmationWrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/application.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/application.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scss/_themes.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/_themes.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Create.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/ListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/ListItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/Targets.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Targets.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +110,7 @@
       <workItem from="1579507723975" duration="97000" />
       <workItem from="1579507848628" duration="3781000" />
       <workItem from="1580471426363" duration="35119000" />
-      <workItem from="1580777323318" duration="115056000" />
+      <workItem from="1580777323318" duration="119136000" />
     </task>
     <servers />
   </component>
@@ -147,21 +149,21 @@
     </state>
     <state x="426" y="319" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.800@0.0.1280.800" timestamp="1580736665559" />
     <state x="426" y="319" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1280.740@0.23.1280.740" timestamp="1581101934847" />
-    <state x="301" y="-721" width="828" height="546" key="find.popup" timestamp="1581357876586">
+    <state x="301" y="-721" width="828" height="546" key="find.popup" timestamp="1581364226845">
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
     <state x="300" y="159" width="828" height="546" key="find.popup/0.0.1280.800@0.0.1280.800" timestamp="1581102507711" />
-    <state x="301" y="-721" width="828" height="546" key="find.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1581357876586" />
+    <state x="301" y="-721" width="828" height="546" key="find.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1581364226845" />
     <state x="301" y="-721" width="828" height="546" key="find.popup/0.23.1680.1027/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580486582108" />
     <state width="600" height="440" key="javadoc.popup" timestamp="1581010676175">
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
     <state width="600" height="440" key="javadoc.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1581010676175" />
-    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup" timestamp="1581359594066">
+    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup" timestamp="1581364135169">
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
     <state x="305" y="124" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1581102521065" />
-    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1581359594066" />
+    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1581364135169" />
     <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.23.1680.1027/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580486402026" />
   </component>
 </project>

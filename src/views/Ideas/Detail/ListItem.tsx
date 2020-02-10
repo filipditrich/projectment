@@ -1,7 +1,7 @@
 import { XYCoord } from "dnd-core";
-import React, { CSSProperties, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { DragObjectWithType, DropTargetMonitor, useDrag, useDrop } from "react-dnd";
-import { Badge, Button, Input, ListGroupItem, ListGroupItemText } from "reactstrap";
+import { Badge, Button, Input, ListGroupItemText } from "reactstrap";
 import ConfirmationWrapper from "../../../components/common/ConfirmationWrapper";
 import { IIdeaGoalList } from "./Goals";
 
@@ -118,7 +118,7 @@ export const IdeaListItem: React.FC<IdeaListItemProps> = ({ listItem, index, acc
 				</div>
 				<ConfirmationWrapper
 					onPositive={
-						async (sdo) => {
+						async () => {
 							await removeItem(listItem.ideaId, listItem.order);
 						}
 					}

@@ -1,7 +1,7 @@
 import React, {
-	Dispatch, ReactElement,
-	ReactNode,
-	SetStateAction, useEffect,
+	Dispatch,
+	ReactElement,
+	SetStateAction,
 	useState
 } from "react";
 import { Button } from "reactstrap";
@@ -30,15 +30,10 @@ export const ConfirmationWrapper: React.FC<ConfirmationWrapperProps> = ({ onNega
 	dialogContent = typeof dialogContent === "string" ? <p>{ dialogContent }</p> : dialogContent ||
 		<p>Opravdu si přejete pokračovat?</p>;
 	dialogTitle = dialogTitle || "Potvrzení akce";
-	const onNegativeAction: (sdo: Dispatch<SetStateAction<boolean>>) => void = onNegative
-		? (async (sdo) => {
-			setIsWorking(true);
-			await onNegative(sdo);
-		}) : async () => setDialogOpen(false);
-	const onPositiveAction: (sdo: Dispatch<SetStateAction<boolean>>) => void = (async (sdo) => {
-		setIsWorking(true);
-		await onPositive(sdo);
-	});
+	const onNegativeAction: onCallback = onNegative
+		? (async (sdo, siw) => onNegative(sdo, siw))
+		: (async () => { setDialogOpen(false); setIsWorking(false); });
+	const onPositiveAction: onCallback = (async (sdo, siw) => onPositive(sdo, siw));
 	
 	return (
 		<>
@@ -61,14 +56,14 @@ export const ConfirmationWrapper: React.FC<ConfirmationWrapperProps> = ({ onNega
 						<Button
 							className={ `button button-${ type } button-alt` }
 							disabled={ isWorking }
-							onClick={ async () => await onNegativeAction(setDialogOpen) }>
+							onClick={ async () => await onNegativeAction(setDialogOpen, setIsWorking) }>
 							<span>{ negativeText }</span>
 						</Button>
 						<Button
 							className={ `button button-${ type }` }
 							style={ { order: orderSwap ? -1 : 0 } }
 							disabled={ isWorking }
-							onClick={ async () => await onPositiveAction(setDialogOpen) }>
+							onClick={ async () => await onPositiveAction(setDialogOpen, setIsWorking) }>
 							<span>{ positiveText }</span>
 						</Button>
 					</>
@@ -79,10 +74,11 @@ export const ConfirmationWrapper: React.FC<ConfirmationWrapperProps> = ({ onNega
 	);
 };
 
+type onCallback = (setDialogOpen: Dispatch<SetStateAction<boolean>>, setIsWorking: Dispatch<SetStateAction<boolean>>) => Promise<any | void> | void;
 export interface ConfirmationWrapperProps {
-	onPositive: (setDialogOpen: Dispatch<SetStateAction<boolean>>) => Promise<any | void> | void;
+	onPositive: onCallback;
 	positiveText?: string;
-	onNegative?: (setDialogOpen: Dispatch<SetStateAction<boolean>>) => Promise<any | void> | void;
+	onNegative?: onCallback;
 	negativeText?: string;
 	orderSwap?: boolean;
 	dialogContent?: ReactElement | string;

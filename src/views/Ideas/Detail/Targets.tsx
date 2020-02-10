@@ -62,7 +62,7 @@ export const IdeaTargets: React.FC<IdeaTargetsProps> = ({ id, setIsLoading }: Id
 				: await Axios(accessToken).delete(`/ideas/${ id }/targets/${ target.id }`);
 			
 			if (isStatusOk(res)) {
-				toast.success("Cíle námětu byly úspěšně aktualizovány.");
+				toast.success("Cílové skupiny námětu byly úspěšně aktualizovány.");
 				fetchTargets();
 			} else throw responseFail(res);
 		} catch (error) {
@@ -83,9 +83,10 @@ export const IdeaTargets: React.FC<IdeaTargetsProps> = ({ id, setIsLoading }: Id
 						<ConfirmationWrapper
 							key={ index }
 							onPositive={
-								async (setDialogOpen) => {
+								async (setDialogOpen, setIsWorking) => {
 									await toggleTarget(target);
 									setDialogOpen(false);
+									setIsWorking(false);
 								}
 							}
 							positiveText={ target.inactive ? "Aktivovat" : "Deaktivovat" }

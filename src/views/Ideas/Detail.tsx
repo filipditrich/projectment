@@ -1,10 +1,9 @@
 import { AxiosResponse } from "axios";
 import { History } from "history";
-import React, { useState } from "react";
+import React from "react";
 import { withRouter, useParams } from "react-router";
 import { toast } from "react-toastify";
 import { Button, Card, CardBody, CardDeck, Col, Row } from "reactstrap";
-import { Modal } from "../../components";
 import ConfirmationWrapper from "../../components/common/ConfirmationWrapper";
 import { useAppContext } from "../../providers";
 import { Axios, isStatusOk } from "../../utils";
@@ -54,7 +53,6 @@ export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailPro
 										} else throw responseFail(res);
 									} catch (error) {
 										toast.error(responseError(error).message);
-									} finally {
 										sdo(false);
 									}
 								}
