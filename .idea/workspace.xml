@@ -6,12 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="b5726637-2915-46d8-85ce-db261ec60771" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Authentication/SignInCb.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authentication/SignInCb.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/common/ConfirmationWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/ConfirmationWrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Create.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/idea.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/idea.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scss/custom/_badges.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/custom/_badges.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/axios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/axios.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/Goals.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Goals.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/ListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/ListItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/Targets.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Targets.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/Outlines.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Outlines.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +115,12 @@
       <workItem from="1579507723975" duration="97000" />
       <workItem from="1579507848628" duration="3781000" />
       <workItem from="1580471426363" duration="35119000" />
-      <workItem from="1580777323318" duration="119136000" />
+      <workItem from="1580777323318" duration="132731000" />
+      <workItem from="1581685835928" duration="117000" />
+      <workItem from="1581864217602" duration="1857000" />
+      <workItem from="1582023050097" duration="603000" />
+      <workItem from="1582113401505" duration="1798000" />
+      <workItem from="1582791077268" duration="10689000" />
     </task>
     <servers />
   </component>
@@ -135,35 +145,35 @@
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
     <state x="506" y="-817" key="RollbackChangesDialog/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1581015198417" />
-    <state x="122" y="-856" key="SettingsEditor" timestamp="1581169882449">
-      <screen x="-37" y="-900" width="1440" height="900" />
+    <state x="141" y="39" key="SettingsEditor" timestamp="1582801141913">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state x="141" y="39" key="SettingsEditor/0.0.1280.800@0.0.1280.800" timestamp="1580737418517" />
+    <state x="141" y="39" key="SettingsEditor/0.0.1280.800@0.0.1280.800" timestamp="1582801141913" />
     <state x="122" y="-856" key="SettingsEditor/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1581169882449" />
     <state x="352" y="-804" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1580474409316">
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
     <state x="352" y="-804" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580474409316" />
-    <state x="426" y="319" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1581101934847">
-      <screen x="0" y="23" width="1280" height="740" />
+    <state x="426" y="319" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582801189822">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state x="426" y="319" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.800@0.0.1280.800" timestamp="1580736665559" />
+    <state x="426" y="319" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.800@0.0.1280.800" timestamp="1582801189822" />
     <state x="426" y="319" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1280.740@0.23.1280.740" timestamp="1581101934847" />
-    <state x="301" y="-721" width="828" height="546" key="find.popup" timestamp="1581364226845">
-      <screen x="-37" y="-900" width="1440" height="900" />
+    <state x="300" y="159" width="828" height="546" key="find.popup" timestamp="1582802367215">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state x="300" y="159" width="828" height="546" key="find.popup/0.0.1280.800@0.0.1280.800" timestamp="1581102507711" />
-    <state x="301" y="-721" width="828" height="546" key="find.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1581364226845" />
+    <state x="300" y="159" width="828" height="546" key="find.popup/0.0.1280.800@0.0.1280.800" timestamp="1582802367215" />
+    <state x="301" y="-721" width="828" height="546" key="find.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1581864804450" />
     <state x="301" y="-721" width="828" height="546" key="find.popup/0.23.1680.1027/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580486582108" />
     <state width="600" height="440" key="javadoc.popup" timestamp="1581010676175">
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
     <state width="600" height="440" key="javadoc.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1581010676175" />
-    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup" timestamp="1581364135169">
-      <screen x="-37" y="-900" width="1440" height="900" />
+    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup" timestamp="1582802457886">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1581102521065" />
-    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1581364135169" />
+    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1582802457886" />
+    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1581366329391" />
     <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.23.1680.1027/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580486402026" />
   </component>
 </project>

@@ -118,8 +118,11 @@ export const IdeaListItem: React.FC<IdeaListItemProps> = ({ listItem, index, acc
 				</div>
 				<ConfirmationWrapper
 					onPositive={
-						async () => {
+						async (setDialogOpen, setIsWorking) => {
+							setIsWorking(true);
 							await removeItem(listItem.ideaId, listItem.order);
+							setIsWorking(false);
+							setDialogOpen(false);
 						}
 					}
 					orderSwap={ true }

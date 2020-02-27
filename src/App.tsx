@@ -9,7 +9,9 @@ import { Route, Switch } from "react-router-dom";
 import { Router } from "react-router";
 import { createBrowserHistory } from "history";
 import { ToastContainer } from "react-toastify";
+import { Button } from "reactstrap";
 import { SignInCb, SignOutCb, SilentRenewCb } from "./components/Authentication";
+import Modal from "./components/common/Modal";
 import { ApplicationProvider } from "./providers";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
@@ -18,6 +20,10 @@ import { loader } from "./misc";
 import TextLoop from "react-text-loop";
 import "./App.scss";
 import { isTouchDevice } from "./utils/helpers";
+import {
+	Offline,
+	// @ts-ignore
+} from "react-detect-offline";
 
 // screen preloader
 const preloader = (): NonNullable<ReactNode> => {
@@ -64,10 +70,31 @@ export default class App extends Component {
 		
 		return (
 			<>
-				{/* Toaster Container */}
+				{/* Toaster Container */ }
 				<ToastContainer autoClose={ 7500 } />
 				
-				{/* App */}
+				<Offline>
+					<Modal
+						isOpen={ true }
+						onDismiss={ () => {} }
+						buttonLabel=" "
+						className="modal-warning"
+						title="Jste offline"
+						actions={
+							<>
+								<Button
+									className="button button-warning"
+									disabled={ false }
+									onClick={ () => window.location.reload() }>
+									<span>Načíst znovu</span>
+								</Button>
+							</>
+						}>
+						<p>Momentálně jste bez připojení k internetu.</p>
+					</Modal>
+				</Offline>
+				
+				{/* App */ }
 				<ApplicationProvider>
 					<Router history={ history }>
 						<React.Suspense fallback={ preloader() }>

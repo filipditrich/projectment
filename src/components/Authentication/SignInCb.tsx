@@ -30,25 +30,26 @@ export const SignInCb: React.FC<any> = ({ history }: { history: History }): Reac
 				
 				// get user
 				setMessage("Ověřování existence uživatele...");
-				const userRes: AxiosResponse = await Axios(accessToken).get("/users/" + uid);
-				
-				if (isStatusOk(userRes)) {
-					// update user
-					setMessage("Aktualizace uživatelského záznamu...");
-					const updateUserRes = await Axios(accessToken).put("/users/" + uid, {
-						Id: uid,
-						FirstName: profile.given_name,
-						LastName: profile.family_name,
-						Gender: (profile.gender === "male") ? 0 : 1,
-						Email: profile.email,
-						CanBeAuthor: !!(profile.theses_author),
-						CanBeEvaluator: !!(profile.theses_evaluator)
-					});
-					
-					if (isStatusOk(updateUserRes)) {
-						setOk(true);
-					} else throw new Error("Došlo k chybě při aktualizaci uživatelského záznamu.");
-				} else {
+				try {
+					const userRes: AxiosResponse = await Axios(accessToken).get("/users/" + uid);
+					if (isStatusOk(userRes)) {
+						// update user
+						setMessage("Aktualizace uživatelského záznamu...");
+						const updateUserRes = await Axios(accessToken).put("/users/" + uid, {
+							Id: uid,
+							FirstName: profile.given_name,
+							LastName: profile.family_name,
+							Gender: (profile.gender === "male") ? 0 : 1,
+							Email: profile.email,
+							CanBeAuthor: !!(profile.theses_author),
+							CanBeEvaluator: !!(profile.theses_evaluator)
+						});
+						
+						if (isStatusOk(updateUserRes)) {
+							setOk(true);
+						} else throw new Error("Došlo k chybě při aktualizaci uživatelského záznamu.");
+					} else throw userRes;
+				} catch (error) {
 					// create user (first login)
 					setMessage("Vytváření záznamu uživatele...");
 					const createUserRes = await Axios(accessToken).post("/users", {
@@ -65,7 +66,6 @@ export const SignInCb: React.FC<any> = ({ history }: { history: History }): Reac
 						setOk(true);
 					} else throw new Error("Došlo k chybě při vytváření uživatele.");
 				}
-				
 			} catch (error) {
 				setOk(false);
 				// sign in cancelled

@@ -5,8 +5,8 @@
   display: flex;
   flex-wrap: wrap;
 
-  & > *:not(:last-of-type) {
-    margin-right: 0.25rem;
+  & > * {
+    margin: 0.15rem;
   }
 }
 

@@ -46,7 +46,8 @@ export interface IIdeaTarget {
  * Idea Goal Interface
  */
 export interface IIdeaGoal {
-	ideaId: number | string;
+	id?: number;
+	ideaId: number;
 	order: number;
 	text: string;
 }

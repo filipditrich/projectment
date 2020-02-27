@@ -7,7 +7,7 @@ import { IIdeaGoal } from "../../../models/idea";
 import { DataJsonResponse } from "../../../models/response";
 import { useAppContext } from "../../../providers";
 import { Axios, isStatusOk } from "../../../utils";
-import { sortBy, isEqual } from "lodash";
+import { sortBy, isEqual, differenceWith } from "lodash";
 import { responseError, responseFail } from "../../../utils/axios";
 import IdeaListItem from "./ListItem";
 import update from "immutability-helper";
@@ -18,36 +18,35 @@ import classNames from "classnames";
  * @constructor
  */
 export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
-	const [ { accessToken } ] = useAppContext();
+	const [{ accessToken }] = useAppContext();
 	const [ isLoading, setIsLoading ] = useState<boolean>(true);
 	const [ showBadges, setShowBadges ] = useState<boolean>(false);
 	const [ list, setList ] = useState<IIdeaGoalList[]>([]);
-	const isChanged: boolean = !isEqual(list, sortBy([ ...list ], "order"));
+	const [ isChanged, setIsChanged ] = useState<boolean>(false);
+	
+	// detect any changes
+	useEffect(() => {
+		setIsChanged(!isEqual(list, sortBy([ ...list ], "order")));
+	}, [ list ]);
 	
 	// fetch idea goals
+	const fetchGoals = async () => {
+		try {
+			setIsLoading(true);
+			const res: AxiosResponse<DataJsonResponse<IIdeaGoal[]>> = await Axios(accessToken)
+				.get<DataJsonResponse<IIdeaGoal[]>>(`/ideas/${ id }/goals`);
+			
+			if (isStatusOk(res)) {
+				setList(res.data);
+			} else throw responseFail(res);
+		} catch (error) {
+			toast.error(responseError(error).message);
+		} finally {
+			setIsLoading(false);
+		}
+	};
 	useEffect(() => {
-		(async () => {
-			try {
-				setIsLoading(true);
-				const res: AxiosResponse<DataJsonResponse<IIdeaGoal[]>> = await Axios(accessToken)
-					.get<DataJsonResponse<IIdeaGoal[]>>(`/ideas/${ id }/goals`);
-				
-				if (isStatusOk(res)) {
-					// TODO: de-fake
-					setList(res.data);
-					// setList([
-					// 	{ ideaId: 1, order: 1, text: "JS Library" },
-					// 	{ ideaId: 1, order: 2, text: "TypeScript Definitions" },
-					// 	{ ideaId: 1, order: 3, text: "README" },
-					// 	{ ideaId: 1, order: 4, text: "Documentation" },
-					// ]);
-				} else throw responseFail(res);
-			} catch (error) {
-				toast.error(responseError(error).message);
-			} finally {
-				setIsLoading(false);
-			}
-		})();
+		(async () => fetchGoals())();
 	}, [ accessToken, id ]);
 	
 	// show badges with old index on reorder
@@ -58,7 +57,30 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 	// move goal hook
 	const moveGoal = useCallback((dragIndex: number, hoverIndex: number, text: string) => {
 		const dragItem = list[dragIndex];
-		if (dragIndex === hoverIndex) dragItem.text = text;
+		
+		// on text change
+		if (dragIndex === hoverIndex && dragItem.text !== text) {
+			dragItem.text = text;
+			(async () => {
+				try {
+					setIsLoading(true);
+					// TODO: returning 500
+					const res: AxiosResponse<DataJsonResponse<IIdeaGoal>> = await Axios(accessToken)
+						.put<DataJsonResponse<IIdeaGoal>>(`/ideas/${ id }/goals/${ dragItem.order }`, {
+							Text: text
+						});
+
+					if (isStatusOk(res)) {
+						await fetchGoals();
+						toast.success("Text cíle námětu byl úspěšně uložen.");
+					} else throw responseFail(res);
+				} catch (error) {
+					toast.error(responseError(error).message);
+				} finally {
+					setIsLoading(false);
+				}
+			})();
+		}
 		setList(update(list, {
 			$splice: [
 				[ dragIndex, 1 ],
@@ -69,54 +91,44 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 	
 	// add goal hook
 	const addGoal = useCallback(() => {
-		// TODO: de-fake
-		setList([ ...list, { ideaId: id, order: list.length + 1, text: `Cíl číslo ${list.length + 1}`, isEditing: true } ]);
-		// TODO: returning an error from db (cannot insert NULL)
-		// (async () => {
-		// 	try {
-		//      setIsLoading(true);
-		// 		const res: AxiosResponse<DataJsonResponse<any>> = await Axios(accessToken)
-		// 			.post<DataJsonResponse<any>>(`/ideas/${ id }/goals`, {
-		// 				goalText: { Text: `Cíl číslo ${list.length + 1}` }
-		// 			});
-		//
-		// 		if (isStatusOk(res)) {
-		// 			console.log(res);
-		// 			toast.success("Cíl byl úspěšně vytvořen.");
-		// 		} else throw responseFail(res);
-		// 	} catch (error) {
-		// 		toast.error(responseError(error).message);
-		// 	} finally {
-		// 		setIsLoading(false);
-		// 	}
-		// })();
+		(async () => {
+			try {
+				setIsLoading(true);
+				const res: AxiosResponse<DataJsonResponse<IIdeaGoal>> = await Axios(accessToken)
+					.post<DataJsonResponse<IIdeaGoal>>(`/ideas/${ id }/goals`, {
+						Text: `Cíl námětu ${ Math.max(...list.map((ideaGoal) => ideaGoal.order), 0) }`,
+					});
+				
+				if (isStatusOk(res)) {
+					await fetchGoals();
+					toast.success("Cíl námětu byl úspěšně vytvořen.");
+				} else throw responseFail(res);
+			} catch (error) {
+				toast.error(responseError(error).message);
+			} finally {
+				setIsLoading(false);
+			}
+		})();
 	}, [ list ]);
 	
 	// remove goal hook
 	const removeGoal = useCallback((ideaId: string | number, goalId: string | number) => {
-		// TODO: de-fake
-		setList([ ...list ]
-			.filter((item) => item.order !== goalId)
-			.map((item, index) => {
-				return { ...item, order: index + 1 };
-			})
-		);
-		// (async () => {
-		// 	try {
-		//      setIsLoading(true);
-		// 		const res: AxiosResponse<DataJsonResponse<any>> = await Axios(accessToken)
-		// 			.delete<DataJsonResponse<any>>(`/ideas/${ ideaId }/goals/${ goalId }`);
-		//
-		// 		if (isStatusOk(res)) {
-		// 			console.log(res);
-		// 			toast.success("Cíl byl úspěšně odstraněn.");
-		// 		} else throw responseFail(res);
-		// 	} catch (error) {
-		// 		toast.error(responseError(error).message);
-		// 	} finally {
-		// 		setIsLoading(false);
-		// 	}
-		// })();
+		(async () => {
+			try {
+				setIsLoading(true);
+				const res: AxiosResponse<DataJsonResponse<IIdeaGoal>> = await Axios(accessToken)
+					.delete<DataJsonResponse<IIdeaGoal>>(`/ideas/${ ideaId }/goals/${ goalId }`);
+				
+				if (isStatusOk(res)) {
+					await fetchGoals();
+					toast.success("Cíl námětu byl úspěšně odstraněn.");
+				} else throw responseFail(res);
+			} catch (error) {
+				toast.error(responseError(error).message);
+			} finally {
+				setIsLoading(false);
+			}
+		})();
 	}, [ list ]);
 	
 	// submit reordering changes
@@ -126,7 +138,6 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 			[ ...list ].map((item, index) => {
 				return { ...item, order: index + 1 };
 			}), "order"));
-		
 		// TODO: implement this (not sure about the correct update method on API)
 	};
 	

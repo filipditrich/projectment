@@ -55,8 +55,8 @@ export default function (accessToken?: string): AxiosInstance {
  */
 export function isStatusOk<T = any>(res: AxiosResponse<T>): boolean {
 	return (
-		res.status === 200 ||
-		res.status === 201 ||
+		(res.status >= 200 && res.status <= 208) ||
+		res.status === 226 ||
 		res.statusText === "OK"
 	);
 }
