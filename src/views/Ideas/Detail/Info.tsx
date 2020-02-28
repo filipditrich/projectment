@@ -1,14 +1,7 @@
-import { AxiosResponse } from "axios";
-import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Button, Card, CardBody, CardFooter, CardHeader } from "reactstrap";
-import LoadingOverlay from "../../../components/common/LoadingOverlay";
 import { loading } from "../../../misc";
 import { IIdea } from "../../../models/idea";
-import { DataJsonResponse } from "../../../models/response";
-import { useAppContext } from "../../../providers";
-import { Axios, isStatusOk } from "../../../utils";
-import { responseError, responseFail } from "../../../utils/axios";
 import IdeaEditor from "../Edit";
 import IdeaTargets from "./Targets";
 
@@ -16,33 +9,13 @@ import IdeaTargets from "./Targets";
  * Idea Detail Component
  * @constructor
  */
-export const IdeaInfo: React.FC<IdeaInfoProps> = ({ id }: IdeaInfoProps) => {
+export const IdeaInfo: React.FC<IdeaInfoProps> = ({ idea, setIsLoading }: IdeaInfoProps) => {
 	const [ editing, setEditing ] = useState<boolean>(false);
-	const [ isLoading, setIsLoading ] = useState<boolean>(true);
-	const [ idea, setIdea ] = useState<IIdea>();
-	const [ { accessToken } ] = useAppContext();
-	
-	useEffect(() => {
-		(async () => {
-			try {
-				const res: AxiosResponse<DataJsonResponse<IIdea>> = await Axios(accessToken)
-					.get<DataJsonResponse<IIdea>>("/ideas/" + id);
-				
-				if (isStatusOk(res)) {
-					setIdea({ ...res.data, id });
-				} else throw responseFail(res);
-			} catch (error) {
-				toast.error(responseError(error).message);
-			} finally {
-				setIsLoading(false);
-			}
-		})();
-	}, [ accessToken, id ]);
 	
 	return editing ? (
 		idea ? <IdeaEditor idea={ idea } setEditing={ setEditing }/> : loading()
 	) : (
-		<LoadingOverlay active={ isLoading } tag={ Card } styles={{ minWidth: "40vw" }}>
+		<Card>
 			<CardHeader>Detail námětu</CardHeader>
 			<CardBody>
 				<dl>
@@ -61,7 +34,13 @@ export const IdeaInfo: React.FC<IdeaInfoProps> = ({ id }: IdeaInfoProps) => {
 					<dt>Počet řešitelů</dt>
 					<dd className="text-muted">{ idea?.participants }</dd>
 					<dt className="mb-1">Cílové skupiny</dt>
-					<dd><IdeaTargets setIsLoading={ setIsLoading } id={ id } /></dd>
+					<dd>
+						{
+							(idea?.id) ? (
+								<IdeaTargets setIsLoading={ setIsLoading } id={ idea?.id.toString() } />
+							) : null
+						}
+					</dd>
 				</dl>
 			</CardBody>
 			<CardFooter className="d-flex">
@@ -70,12 +49,13 @@ export const IdeaInfo: React.FC<IdeaInfoProps> = ({ id }: IdeaInfoProps) => {
 					<span>Editovat</span>
 				</Button>
 			</CardFooter>
-		</LoadingOverlay>
+		</Card>
 	);
 };
 
 export interface IdeaInfoProps {
-	id: string;
+	idea?: IIdea;
+	setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 export default IdeaInfo;
