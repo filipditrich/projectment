@@ -64,7 +64,6 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 			(async () => {
 				try {
 					setIsLoading(true);
-					// TODO: returning 500
 					const res: AxiosResponse<DataJsonResponse<IIdeaGoal>> = await Axios(accessToken)
 						.put<DataJsonResponse<IIdeaGoal>>(`/ideas/${ id }/goals/${ dragItem.order }`, {
 							Text: text
@@ -133,7 +132,6 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 	
 	// submit reordering changes
 	const submitReorderingChanges = () => {
-		// TODO: de-fake
 		setList(sortBy(
 			[ ...list ].map((item, index) => {
 				return { ...item, order: index + 1 };

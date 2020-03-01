@@ -31,6 +31,15 @@ const navigation: INavigation = {
 		},
 		{
 			title: true,
+			name: "Zadání",
+		},
+		{
+			name: "Seznam zadání",
+			icon: "icon-briefcase",
+			url: "/works/list",
+		},
+		{
+			title: true,
 			name: "Uživatelé",
 		},
 		{

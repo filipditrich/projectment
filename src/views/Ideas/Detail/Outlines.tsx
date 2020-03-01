@@ -64,7 +64,6 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesPr
 			(async () => {
 				try {
 					setIsLoading(true);
-					// TODO: returning 500
 					const res: AxiosResponse<DataJsonResponse<IIdeaGoal>> = await Axios(accessToken)
 						.put<DataJsonResponse<IIdeaGoal>>(`/ideas/${ id }/outlines/${ dragItem.order }`, {
 							Text: text
@@ -133,7 +132,6 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesPr
 	
 	// submit reordering changes
 	const submitReorderingChanges = () => {
-		// TODO: de-fake
 		setList(sortBy(
 			[ ...list ].map((item, index) => {
 				return { ...item, order: index + 1 };

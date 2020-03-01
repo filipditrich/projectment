@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
+import React, { Dispatch, ReactElement, SetStateAction, useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { CellProps, Column, ColumnInstance, TableInstance } from "react-table";
 import { toast } from "react-toastify";
@@ -23,7 +23,7 @@ import { responseError, responseFail } from "../../utils/axios";
  * Idea List Component
  * @constructor
  */
-export const IdeaList: React.FC = () => {
+export const IdeaList: React.FC<IIdeaListProps> = ({ setTotal }: IIdeaListProps) => {
 	const [ isLoading, setIsLoading ] = useState<boolean>(false);
 	const [ error, setError ] = useState<boolean | string>(false);
 	
@@ -167,6 +167,7 @@ export const IdeaList: React.FC = () => {
 					setData(res.data.data);
 					setTotalPages(res.data.pages || 0);
 					setTotalRows(res.data.total || 0);
+					setTotal(res.data.total || 0);
 				} else throw responseFail(res);
 			} catch (error) {
 				toast.error(responseError(error).message);
@@ -187,5 +188,9 @@ export const IdeaList: React.FC = () => {
 			totalRows={ totalRows } />
 	);
 };
+
+interface IIdeaListProps {
+	setTotal: Dispatch<SetStateAction<number>>;
+}
 
 export default IdeaList;
