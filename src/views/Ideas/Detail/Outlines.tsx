@@ -6,19 +6,20 @@ import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Button, Card, CardBody, CardFooter, CardHeader, ListGroup } from "reactstrap";
 import LoadingOverlay from "../../../components/common/LoadingOverlay";
-import { IIdeaGoal, IIdeaOutline } from "../../../models/idea";
+import { IIdea, IIdeaGoal, IIdeaOutline } from "../../../models/idea";
 import { DataJsonResponse } from "../../../models/response";
 import { useAppContext } from "../../../providers";
 import { Axios, isStatusOk } from "../../../utils";
 import { responseError, responseFail } from "../../../utils/axios";
+import { isOwnerOrAdmin } from "../../../utils/roles";
 import IdeaListItem from "./ListItem";
 
 /**
  * Idea Outlines Component
  * @constructor
  */
-export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesProps) => {
-	const [ { accessToken } ] = useAppContext();
+export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ idea }: IdeaOutlinesProps) => {
+	const [ { accessToken, profile } ] = useAppContext();
 	const [ isLoading, setIsLoading ] = useState<boolean>(true);
 	const [ showBadges, setShowBadges ] = useState<boolean>(false);
 	const [ list, setList ] = useState<IIdeaOutlineList[]>([]);
@@ -34,7 +35,7 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesPr
 		try {
 			setIsLoading(true);
 			const res: AxiosResponse<DataJsonResponse<IIdeaOutline[]>> = await Axios(accessToken)
-				.get<DataJsonResponse<IIdeaOutline[]>>(`/ideas/${ id }/outlines`);
+				.get<DataJsonResponse<IIdeaOutline[]>>(`/ideas/${ idea?.id }/outlines`);
 			
 			if (isStatusOk(res)) {
 				setList(res.data);
@@ -46,8 +47,8 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesPr
 		}
 	};
 	useEffect(() => {
-		(async () => fetchOutlines())();
-	}, [ accessToken, id ]);
+		if (idea) (async () => fetchOutlines())();
+	}, [ accessToken, idea ]);
 	
 	// show badges with old index on reorder
 	useEffect(() => {
@@ -65,7 +66,7 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesPr
 				try {
 					setIsLoading(true);
 					const res: AxiosResponse<DataJsonResponse<IIdeaGoal>> = await Axios(accessToken)
-						.put<DataJsonResponse<IIdeaGoal>>(`/ideas/${ id }/outlines/${ dragItem.order }`, {
+						.put<DataJsonResponse<IIdeaGoal>>(`/ideas/${ idea?.id }/outlines/${ dragItem.order }`, {
 							Text: text
 						});
 					
@@ -94,7 +95,7 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesPr
 			try {
 				setIsLoading(true);
 				const res: AxiosResponse<DataJsonResponse<IIdeaOutline>> = await Axios(accessToken)
-					.post<DataJsonResponse<IIdeaOutline>>(`/ideas/${ id }/outlines`, {
+					.post<DataJsonResponse<IIdeaOutline>>(`/ideas/${ idea?.id }/outlines`, {
 						Text: `Bod osnovy ${ Math.max(...list.map((ideaGoal) => ideaGoal.order), 0) }`,
 					});
 
@@ -140,12 +141,16 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesPr
 	};
 	
 	return (
-		<LoadingOverlay active={ isLoading } tag={ Card }>
+		<LoadingOverlay active={ isLoading } tag={ Card } styles={{ minWidth: "300px" }}>
 			<CardHeader className="d-flex justify-content-between">
 				<span>Osnova námětu</span>
-				<button className="reset-button" onClick={ addOutline }>
-					<i className="icon-plus font-xl" />
-				</button>
+				{
+					isOwnerOrAdmin(profile, idea?.userId) ? (
+						<button className="reset-button" onClick={ addOutline }>
+							<i className="icon-plus font-xl" />
+						</button>
+					) : null
+				}
 			</CardHeader>
 			<CardBody className={ classNames({ "d-flex flex-column": true, "justify-content-center": !list.length }) }>
 				{
@@ -161,6 +166,7 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesPr
 											accept="outline"
 											showBadges={ showBadges }
 											key={ index }
+											canEdit={ isOwnerOrAdmin(profile, idea?.userId) }
 											removeItem={ removeOutline }
 											updateItem={ moveOutline } />
 									))
@@ -187,7 +193,7 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesPr
 };
 
 export interface IdeaOutlinesProps {
-	id: number | string;
+	idea?: IIdea;
 }
 
 export interface IIdeaOutlineList extends IIdeaOutline {

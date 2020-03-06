@@ -3,6 +3,8 @@ import React, { useRef, useState } from "react";
 import { DragObjectWithType, DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 import { Badge, Button, Input, ListGroupItemText } from "reactstrap";
 import ConfirmationWrapper from "../../../components/common/ConfirmationWrapper";
+import { useAppContext } from "../../../providers";
+import { isOwnerOrAdmin } from "../../../utils/roles";
 import { IIdeaGoalList } from "./Goals";
 
 /**
@@ -13,9 +15,10 @@ import { IIdeaGoalList } from "./Goals";
  * @param showBadges
  * @constructor
  */
-export const IdeaListItem: React.FC<IdeaListItemProps> = ({ listItem, index, accept, updateItem, removeItem, showBadges }: IdeaListItemProps) => {
+export const IdeaListItem: React.FC<IdeaListItemProps> = ({ listItem, index, accept, updateItem, removeItem, showBadges, canEdit }: IdeaListItemProps) => {
 	const [ isEditing, setIsEditing ] = useState<boolean>(listItem.isEditing || false);
 	const [ text, setText ] = useState<string>(listItem.text);
+	const [{ profile }] = useAppContext();
 	
 	const ref = useRef<HTMLLIElement>(null);
 	const [ , drop ] = useDrop({
@@ -76,65 +79,76 @@ export const IdeaListItem: React.FC<IdeaListItemProps> = ({ listItem, index, acc
 	drag(drop(ref));
 	
 	return (
-		<li className="list-group-item" style={ listGroupItemStyle } ref={ ref }>
+		<li className="list-group-item" style={ listGroupItemStyle } ref={ canEdit ? ref : null }>
 			<div className="d-flex align-items-center">
-				<div className="d-flex align-items-baseline flex-grow-1"
-				     onDoubleClick={ () => { setIsEditing(true); } }
-				     onBlur={
-					     () => {
-						     updateItem(index, index, text);
-						     setIsEditing(false);
-					     }
-				     }>
-					<Badge className="mr-3" color="primary">{ index + 1 }</Badge>
-					{
-						showBadges ? (
-							<Badge style={{ opacity: badgeOpacity }} color="warning" className="mr-3">{ listItem.order }</Badge>
-						) : null
-					}
-					{
-						isEditing ? (
-							<Input type="text"
-							       className="flex-grow-1"
-							       defaultValue={ listItem.text }
-							       autoFocus={ listItem.isEditing }
-							       onKeyPress={
-								       (event) => {
-									       if (event.which === 13) {
-										       updateItem(index, index, text);
-										       setIsEditing(false);
-									       }
-								       }
-							       }
-							       onChange={
-								       (e) => {
-									       setText(e.target.value);
-								       }
-							       } />
-						) : (
+				{
+					canEdit ? (
+						<>
+							<div className="d-flex align-items-baseline flex-grow-1"
+							     onDoubleClick={ () => { setIsEditing(true); } }
+							     onBlur={
+								     () => {
+									     updateItem(index, index, text);
+									     setIsEditing(false);
+								     }
+							     }>
+								<Badge className="mr-3" color="primary">{ index + 1 }</Badge>
+								{
+									showBadges ? (
+										<Badge style={{ opacity: badgeOpacity }} color="warning" className="mr-3">{ listItem.order }</Badge>
+									) : null
+								}
+								{
+									isEditing ? (
+										<Input type="text"
+										       className="flex-grow-1"
+										       defaultValue={ listItem.text }
+										       autoFocus={ listItem.isEditing }
+										       onKeyPress={
+											       (event) => {
+												       if (event.which === 13) {
+													       updateItem(index, index, text);
+													       setIsEditing(false);
+												       }
+											       }
+										       }
+										       onChange={
+											       (e) => {
+												       setText(e.target.value);
+											       }
+										       } />
+									) : (
+										<ListGroupItemText className="m-0 flex-grow-1">{ listItem.text }</ListGroupItemText>
+									)
+								}
+							</div>
+							<ConfirmationWrapper
+								onPositive={
+									async (setDialogOpen, setIsWorking) => {
+										setIsWorking(true);
+										await removeItem(listItem.ideaId, listItem.order);
+										setIsWorking(false);
+										setDialogOpen(false);
+									}
+								}
+								orderSwap={ true }
+								positiveText="Odstranit"
+								dialogTitle="Odstranění položky"
+								dialogContent="Opravdu si přejete tuto položku odstranit?"
+								type="danger">
+								<Button className="button-icon circular ml-3"
+								        color="danger">
+									<i className="icon-trash" />
+								</Button>
+							</ConfirmationWrapper>
+						</>
+					) : (
+						<div className="d-flex align-items-baseline flex-grow-1">
+							<Badge className="mr-3" color="primary">{ index + 1 }</Badge>
 							<ListGroupItemText className="m-0 flex-grow-1">{ listItem.text }</ListGroupItemText>
-						)
-					}
-				</div>
-				<ConfirmationWrapper
-					onPositive={
-						async (setDialogOpen, setIsWorking) => {
-							setIsWorking(true);
-							await removeItem(listItem.ideaId, listItem.order);
-							setIsWorking(false);
-							setDialogOpen(false);
-						}
-					}
-					orderSwap={ true }
-					positiveText="Odstranit"
-					dialogTitle="Odstranění položky"
-					dialogContent="Opravdu si přejete tuto položku odstranit?"
-					type="danger">
-					<Button className="button-icon circular ml-3"
-					        color="danger">
-						<i className="icon-trash" />
-					</Button>
-				</ConfirmationWrapper>
+						</div>
+					)
+				}
 			</div>
 		</li>
 	);
@@ -154,6 +168,7 @@ export interface IdeaListItemProps {
 	updateItem: (dragIndex: number, hoverIndex: number, text: string) => void;
 	removeItem: (ideaId: string | number, goalId: string | number) => void;
 	showBadges: boolean;
+	canEdit?: boolean;
 }
 
 export default IdeaListItem;

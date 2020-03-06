@@ -4,20 +4,21 @@ import { toast } from "react-toastify";
 import ConfirmationWrapper from "../../../components/common/ConfirmationWrapper";
 import TargetBadge, { TargetBadgesTarget } from "../../../components/common/TargetBadge";
 import { loading } from "../../../misc";
-import { ITarget } from "../../../models/idea";
+import { IIdea, ITarget } from "../../../models/idea";
 import { DataJsonResponse, TableDataJsonResponse } from "../../../models/response";
 import { useAppContext } from "../../../providers";
 import { Axios, isStatusOk } from "../../../utils";
 import { responseError, responseFail } from "../../../utils/axios";
+import { isOwnerOrAdmin } from "../../../utils/roles";
 
 /**
  * Idea Targets Component
  * @constructor
  */
-export const IdeaTargets: React.FC<IdeaTargetsProps> = ({ id, setIsLoading }: IdeaTargetsProps) => {
+export const IdeaTargets: React.FC<IdeaTargetsProps> = ({ idea, setIsLoading }: IdeaTargetsProps) => {
 	const [ targets, setTargets ] = useState<ITarget[] | undefined>();
 	const [ allTargets, setAllTargets ] = useState<ITarget[]>([]);
-	const [ { accessToken } ] = useAppContext();
+	const [ { accessToken, profile } ] = useAppContext();
 	
 	const fetchTargets = useCallback(() => {
 		(async () => {
@@ -30,7 +31,7 @@ export const IdeaTargets: React.FC<IdeaTargetsProps> = ({ id, setIsLoading }: Id
 				} else throw responseFail(allTargetsRes);
 				
 				const ideaTargetsRes: AxiosResponse<DataJsonResponse<ITarget[]>> = await Axios(accessToken)
-					.get<DataJsonResponse<ITarget[]>>(`/ideas/${ id }/targets`);
+					.get<DataJsonResponse<ITarget[]>>(`/ideas/${ idea.id }/targets`);
 				
 				if (isStatusOk(ideaTargetsRes)) {
 					setTargets(ideaTargetsRes.data);
@@ -41,7 +42,7 @@ export const IdeaTargets: React.FC<IdeaTargetsProps> = ({ id, setIsLoading }: Id
 				setIsLoading(false);
 			}
 		})();
-	}, [ accessToken, id ]);
+	}, [ accessToken, idea ]);
 	
 	// fetch targets
 	useEffect(() => {
@@ -58,8 +59,8 @@ export const IdeaTargets: React.FC<IdeaTargetsProps> = ({ id, setIsLoading }: Id
 		setIsLoading(true);
 		try {
 			const res: AxiosResponse<any> = target.inactive
-				? await Axios(accessToken).post(`/ideas/${ id }/targets`, { id: target.id })
-				: await Axios(accessToken).delete(`/ideas/${ id }/targets/${ target.id }`);
+				? await Axios(accessToken).post(`/ideas/${ idea.id }/targets`, { id: target.id })
+				: await Axios(accessToken).delete(`/ideas/${ idea.id }/targets/${ target.id }`);
 			
 			if (isStatusOk(res)) {
 				toast.success("Cílové skupiny námětu byly úspěšně aktualizovány.");
@@ -77,23 +78,25 @@ export const IdeaTargets: React.FC<IdeaTargetsProps> = ({ id, setIsLoading }: Id
 			{
 				allTargets
 					.map((target: ITarget): TargetBadgesTarget => {
-						return { ...target, inactive: !isTargetUsed(target), classes: "cursor-pointer p-1" };
+						return { ...target, inactive: !isTargetUsed(target), classes: isOwnerOrAdmin(profile, idea.userId) ? "cursor-pointer p-1" : "p-1" };
 					})
 					.map((target: TargetBadgesTarget, index: number): ReactElement => (
-						<ConfirmationWrapper
-							key={ index }
-							onPositive={
-								async (setDialogOpen, setIsWorking) => {
-									await toggleTarget(target);
-									setDialogOpen(false);
-									setIsWorking(false);
+						isOwnerOrAdmin(profile, idea.userId) ? (
+							<ConfirmationWrapper
+								key={ index }
+								onPositive={
+									async (setDialogOpen, setIsWorking) => {
+										await toggleTarget(target);
+										setDialogOpen(false);
+										setIsWorking(false);
+									}
 								}
-							}
-							positiveText={ target.inactive ? "Aktivovat" : "Deaktivovat" }
-							dialogContent={ <p>{ target.inactive ? "Aktivovat" : "Deaktivovat" } cílovou skupinu <TargetBadge target={{ ...target, inactive: false, classes: "cursor-normal" }} /> ?</p> }
-							type="primary">
-							<TargetBadge target={ target } />
-						</ConfirmationWrapper>
+								positiveText={ target.inactive ? "Aktivovat" : "Deaktivovat" }
+								dialogContent={ <p>{ target.inactive ? "Aktivovat" : "Deaktivovat" } cílovou skupinu <TargetBadge target={{ ...target, inactive: false, classes: "cursor-normal" }} /> ?</p> }
+								type="primary">
+								<TargetBadge target={ target } />
+							</ConfirmationWrapper>
+						) : <TargetBadge key={ index } target={ target } />
 					))
 			}
 		</div>
@@ -101,7 +104,7 @@ export const IdeaTargets: React.FC<IdeaTargetsProps> = ({ id, setIsLoading }: Id
 };
 
 export interface IdeaTargetsProps {
-	id: string;
+	idea: IIdea;
 	setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 

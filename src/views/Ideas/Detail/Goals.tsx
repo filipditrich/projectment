@@ -3,12 +3,13 @@ import { AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { Button, Card, CardBody, CardFooter, CardHeader, ListGroup } from "reactstrap";
 import LoadingOverlay from "../../../components/common/LoadingOverlay";
-import { IIdeaGoal } from "../../../models/idea";
+import { IIdea, IIdeaGoal } from "../../../models/idea";
 import { DataJsonResponse } from "../../../models/response";
 import { useAppContext } from "../../../providers";
 import { Axios, isStatusOk } from "../../../utils";
 import { sortBy, isEqual, differenceWith } from "lodash";
 import { responseError, responseFail } from "../../../utils/axios";
+import { isOwnerOrAdmin } from "../../../utils/roles";
 import IdeaListItem from "./ListItem";
 import update from "immutability-helper";
 import classNames from "classnames";
@@ -17,8 +18,8 @@ import classNames from "classnames";
  * Idea Goals Component
  * @constructor
  */
-export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
-	const [{ accessToken }] = useAppContext();
+export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ idea }: IdeaGoalsProps) => {
+	const [{ accessToken, profile }] = useAppContext();
 	const [ isLoading, setIsLoading ] = useState<boolean>(true);
 	const [ showBadges, setShowBadges ] = useState<boolean>(false);
 	const [ list, setList ] = useState<IIdeaGoalList[]>([]);
@@ -34,7 +35,7 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 		try {
 			setIsLoading(true);
 			const res: AxiosResponse<DataJsonResponse<IIdeaGoal[]>> = await Axios(accessToken)
-				.get<DataJsonResponse<IIdeaGoal[]>>(`/ideas/${ id }/goals`);
+				.get<DataJsonResponse<IIdeaGoal[]>>(`/ideas/${ idea?.id }/goals`);
 			
 			if (isStatusOk(res)) {
 				setList(res.data);
@@ -46,8 +47,8 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 		}
 	};
 	useEffect(() => {
-		(async () => fetchGoals())();
-	}, [ accessToken, id ]);
+		if (idea) (async () => fetchGoals())();
+	}, [ accessToken, idea ]);
 	
 	// show badges with old index on reorder
 	useEffect(() => {
@@ -65,7 +66,7 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 				try {
 					setIsLoading(true);
 					const res: AxiosResponse<DataJsonResponse<IIdeaGoal>> = await Axios(accessToken)
-						.put<DataJsonResponse<IIdeaGoal>>(`/ideas/${ id }/goals/${ dragItem.order }`, {
+						.put<DataJsonResponse<IIdeaGoal>>(`/ideas/${ idea?.id }/goals/${ dragItem.order }`, {
 							Text: text
 						});
 
@@ -94,7 +95,7 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 			try {
 				setIsLoading(true);
 				const res: AxiosResponse<DataJsonResponse<IIdeaGoal>> = await Axios(accessToken)
-					.post<DataJsonResponse<IIdeaGoal>>(`/ideas/${ id }/goals`, {
+					.post<DataJsonResponse<IIdeaGoal>>(`/ideas/${ idea?.id }/goals`, {
 						Text: `Cíl námětu ${ Math.max(...list.map((ideaGoal) => ideaGoal.order), 0) }`,
 					});
 				
@@ -140,12 +141,16 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 	};
 	
 	return (
-		<LoadingOverlay active={ isLoading } tag={ Card }>
+		<LoadingOverlay active={ isLoading } tag={ Card } styles={{ minWidth: "300px" }}>
 			<CardHeader className="d-flex justify-content-between">
 				<span>Cíle námětu</span>
-				<button className="reset-button" onClick={ addGoal }>
-					<i className="icon-plus font-xl" />
-				</button>
+				{
+					isOwnerOrAdmin(profile, idea?.userId) ? (
+						<button className="reset-button" onClick={ addGoal }>
+							<i className="icon-plus font-xl" />
+						</button>
+					) : null
+				}
 			</CardHeader>
 			<CardBody className={ classNames({ "d-flex flex-column": true, "justify-content-center": !list.length }) }>
 				{
@@ -161,6 +166,7 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 											accept="goal"
 											showBadges={ showBadges }
 											key={ index }
+											canEdit={ isOwnerOrAdmin(profile, idea?.userId) }
 											removeItem={ removeGoal }
 											updateItem={ moveGoal } />
 									))
@@ -187,7 +193,7 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 };
 
 export interface IdeaGoalsProps {
-	id: number | string;
+	idea?: IIdea;
 }
 
 export interface IIdeaGoalList extends IIdeaGoal {

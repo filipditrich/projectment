@@ -55,7 +55,7 @@ export const IdeaEditor: React.FC<IdeaEditorProps> = ({ idea, setEditing}: IdeaE
 	};
 	
 	return (
-		<LoadingOverlay active={ isSubmitting } tag={ Card } styles={{ minWidth: "40vw" }}>
+		<LoadingOverlay active={ isSubmitting } tag={ Card }>
 			<CardHeader>Upravit &quot;{ idea.name }&ldquo;</CardHeader>
 			<CardBody>
 				<IdeaForm

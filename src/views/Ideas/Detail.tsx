@@ -13,6 +13,7 @@ import { IWork } from "../../models/work";
 import { useAppContext } from "../../providers";
 import { Axios, isStatusOk } from "../../utils";
 import { responseError, responseFail } from "../../utils/axios";
+import { isOwnerOrAdmin } from "../../utils/roles";
 import IdeaGoals from "./Detail/Goals";
 import IdeaInfo from "./Detail/Info";
 import IdeaOutlines from "./Detail/Outlines";
@@ -51,57 +52,65 @@ export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailPro
 			<Col sm="12">
 				<CardDeck>
 					{/* Idea Details */ }
-					<LoadingOverlay active={ isLoading } tag="div">
-						<IdeaInfo setIsLoading={ setIsLoading } idea={ idea } />
-					</LoadingOverlay>
+					<IdeaInfo setIsLoading={ setIsLoading } idea={ idea } />
 					
 					{/* Idea Goals */ }
-					<IdeaGoals id={ id } />
+					<IdeaGoals idea={ idea } />
 					
 					{/* Idea Outlines */ }
-					<IdeaOutlines id={ id } />
+					<IdeaOutlines idea={ idea } />
 				</CardDeck>
 				
 				{/* Actions */ }
-				<Card>
-					<CardBody className="d-flex flex-wrap">
-						{
-							(profile.administrator || profile.sub === idea?.userId) ?
-								(
-									<ConfirmationWrapper
-										className="ml-auto"
-										orderSwap={ true }
-										onPositive={
-											async (sdo) => {
-												try {
-													const res: AxiosResponse = await Axios(accessToken)
-														.delete("/ideas/" + id);
-													
-													if (isStatusOk(res)) {
-														toast.success("Námět byl úspěšně smazán.");
-														history.push("/ideas/list");
-													} else throw responseFail(res);
-												} catch (error) {
-													toast.error(responseError(error).message);
-													sdo(false);
+				{
+					// TODO: profile does not contain any claims
+					(isOwnerOrAdmin(profile, idea?.userId) || profile.theses_author) ? (
+						<Card>
+							<CardBody className="d-flex flex-wrap justify-content-end">
+								{
+									isOwnerOrAdmin(profile, idea?.userId) ?
+										(
+											<ConfirmationWrapper
+												className="ml-auto"
+												orderSwap={ true }
+												onPositive={
+													async (sdo) => {
+														try {
+															const res: AxiosResponse = await Axios(accessToken)
+																.delete("/ideas/" + id);
+															
+															if (isStatusOk(res)) {
+																toast.success("Námět byl úspěšně smazán.");
+																history.push("/ideas/list");
+															} else throw responseFail(res);
+														} catch (error) {
+															toast.error(responseError(error).message);
+															sdo(false);
+														}
+													}
 												}
-											}
-										}
-										positiveText="Odstranit"
-										dialogTitle="Odstranění námětu"
-										dialogContent="Opravdu si přejete námět odstranit?"
-										type="danger">
-										<Button className="button button-danger">
-											<span>Smazat námět</span>
-										</Button>
-									</ConfirmationWrapper>
-								) : null
-						}
-						<Link className="button button-primary ml-3" to={ "/works/create/" + idea?.id }>
-							<span>Vytvořit zadání</span>
-						</Link>
-					</CardBody>
-				</Card>
+												positiveText="Odstranit"
+												dialogTitle="Odstranění námětu"
+												dialogContent="Opravdu si přejete námět odstranit?"
+												type="danger">
+												<Button className="button button-danger">
+													<span>Smazat námět</span>
+												</Button>
+											</ConfirmationWrapper>
+										) : null
+								}
+								{
+									// TODO: profile does not contain any claims
+									profile.theses_author ? (
+										<Link className="button button-primary ml-3" to={ "/works/create/" + idea?.id }>
+											<span>Vytvořit zadání</span>
+										</Link>
+									) : null
+								}
+							</CardBody>
+						</Card>
+					) : null
+				}
 			</Col>
 		</Row>
 	);

@@ -12,7 +12,7 @@ import { enumToArray } from "../../utils";
  * Idea From Component
  * @constructor
  */
-export const IdeaForm: React.FC<IdeaFormProps> = ({ initialValues, validate, onSubmit, buttons, id }: IdeaFormProps) => {
+export const IdeaForm: React.FC<IdeaFormProps> = ({ initialValues, validate, onSubmit, buttons, id, large }: IdeaFormProps) => {
 	const [ showHelp, setShowHelp ] = useState<boolean>(false);
 	const [ helpTooltipOpen, setHelpTooltipOpen ] = useState<boolean>(false);
 	
@@ -43,7 +43,7 @@ export const IdeaForm: React.FC<IdeaFormProps> = ({ initialValues, validate, onS
 					<Form id={ id || "idea-form" }>
 						<Row>
 							{/* Name */ }
-							<Col md={ 6 }>
+							<Col md={ large ? 6 : 12 }>
 								<FormGroup>
 									<Label for="name">Název</Label>
 									<Input type="text"
@@ -57,7 +57,7 @@ export const IdeaForm: React.FC<IdeaFormProps> = ({ initialValues, validate, onS
 							</Col>
 							
 							{/* Resources */ }
-							<Col md={ 6 }>
+							<Col md={ large ? 6 : 12 }>
 								<FormGroup>
 									<Label for="resources">Zdroje</Label>
 									<Input type="text"
@@ -71,7 +71,7 @@ export const IdeaForm: React.FC<IdeaFormProps> = ({ initialValues, validate, onS
 							</Col>
 							
 							{/* Subject */ }
-							<Col md={ 6 }>
+							<Col md={ large ? 6 : 12 }>
 								<FormGroup>
 									<Label for="subject">Předmět</Label>
 									<Field name="subject"
@@ -95,7 +95,7 @@ export const IdeaForm: React.FC<IdeaFormProps> = ({ initialValues, validate, onS
 							</Col>
 							
 							{/* Participants */ }
-							<Col md={ 6 }>
+							<Col md={ large ? 6 : 12 }>
 								<FormGroup>
 									<Label for="participants">Počet řešitelů</Label>
 									<Input type="number"
@@ -186,6 +186,7 @@ export interface IdeaFormProps {
 	validate?: IdeaFormPropValidate;
 	onSubmit: IdeaFormPropOnSubmit;
 	buttons?: (isSubmitting: boolean) => ReactNode;
+	large?: boolean;
 }
 
 export interface IdeaFormikProps {

@@ -66,6 +66,7 @@ export const IdeaCreate: React.FC<IdeaCreateProps> = ({ history }: IdeaCreatePro
 			initialValues={ initialValues }
 			onSubmit={ onSubmit }
 			buttons={ buttons }
+			large={ true }
 		/>
 	);
 };

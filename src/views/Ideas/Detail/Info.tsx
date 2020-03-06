@@ -2,6 +2,8 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { Button, Card, CardBody, CardFooter, CardHeader } from "reactstrap";
 import { loading } from "../../../misc";
 import { IIdea } from "../../../models/idea";
+import { useAppContext } from "../../../providers";
+import { isOwnerOrAdmin } from "../../../utils/roles";
 import IdeaEditor from "../Edit";
 import IdeaTargets from "./Targets";
 
@@ -11,11 +13,12 @@ import IdeaTargets from "./Targets";
  */
 export const IdeaInfo: React.FC<IdeaInfoProps> = ({ idea, setIsLoading }: IdeaInfoProps) => {
 	const [ editing, setEditing ] = useState<boolean>(false);
+	const [{ profile }] = useAppContext();
 	
 	return editing ? (
 		idea ? <IdeaEditor idea={ idea } setEditing={ setEditing }/> : loading()
 	) : (
-		<Card>
+		<Card style={{ minWidth: "300px" }}>
 			<CardHeader>Detail námětu</CardHeader>
 			<CardBody>
 				<dl>
@@ -34,19 +37,23 @@ export const IdeaInfo: React.FC<IdeaInfoProps> = ({ idea, setIsLoading }: IdeaIn
 					<dt className="mb-1">Cílové skupiny</dt>
 					<dd>
 						{
-							(idea?.id) ? (
-								<IdeaTargets setIsLoading={ setIsLoading } id={ idea?.id.toString() } />
+							(idea) ? (
+								<IdeaTargets setIsLoading={ setIsLoading } idea={ idea } />
 							) : null
 						}
 					</dd>
 				</dl>
 			</CardBody>
-			<CardFooter className="d-flex">
-				<Button className="button button-primary ml-auto"
-				        onClick={ () => { setEditing(true); } }>
-					<span>Editovat</span>
-				</Button>
-			</CardFooter>
+			{
+				isOwnerOrAdmin(profile, idea?.userId) ? (
+					<CardFooter className="d-flex">
+						<Button className="button button-primary ml-auto"
+						        onClick={ () => { setEditing(true); } }>
+							<span>Editovat</span>
+						</Button>
+					</CardFooter>
+				) : null
+			}
 		</Card>
 	);
 };
