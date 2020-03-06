@@ -16,7 +16,7 @@ const WorkInitCreate: LazyExoticComponent<React.ComponentClass> = React.lazy(() 
  */
 const routes: IRoute[] = [
 	// Home
-	{ path: "/home", exact: true, name: "Domů", component: Home, card: true, title: "Nástěnka" },
+	{ path: "/home", exact: true, name: "Domů", component: Home, card: false, title: "Nástěnka" },
 	
 	// Ideas
 	{ path: "/ideas", exact: true, name: "Náměty", component: Ideas, card: false },
