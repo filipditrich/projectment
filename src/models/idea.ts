@@ -19,14 +19,14 @@ export interface IIdea extends IIdeaInit {
 	userFirstName: string;
 	userLastName: string;
 	userEmail: string;
-	targets: IIdeaTarget[];
+	targets: ITarget[];
 	updated: Date | string;
 }
 
 /**
  * Idea Target Interface
  */
-export interface IIdeaTarget {
+export interface ITarget {
 	id: number;
 	text: string;
 	color: {

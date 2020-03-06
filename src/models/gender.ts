@@ -1,8 +1,8 @@
 /**
  * Gender Enumeration
  */
-enum Genders {
+enum Gender {
 	Male, Female, Other, Unknown,
 }
 
-export default Genders;
+export default Gender;

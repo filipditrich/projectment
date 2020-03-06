@@ -5,20 +5,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5726637-2915-46d8-85ce-db261ec60771" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/views/Works/Detail.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/Works/Detail/Info.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/Works/Edit.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/Works/Form.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/Works/List.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/Works/Works.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/Works/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/CustomSelect.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/className.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/subject.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/work.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/name.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/Works/InitWork.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/navigation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/navigation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Authentication/ProtectedRoute.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authentication/ProtectedRoute.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/Table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/Table.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/TargetBadge.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/TargetBadge.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/application.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/application.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/genders.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/gender.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/idea.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/idea.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scss/_themes.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/_themes.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scss/custom/_forms.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/custom/_forms.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/axios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/axios.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/helpers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/helpers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Home/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/Goals.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Goals.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/Info.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Info.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/Outlines.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Outlines.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Ideas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Ideas.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/Targets.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Targets.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Form.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Ideas/List.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/List.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Works/Form.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Works/List.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Works/List.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,8 +54,9 @@
       <list>
         <option value="tsconfig.json" />
         <option value="SCSS File" />
-        <option value="TypeScript File" />
+        <option value="JavaScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -67,7 +89,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.SCSS" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
@@ -123,7 +145,14 @@
       <workItem from="1581864217602" duration="1857000" />
       <workItem from="1582023050097" duration="603000" />
       <workItem from="1582113401505" duration="1798000" />
-      <workItem from="1582791077268" duration="16626000" />
+      <workItem from="1582791077268" duration="17625000" />
+      <workItem from="1583135235332" duration="8799000" />
+      <workItem from="1583190695415" duration="43000" />
+      <workItem from="1583190759659" duration="15515000" />
+      <workItem from="1583308579815" duration="6970000" />
+      <workItem from="1583403839217" duration="729000" />
+      <workItem from="1583448744757" duration="9197000" />
+      <workItem from="1583458410052" duration="10614000" />
     </task>
     <servers />
   </component>
@@ -135,10 +164,10 @@
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
     <state x="283" y="-785" key="#ESLint/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580771292702" />
-    <state x="332" y="-771" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1580777247388">
+    <state x="332" y="-771" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1583448696176">
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
-    <state x="332" y="-771" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580777247388" />
+    <state x="332" y="-771" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1583448696176" />
     <state x="328" y="130" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1280.744@0.23.1280.744" timestamp="1579507740111" />
     <state x="421" y="-696" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1580777023486">
       <screen x="-37" y="-900" width="1440" height="900" />
@@ -148,11 +177,11 @@
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
     <state x="506" y="-817" key="RollbackChangesDialog/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1581015198417" />
-    <state x="141" y="39" key="SettingsEditor" timestamp="1582801141913">
+    <state x="141" y="39" key="SettingsEditor" timestamp="1583314554444">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state x="141" y="39" key="SettingsEditor/0.0.1280.800@0.0.1280.800" timestamp="1582801141913" />
-    <state x="122" y="-856" key="SettingsEditor/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1581169882449" />
+    <state x="141" y="39" key="SettingsEditor/0.0.1280.800@0.0.1280.800" timestamp="1583314554444" />
+    <state x="122" y="-856" key="SettingsEditor/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1583190735483" />
     <state x="352" y="-804" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1580474409316">
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
@@ -162,21 +191,22 @@
     </state>
     <state x="426" y="319" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.800@0.0.1280.800" timestamp="1582801189822" />
     <state x="426" y="319" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1280.740@0.23.1280.740" timestamp="1581101934847" />
-    <state x="301" y="-721" width="828" height="546" key="find.popup" timestamp="1583059524856">
+    <state x="301" y="-721" width="828" height="546" key="find.popup" timestamp="1583467727289">
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
-    <state x="300" y="159" width="828" height="546" key="find.popup/0.0.1280.800@0.0.1280.800" timestamp="1582890566356" />
-    <state x="301" y="-721" width="828" height="546" key="find.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1583059524856" />
+    <state x="300" y="159" width="828" height="546" key="find.popup/0.0.1280.800@0.0.1280.800" timestamp="1583395924047" />
+    <state x="301" y="-721" width="828" height="546" key="find.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1583467727289" />
     <state x="301" y="-721" width="828" height="546" key="find.popup/0.23.1680.1027/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580486582108" />
-    <state width="600" height="440" key="javadoc.popup" timestamp="1581010676175">
+    <state x="301" y="-721" width="932" height="615" key="find.popup/0.23.1680.990/-37.-900.1440.900@-37.-900.1440.900" timestamp="1583256844188" />
+    <state width="600" height="440" key="javadoc.popup" timestamp="1583460171541">
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
-    <state width="600" height="440" key="javadoc.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1581010676175" />
-    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup" timestamp="1582891196268">
-      <screen x="0" y="0" width="1280" height="800" />
+    <state width="600" height="440" key="javadoc.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1583460171541" />
+    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup" timestamp="1583467450277">
+      <screen x="-37" y="-900" width="1440" height="900" />
     </state>
-    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1582891196268" />
-    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1581366329391" />
+    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1583404665951" />
+    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1583467450277" />
     <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.23.1680.1027/-37.-900.1440.900@-37.-900.1440.900" timestamp="1580486402026" />
   </component>
 </project>

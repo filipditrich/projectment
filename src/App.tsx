@@ -75,7 +75,7 @@ export default class App extends Component {
 				
 				<Offline>
 					<Modal
-						isOpen={ true }
+						isOpen={ false }
 						onDismiss={ () => {} }
 						buttonLabel=" "
 						className="modal-warning"

@@ -2,12 +2,14 @@ import { AxiosResponse } from "axios";
 import { History } from "history";
 import React, { useEffect, useState } from "react";
 import { withRouter, useParams } from "react-router";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button, Card, CardBody, CardDeck, Col, Row } from "reactstrap";
 import ConfirmationWrapper from "../../components/common/ConfirmationWrapper";
 import LoadingOverlay from "../../components/common/LoadingOverlay";
-import { IIdea } from "../../models/idea";
+import { IIdea, IIdeaGoal } from "../../models/idea";
 import { DataJsonResponse } from "../../models/response";
+import { IWork } from "../../models/work";
 import { useAppContext } from "../../providers";
 import { Axios, isStatusOk } from "../../utils";
 import { responseError, responseFail } from "../../utils/axios";
@@ -23,8 +25,9 @@ export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailPro
 	const { id } = useParams();
 	if (!id) throw new Error("no Id present"); // shouldn't happen at all
 	const [ isLoading, setIsLoading ] = useState<boolean>(true);
+	const [ workWindow, setWorkWindow ] = useState<boolean>(false);
 	const [ idea, setIdea ] = useState<IIdea>();
-	const [ { accessToken, profile } ] = useAppContext();
+	const [ { accessToken, profile, userId } ] = useAppContext();
 	
 	useEffect(() => {
 		(async () => {
@@ -42,7 +45,6 @@ export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailPro
 			}
 		})();
 	}, [ accessToken, id ]);
-	console.log(profile, idea);
 	
 	return (
 		<Row>
@@ -95,21 +97,9 @@ export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailPro
 									</ConfirmationWrapper>
 								) : null
 						}
-						<ConfirmationWrapper
-							className="ml-3"
-							onPositive={
-								async (sdo) => {
-									alert("NYI");
-								}
-							}
-							positiveText="Vytvořit"
-							dialogTitle="Vytvořit zadání"
-							dialogContent="Opravdu si přejete vytvořit zadání z aktuálního námětu?"
-							type="primary">
-							<Button className="button button-primary">
-								<span>Vytvořit zadání</span>
-							</Button>
-						</ConfirmationWrapper>
+						<Link className="button button-primary ml-3" to={ "/works/create/" + idea?.id }>
+							<span>Vytvořit zadání</span>
+						</Link>
 					</CardBody>
 				</Card>
 			</Col>

@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import ConfirmationWrapper from "../../../components/common/ConfirmationWrapper";
 import TargetBadge, { TargetBadgesTarget } from "../../../components/common/TargetBadge";
 import { loading } from "../../../misc";
-import { IIdeaTarget } from "../../../models/idea";
+import { ITarget } from "../../../models/idea";
 import { DataJsonResponse, TableDataJsonResponse } from "../../../models/response";
 import { useAppContext } from "../../../providers";
 import { Axios, isStatusOk } from "../../../utils";
@@ -15,22 +15,22 @@ import { responseError, responseFail } from "../../../utils/axios";
  * @constructor
  */
 export const IdeaTargets: React.FC<IdeaTargetsProps> = ({ id, setIsLoading }: IdeaTargetsProps) => {
-	const [ targets, setTargets ] = useState<IIdeaTarget[] | undefined>();
-	const [ allTargets, setAllTargets ] = useState<IIdeaTarget[]>([]);
+	const [ targets, setTargets ] = useState<ITarget[] | undefined>();
+	const [ allTargets, setAllTargets ] = useState<ITarget[]>([]);
 	const [ { accessToken } ] = useAppContext();
 	
 	const fetchTargets = useCallback(() => {
 		(async () => {
 			try {
-				const allTargetsRes: AxiosResponse<TableDataJsonResponse<IIdeaTarget[]>> = await (Axios(accessToken))
-					.get<TableDataJsonResponse<IIdeaTarget[]>>("/targets");
+				const allTargetsRes: AxiosResponse<TableDataJsonResponse<ITarget[]>> = await (Axios(accessToken))
+					.get<TableDataJsonResponse<ITarget[]>>("/targets");
 				
 				if (isStatusOk(allTargetsRes)) {
 					setAllTargets(allTargetsRes.data.data);
 				} else throw responseFail(allTargetsRes);
 				
-				const ideaTargetsRes: AxiosResponse<DataJsonResponse<IIdeaTarget[]>> = await Axios(accessToken)
-					.get<DataJsonResponse<IIdeaTarget[]>>(`/ideas/${ id }/targets`);
+				const ideaTargetsRes: AxiosResponse<DataJsonResponse<ITarget[]>> = await Axios(accessToken)
+					.get<DataJsonResponse<ITarget[]>>(`/ideas/${ id }/targets`);
 				
 				if (isStatusOk(ideaTargetsRes)) {
 					setTargets(ideaTargetsRes.data);
@@ -49,8 +49,8 @@ export const IdeaTargets: React.FC<IdeaTargetsProps> = ({ id, setIsLoading }: Id
 	}, []);
 	
 	// whether the target is being currently used in the idea
-	const isTargetUsed = (target: IIdeaTarget): boolean => {
-		return !!targets && targets?.findIndex((_target: IIdeaTarget) => _target.id === target.id) >= 0;
+	const isTargetUsed = (target: ITarget): boolean => {
+		return !!targets && targets?.findIndex((_target: ITarget) => _target.id === target.id) >= 0;
 	};
 	
 	// add target to idea / remove target from idea
@@ -76,7 +76,7 @@ export const IdeaTargets: React.FC<IdeaTargetsProps> = ({ id, setIsLoading }: Id
 		<div className="badge-container">
 			{
 				allTargets
-					.map((target: IIdeaTarget): TargetBadgesTarget => {
+					.map((target: ITarget): TargetBadgesTarget => {
 						return { ...target, inactive: !isTargetUsed(target), classes: "cursor-pointer p-1" };
 					})
 					.map((target: TargetBadgesTarget, index: number): ReactElement => (

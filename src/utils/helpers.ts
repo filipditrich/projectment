@@ -4,9 +4,9 @@
  */
 export const enumToArray = (enumeration: any): Array<{ key: string | number, value: string | number }> => {
 	return Object.keys(enumeration)
-		.filter((key: any) => !isNaN(Number(key)))
+		// .filter((key: any) => !isNaN(Number(key)))
 		.map((key: any) => {
-			return { key: Number(key), value: enumeration[key] };
+			return { key, value: enumeration[key] };
 		});
 };
 

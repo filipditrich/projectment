@@ -140,7 +140,7 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ id }: IdeaOutlinesPr
 	};
 	
 	return (
-		<LoadingOverlay active={ isLoading } tag={ Card } styles={{ minWidth: "40vw" }}>
+		<LoadingOverlay active={ isLoading } tag={ Card }>
 			<CardHeader className="d-flex justify-content-between">
 				<span>Osnova námětu</span>
 				<button className="reset-button" onClick={ addOutline }>

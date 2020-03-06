@@ -23,8 +23,6 @@ export const IdeaInfo: React.FC<IdeaInfoProps> = ({ idea, setIsLoading }: IdeaIn
 					<dd className="text-muted">{ idea?.name }</dd>
 					<dt>Popis</dt>
 					<dd className="text-muted">{ idea?.description }</dd>
-					<dt>Id</dt>
-					<dd className="text-muted">{ idea?.id }</dd>
 					<dt>Nabízené</dt>
 					<dd className="text-muted">{ idea?.offered ? "Ano" : "Ne" }</dd>
 					<dt>Prostředky</dt>

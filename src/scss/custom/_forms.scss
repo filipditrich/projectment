@@ -13,3 +13,25 @@
     }
   }
 }
+
+.rsf-error {
+
+  [class$="-control"] {
+    border-color: $danger;
+  }
+
+  [class$="-indicatorSeparator"] {
+    background-color: rgba($danger, 0.5);
+  }
+
+  [class$="-indicatorContainer"],
+  [class$="-singleValue"],
+  [class$="-placeholder"] {
+    color: rgba($danger, 0.5);
+  }
+
+  & ~ small {
+    color: $danger;
+  }
+
+}

@@ -49,20 +49,18 @@ export interface DataTableProps<T extends object = Data> {
  * @returns {*}
  * @constructor
  */
-export const TextColumnFilter = ({ column: { filterValue, setFilter } }: { column: UseFiltersColumnProps<Data> }): ReactElement => {
-	return (
-		<Input
-			type="text"
-			placeholder="Zadejte hledaný výraz"
-			value={ filterValue || "" }
-			onChange={
-				(e) => {
-					setFilter(e.target.value || undefined);
-				}
+export const TextColumnFilter = ({ column: { filterValue, setFilter } }: { column: UseFiltersColumnProps<Data> }): ReactElement => (
+	<Input
+		type="text"
+		placeholder="Zadejte hledaný výraz"
+		value={ filterValue || "" }
+		onChange={
+			(e) => {
+				setFilter(e.target.value || undefined);
 			}
-		/>
-	);
-};
+		}
+	/>
+);
 
 /**
  * Boolean Column Filter
@@ -72,22 +70,20 @@ export const TextColumnFilter = ({ column: { filterValue, setFilter } }: { colum
  * @returns {*}
  * @constructor
  */
-export const BoolColumnFilter = ({ column: { filterValue, setFilter } }: { column: UseFiltersColumnProps<Data> }): ReactElement => {
-	return (
-		<Input
-			type="select"
-			value={ filterValue }
-			onChange={
-				(e) => {
-					setFilter(e.target.value || undefined);
-				}
-			}>
-			<option value="">Vše</option>
-			<option value="true">Ano</option>
-			<option value="false">Ne</option>
-		</Input>
-	);
-};
+export const BoolColumnFilter = ({ column: { filterValue, setFilter } }: { column: UseFiltersColumnProps<Data> }): ReactElement => (
+	<Input
+		type="select"
+		value={ filterValue }
+		onChange={
+			(e) => {
+				setFilter(e.target.value || undefined);
+			}
+		}>
+		<option value="">Vše</option>
+		<option value="true">Ano</option>
+		<option value="false">Ne</option>
+	</Input>
+);
 
 /**
  * IdeaList Column filter
@@ -95,28 +91,27 @@ export const BoolColumnFilter = ({ column: { filterValue, setFilter } }: { colum
  * @param preFilteredRows
  * @param setFilter
  * @param options
+ * @param id
  * @returns {*}
  * @constructor
  */
-export const ListColumnFilter = ({ column: { filterValue, setFilter, id } }: { column: TableInstance<Data> }, options: Array<KeyValue>): ReactElement => {
-	return (
-		<Input
-			type="select"
-			value={ filterValue }
-			onChange={
-				(e) => {
-					setFilter("targets", e.target.value);
-				}
-			}>
-			<option value="">Vše</option>
-			{
-				options.map((value: KeyValue, index: number) => (
-					<option key={ index } value={ value.key }>{ value.value }</option>
-				))
+export const ListColumnFilter = ({ column: { filterValue, setFilter } }: { column: TableInstance<Data> }, options: Array<KeyValue>, id: string): ReactElement => (
+	<Input
+		type="select"
+		value={ filterValue }
+		onChange={
+			(e) => {
+				setFilter(id, e.target.value);
 			}
-		</Input>
-	);
-};
+		}>
+		<option value="">Vše</option>
+		{
+			options.map((value: KeyValue, index: number) => (
+				<option key={ index } value={ value.key }>{ value.value }</option>
+			))
+		}
+	</Input>
+);
 
 /**
  * Table Component

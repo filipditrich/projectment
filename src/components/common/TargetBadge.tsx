@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React from "react";
 import { Badge } from "reactstrap";
-import { IIdeaTarget } from "../../models/idea";
+import { ITarget } from "../../models/idea";
 
 export const TargetBadge: React.FC<TargetBadgeProps> = ({ target, onClick }: TargetBadgeProps) => {
 	
@@ -20,7 +20,7 @@ export const TargetBadge: React.FC<TargetBadgeProps> = ({ target, onClick }: Tar
 	);
 };
 
-export type TargetBadgesTarget = IIdeaTarget & { classes?: string; inactive?: boolean };
+export type TargetBadgesTarget = ITarget & { classes?: string; inactive?: boolean };
 export interface TargetBadgeProps {
 	target: TargetBadgesTarget;
 	onClick?: (target: TargetBadgesTarget) => void;

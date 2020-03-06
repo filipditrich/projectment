@@ -140,7 +140,7 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ id }: IdeaGoalsProps) => {
 	};
 	
 	return (
-		<LoadingOverlay active={ isLoading } tag={ Card } styles={{ minWidth: "40vw" }}>
+		<LoadingOverlay active={ isLoading } tag={ Card }>
 			<CardHeader className="d-flex justify-content-between">
 				<span>Cíle námětu</span>
 				<button className="reset-button" onClick={ addGoal }>

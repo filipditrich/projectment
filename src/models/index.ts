@@ -1,7 +1,7 @@
 import { RequestMethod } from "./request";
-import Genders from "./genders";
+import Gender from "./gender";
 
 export {
 	RequestMethod,
-	Genders,
+	Gender,
 };

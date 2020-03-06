@@ -11,7 +11,7 @@ import {
 } from "../../components/common/Table";
 import TargetBadges from "../../components/common/TargetBadges";
 import { KeyValue } from "../../models/generic";
-import { IIdea, IIdeaTarget } from "../../models/idea";
+import { IIdea, ITarget } from "../../models/idea";
 import { TableDataJsonResponse } from "../../models/response";
 import { AxiosResponse } from "axios";
 import { useAppContext } from "../../providers";
@@ -27,7 +27,7 @@ export const IdeaList: React.FC<IIdeaListProps> = ({ setTotal }: IIdeaListProps)
 	const [ isLoading, setIsLoading ] = useState<boolean>(false);
 	const [ error, setError ] = useState<boolean | string>(false);
 	
-	const [ targets, setTargets ] = useState<IIdeaTarget[]>([]);
+	const [ targets, setTargets ] = useState<ITarget[]>([]);
 	
 	const [ data, setData ] = useState<IIdea[]>([]);
 	const [ totalPages, setTotalPages ] = useState<number>(0);
@@ -41,14 +41,13 @@ export const IdeaList: React.FC<IIdeaListProps> = ({ setTotal }: IIdeaListProps)
 			setIsLoading(true);
 			
 			try {
-				const res: AxiosResponse<TableDataJsonResponse<IIdeaTarget[]>> = await Axios(accessToken)
-					.get<TableDataJsonResponse<IIdeaTarget[]>>("/targets");
+				const res: AxiosResponse<TableDataJsonResponse<ITarget[]>> = await Axios(accessToken)
+					.get<TableDataJsonResponse<ITarget[]>>("/targets");
 				
 				if (isStatusOk(res)) {
 					setTargets(res.data.data);
 				} else throw responseFail(res);
 			} catch (error) {
-				console.log(error.response);
 				toast.error(responseError(error).message);
 			} finally {
 				setIsLoading(false);
@@ -96,10 +95,10 @@ export const IdeaList: React.FC<IIdeaListProps> = ({ setTotal }: IIdeaListProps)
 			),
 			Filter: (column: TableInstance<IIdea>) => (
 				ListColumnFilter({ column }, [ ...targets
-					.map((target: IIdeaTarget): KeyValue => {
+					.map((target: ITarget): KeyValue => {
 						return { key: target.id, value: target.text };
 					})
-				])
+				], "targets")
 			),
 			disableSortBy: true,
 		},

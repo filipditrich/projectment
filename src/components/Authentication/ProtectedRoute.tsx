@@ -11,7 +11,6 @@ import { useAppContext } from "../../providers";
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, ...rest }: ProtectedRouteProps): ReactElement => {
 
 	const [{ accessToken }] = useAppContext();
-	console.log(useAppContext());
 
 	return accessToken !== null
 		? <Route { ...rest }>{ children }</Route>

@@ -1,6 +1,15 @@
+import Gender from "./gender";
+
 /**
  * User Interface
  */
 export interface IUser {
-	// TODO
+	id: any;
+	firstName: string;
+	lastName: string;
+	gender: Gender;
+	email: string;
+	canBeAuthor: boolean;
+	canBeEvaluator: boolean;
+	name?: string;
 }

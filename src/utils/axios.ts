@@ -77,5 +77,5 @@ export function responseFail<T = any>(res: AxiosResponse<T>, fallbackMessage?: s
  */
 export function responseError(error: Partial<AxiosError & Error>, fallbackMessage?: string): Error {
 	if (!!error.isAxiosError && !error.response) console.error("[axios] network error");
-	return new Error(error.isAxiosError ? oc(error).response.data.title(fallbackMessage || error.message) : error);
+	return new Error(error.isAxiosError ? JSON.stringify(oc(error).response.data.errors(oc(error).response.data(fallbackMessage || error.message))) as any : error);
 }
