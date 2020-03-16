@@ -60,9 +60,7 @@ export const WorkList: React.FC = () => {
 				<>
 					<div className="table-icon">
 						<Link to={ "/works/detail/" + data.row.original.id } id={ `work-${ data.row.original.id }-detail` }>
-							<i className="icon-info font-lg"
-							   title="Detail zadání"
-							   aria-label="Detail zadání" />
+							<i className="icon-info font-lg" />
 						</Link>
 					</div>
 					<UncontrolledTooltip target={ `work-${ data.row.original.id }-detail` } placement="right">Detail zadání</UncontrolledTooltip>

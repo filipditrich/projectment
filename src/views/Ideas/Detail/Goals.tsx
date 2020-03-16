@@ -1,79 +1,105 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { AxiosResponse } from "axios";
-import { toast } from "react-toastify";
-import { Button, Card, CardBody, CardFooter, CardHeader, ListGroup } from "reactstrap";
-import LoadingOverlay from "../../../components/common/LoadingOverlay";
-import { IIdea, IIdeaGoal } from "../../../models/idea";
-import { DataJsonResponse } from "../../../models/response";
-import { useAppContext } from "../../../providers";
-import { Axios, isStatusOk } from "../../../utils";
-import { sortBy, isEqual, differenceWith } from "lodash";
-import { responseError, responseFail } from "../../../utils/axios";
-import { isOwnerOrAdmin } from "../../../utils/roles";
-import IdeaListItem from "./ListItem";
-import update from "immutability-helper";
 import classNames from "classnames";
+import update from "immutability-helper";
+import { isEqual, sortBy } from "lodash";
+import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { Button, Card, CardBody, CardFooter, CardHeader, ListGroup, UncontrolledTooltip, } from "reactstrap";
+import DraggableListItem from "../../../components/common/DraggableListItem";
+import { IIdea, IIdeaGoal } from "../../../models/idea";
+import { DataJsonResponse, NoContentResponse } from "../../../models/response";
+import { useAppContext } from "../../../providers";
+import { Axios } from "../../../utils";
+import { handleRes, responseError } from "../../../utils/axios";
+import { isOwnerOrAdmin } from "../../../utils/roles";
 
 /**
  * Idea Goals Component
+ * @param idea
+ * @param state
+ * @param isLoading
+ * @param fetcher
  * @constructor
  */
-export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ idea }: IdeaGoalsProps) => {
-	const [{ accessToken, profile }] = useAppContext();
-	const [ isLoading, setIsLoading ] = useState<boolean>(true);
+export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ idea, loading }: IdeaGoalsProps) => {
+	const [ { accessToken, profile } ] = useAppContext();
+	const [ isLoading, setIsLoading ] = loading;
+	const [ isSubmitting, setIsSubmitting ] = useState<boolean>(false);
+	const [ goals, setGoals ] = useState<IIdeaGoalList[]>([]);
 	const [ showBadges, setShowBadges ] = useState<boolean>(false);
-	const [ list, setList ] = useState<IIdeaGoalList[]>([]);
 	const [ isChanged, setIsChanged ] = useState<boolean>(false);
 	
-	// detect any changes
-	useEffect(() => {
-		setIsChanged(!isEqual(list, sortBy([ ...list ], "order")));
-	}, [ list ]);
-	
-	// fetch idea goals
-	const fetchGoals = async () => {
+	// goal fetcher
+	const fetchGoals = async (orderToEdit?: number) => {
 		try {
 			setIsLoading(true);
-			const res: AxiosResponse<DataJsonResponse<IIdeaGoal[]>> = await Axios(accessToken)
-				.get<DataJsonResponse<IIdeaGoal[]>>(`/ideas/${ idea?.id }/goals`);
-			
-			if (isStatusOk(res)) {
-				setList(sortBy(res.data, "order"));
-			} else throw responseFail(res);
+			const [ res ] = handleRes<DataJsonResponse<IIdeaGoal[]>>(await Axios(accessToken).get(`/ideas/${ idea?.id }/goals`));
+			setGoals(orderToEdit
+				? res.data.map((goal) => ({ ...goal, isEditing: goal.order === orderToEdit }))
+				: res.data
+			);
 		} catch (error) {
 			toast.error(responseError(error).message);
 		} finally {
 			setIsLoading(false);
 		}
 	};
+	
+	// fetch goals
 	useEffect(() => {
-		if (idea) (async () => fetchGoals())();
+		if (idea)
+			(async () => fetchGoals())();
 	}, [ accessToken, idea ]);
+	
+	// detect any changes
+	useEffect(() => {
+		setIsChanged(!isEqual(goals, sortBy([ ...goals ], "order")));
+	}, [ goals ]);
 	
 	// show badges with old index on reorder
 	useEffect(() => {
 		setShowBadges(isChanged);
-	}, [ list, isChanged ]);
+	}, [ goals, isChanged ]);
+	
+	// whether the user can edit it
+	const canEdit: boolean = isOwnerOrAdmin(profile, idea?.userId);
+	
+	// add goal hook
+	const addGoal = useCallback(() => {
+		(async () => {
+			try {
+				setIsLoading(true);
+				const [ res ] = handleRes<DataJsonResponse<IIdeaGoal>>(
+					await Axios(accessToken).post(`/ideas/${ idea?.id }/goals`, {
+						Text: `Cíl námětu ${ Math.max(...goals.map((goal) => goal.order), 0) }`,
+					})
+				);
+				await fetchGoals(res.data.order);
+				toast.success("Cíl námětu byl úspěšně vytvořen.");
+			} catch (error) {
+				toast.error(responseError(error).message);
+			} finally {
+				setIsLoading(false);
+			}
+		})();
+	}, [ goals ]);
 	
 	// move goal hook
 	const moveGoal = useCallback((dragIndex: number, hoverIndex: number, text: string) => {
-		const dragItem = list[dragIndex];
+		const dragItem = goals[dragIndex];
 		
-		// on text change
+		// text change
 		if (dragIndex === hoverIndex && dragItem.text !== text) {
 			dragItem.text = text;
 			(async () => {
 				try {
 					setIsLoading(true);
-					const res: AxiosResponse<DataJsonResponse<IIdeaGoal>> = await Axios(accessToken)
-						.put<DataJsonResponse<IIdeaGoal>>(`/ideas/${ idea?.id }/goals/${ dragItem.order }`, {
-							Text: text
-						});
-
-					if (isStatusOk(res)) {
-						await fetchGoals();
-						toast.success("Text cíle námětu byl úspěšně uložen.");
-					} else throw responseFail(res);
+					handleRes<DataJsonResponse<NoContentResponse>>(
+						await Axios(accessToken).put(`/ideas/${ idea?.id }/goals/${ dragItem.order }`, {
+							Text: text,
+						})
+					);
+					await fetchGoals();
+					toast.success("Cíl námětu byl úspěšně uložen.");
 				} catch (error) {
 					toast.error(responseError(error).message);
 				} finally {
@@ -81,116 +107,91 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ idea }: IdeaGoalsProps) =>
 				}
 			})();
 		}
-		setList(update(list, {
+		
+		// update local list
+		setGoals(update(goals, {
 			$splice: [
 				[ dragIndex, 1 ],
 				[ hoverIndex, 0, dragItem ],
 			],
 		}));
-	}, [ list ]);
-	
-	// add goal hook
-	const addGoal = useCallback(() => {
-		(async () => {
-			try {
-				setIsLoading(true);
-				const res: AxiosResponse<DataJsonResponse<IIdeaGoal>> = await Axios(accessToken)
-					.post<DataJsonResponse<IIdeaGoal>>(`/ideas/${ idea?.id }/goals`, {
-						Text: `Cíl námětu ${ Math.max(...list.map((ideaGoal) => ideaGoal.order), 0) }`,
-					});
-				
-				if (isStatusOk(res)) {
-					await fetchGoals();
-					toast.success("Cíl námětu byl úspěšně vytvořen.");
-				} else throw responseFail(res);
-			} catch (error) {
-				toast.error(responseError(error).message);
-			} finally {
-				setIsLoading(false);
-			}
-		})();
-	}, [ list ]);
+	}, [ goals ]);
 	
 	// remove goal hook
-	const removeGoal = useCallback((ideaId: string | number, goalId: string | number) => {
+	const removeGoal = useCallback((id: number) => {
 		(async () => {
 			try {
 				setIsLoading(true);
-				const res: AxiosResponse<DataJsonResponse<IIdeaGoal>> = await Axios(accessToken)
-					.delete<DataJsonResponse<IIdeaGoal>>(`/ideas/${ ideaId }/goals/${ goalId }`);
-				
-				if (isStatusOk(res)) {
-					await fetchGoals();
-					toast.success("Cíl námětu byl úspěšně odstraněn.");
-				} else throw responseFail(res);
+				handleRes<DataJsonResponse<IIdeaGoal>>(await Axios(accessToken).delete(`/ideas/${ idea?.id }/goals/${ id }`));
+				await fetchGoals();
+				toast.success("Cíl námětu byl úspěšně odstraněn.");
 			} catch (error) {
 				toast.error(responseError(error).message);
 			} finally {
 				setIsLoading(false);
 			}
 		})();
-	}, [ list ]);
+	}, [ goals ]);
 	
 	// submit reordering changes
-	const submitReorderingChanges = () => {
+	const submitChanges = () => {
 		(async () => {
 			try {
-				setIsLoading(true);
+				setIsSubmitting(true);
 				const reordered = sortBy(
-					[ ...list ].map((item, index) => {
-						return { ...item, order: index + 1 };
-					}), "order")
-					.map((item) => { return { Text: item.text }; });
-				
-				const res: AxiosResponse<DataJsonResponse<IIdeaGoal>> = await Axios(accessToken)
-					.put<DataJsonResponse<IIdeaGoal>>(`/ideas/${ idea?.id }/goals`, reordered);
-				
-				if (isStatusOk(res)) {
-					await fetchGoals();
-					toast.success("Cíle námětu byly úspěšně přezařeny.");
-				} else throw responseFail(res);
+					[ ...goals ].map((item, index) => ({ ...item, order: index + 1 })), "order")
+					.map((item) => ({ Text: item.text }));
+				handleRes<DataJsonResponse<NoContentResponse>>(await Axios(accessToken).put(`/ideas/${ idea?.id }/goals`, reordered));
+				await fetchGoals();
+				toast.success("Cíle námětu byly úspěšně uloženy.");
 			} catch (error) {
-				setIsLoading(false);
 				toast.error(responseError(error).message);
+			} finally {
+				setIsSubmitting(false);
 			}
 		})();
 	};
 	
 	return (
-		<LoadingOverlay active={ isLoading } tag={ Card } styles={{ minWidth: "300px" }}>
+		<Card>
 			<CardHeader className="d-flex justify-content-between">
 				<span>Cíle námětu</span>
 				{
-					isOwnerOrAdmin(profile, idea?.userId) ? (
-						<button className="reset-button" onClick={ addGoal }>
-							<i className="icon-plus font-xl" />
-						</button>
+					canEdit ? (
+						<>
+							<button id="add-goal" className="reset-button" onClick={ addGoal }>
+								<i className="icon-plus font-xl" />
+							</button>
+							<UncontrolledTooltip placement="left" target="add-goal">Přidat nový cíl</UncontrolledTooltip>
+						</>
 					) : null
 				}
 			</CardHeader>
-			<CardBody className={ classNames({ "d-flex flex-column": true, "justify-content-center": !list.length }) }>
+			<CardBody className={ classNames({ "d-flex flex-column": true, "justify-content-center": !goals.length }) }>
 				{
-					list.length ? (
+					goals.length ? (
 						<>
-							<p className="text-muted">Cíle popisují vše, co v práci v době jejího odevzdání má být hotovo a odevzdáno.</p>
+							<p className="text-muted">Cíle popisují vše, co v práci v době jejího odevzdání bude hotovo a odevzdáno.</p>
 							<ListGroup>
 								{
-									list.map((item: IIdeaGoalList, index: number) => (
-										<IdeaListItem
-											listItem={ item }
+									goals.map((goal, index) => (
+										<DraggableListItem
+											listItem={ { ...goal, refId: goal.ideaId } }
 											index={ index }
 											accept="goal"
 											showBadges={ showBadges }
 											key={ index }
-											canEdit={ isOwnerOrAdmin(profile, idea?.userId) }
+											canEdit={ canEdit && !isSubmitting }
+											updateItem={ moveGoal }
 											removeItem={ removeGoal }
-											updateItem={ moveGoal } />
+										/>
 									))
 								}
 							</ListGroup>
 						</>
 					) : (
-						<p className="text-muted text-center my-5">Nový cíl námětu přidáte kliknutím na tlačítko <i className="icon-plus" /> v pravém horním rohu této karty.</p>
+						<p className="text-muted text-center my-5">Nový cíl námětu přidáte kliknutím na tlačítko <i
+							className="icon-plus" /> v pravém horním rohu této karty.</p>
 					)
 				}
 			</CardBody>
@@ -198,22 +199,24 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ idea }: IdeaGoalsProps) =>
 				isChanged ? (
 					<CardFooter className="d-flex">
 						<Button className="button button-primary ml-auto"
-						        onClick={ submitReorderingChanges }>
-							<span>Potvrdit změny</span>
+						        disabled={ isLoading }
+						        onClick={ submitChanges }>
+							<span>{ isSubmitting ? "Working..." : "Potvrdit změny" }</span>
 						</Button>
 					</CardFooter>
 				) : null
 			}
-		</LoadingOverlay>
+		</Card>
 	);
 };
 
-export interface IdeaGoalsProps {
-	idea?: IIdea;
+interface IIdeaGoalList extends IIdeaGoal {
+	isEditing?: boolean;
 }
 
-export interface IIdeaGoalList extends IIdeaGoal {
-	isEditing?: boolean;
+export interface IdeaGoalsProps {
+	idea?: IIdea;
+	loading: [ boolean, Dispatch<SetStateAction<boolean>> ];
 }
 
 export default IdeaGoals;

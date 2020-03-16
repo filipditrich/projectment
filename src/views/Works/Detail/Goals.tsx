@@ -23,7 +23,7 @@ export const WorkGoals: React.FC<WorkGoalsProps> = ({ work, state, loading }: Wo
 	const [ { accessToken } ] = useAppContext();
 	const [ isLoading, setIsLoading ] = loading;
 	const [ isSubmitting, setIsSubmitting ] = useState<boolean>(false);
-	const [ goals, setGoals ] = useState<IWorkGoal[]>([]);
+	const [ goals, setGoals ] = useState<IWorkGoalList[]>([]);
 	const [ showBadges, setShowBadges ] = useState<boolean>(false);
 	const [ isChanged, setIsChanged ] = useState<boolean>(false);
 	
@@ -209,6 +209,10 @@ export const WorkGoals: React.FC<WorkGoalsProps> = ({ work, state, loading }: Wo
 		</>
 	);
 };
+
+interface IWorkGoalList extends IWorkGoal {
+	isEditing?: boolean;
+}
 
 export interface WorkGoalsProps {
 	work?: IWork;

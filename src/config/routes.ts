@@ -9,7 +9,7 @@ const IdeaDetail: LazyExoticComponent<React.ComponentClass> = React.lazy(() => i
 const IdeaCreate: LazyExoticComponent<React.ComponentClass> = React.lazy(() => import("../views/Ideas/Create"));
 const Works: LazyExoticComponent<React.FC<DefaultProps>> = React.lazy(() => import("../views/Works/Works"));
 const WorkDetail: LazyExoticComponent<React.ComponentClass> = React.lazy(() => import("../views/Works/Detail"));
-const WorkInitCreate: LazyExoticComponent<React.ComponentClass> = React.lazy(() => import("../views/Works/InitWork"));
+const WorkInitCreate: LazyExoticComponent<React.ComponentClass> = React.lazy(() => import("../views/Works/Create"));
 
 /**
  * Routes Configuration
@@ -22,7 +22,7 @@ const routes: IRoute[] = [
 	{ path: "/ideas", exact: true, name: "Náměty", component: Ideas, card: false },
 	{ path: "/ideas/list", exact: true, name: "Seznam námětů", component: Ideas, card: false },
 	{ path: "/ideas/detail/:id", exact: true, name: "Detail námětu", component: IdeaDetail, card: false },
-	{ path: "/ideas/create", exact: true, name: "Vytvořit námět", title: "Vytvořit námět", component: IdeaCreate, card: true },
+	{ path: "/ideas/create", exact: true, name: "Vytvořit námět", component: IdeaCreate, card: false },
 	
 	// Works
 	{ path: "/works", exact: true, name: "Zadání", component: Works, card: false },

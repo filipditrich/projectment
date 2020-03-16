@@ -1,52 +1,40 @@
-import React, { Dispatch, ReactElement, SetStateAction, useCallback, useEffect, useMemo, useState } from "react";
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { CellProps, Column, ColumnInstance, TableInstance } from "react-table";
+import { CellProps, Column, TableInstance } from "react-table";
 import { toast } from "react-toastify";
-import { Badge } from "reactstrap";
-import {
-	BoolColumnFilter,
-	FetchDataProps,
-	ListColumnFilter,
-	DataTable,
-} from "../../components/common/Table";
+import { UncontrolledTooltip } from "reactstrap";
+import { BoolColumnFilter, FetchDataProps, ListColumnFilter, DataTable, generateParams } from "../../components/common/Table";
 import TargetBadges from "../../components/common/TargetBadges";
 import { KeyValue } from "../../models/generic";
 import { IIdea, ITarget } from "../../models/idea";
 import { TableDataJsonResponse } from "../../models/response";
-import { AxiosResponse } from "axios";
 import { useAppContext } from "../../providers";
-import { Axios, isStatusOk } from "../../utils";
-import classNames from "classnames";
-import { responseError, responseFail } from "../../utils/axios";
+import { Axios } from "../../utils";
+import { handleRes, responseError } from "../../utils/axios";
 
 /**
  * Idea List Component
  * @constructor
  */
-export const IdeaList: React.FC<IIdeaListProps> = ({ setTotal }: IIdeaListProps) => {
+export const IdeaList: React.FC = () => {
 	const [ isLoading, setIsLoading ] = useState<boolean>(false);
 	const [ error, setError ] = useState<boolean | string>(false);
+	const [ { accessToken } ] = useAppContext();
 	
+	// data
 	const [ targets, setTargets ] = useState<ITarget[]>([]);
-	
 	const [ data, setData ] = useState<IIdea[]>([]);
 	const [ totalPages, setTotalPages ] = useState<number>(0);
 	const [ totalRows, setTotalRows ] = useState<number>(0);
-	
-	const [ { accessToken } ] = useAppContext();
 	
 	// get idea targets
 	useEffect(() => {
 		(async () => {
 			setIsLoading(true);
-			
 			try {
-				const res: AxiosResponse<TableDataJsonResponse<ITarget[]>> = await Axios(accessToken)
-					.get<TableDataJsonResponse<ITarget[]>>("/targets");
-				
-				if (isStatusOk(res)) {
-					setTargets(res.data.data);
-				} else throw responseFail(res);
+				const [ res ] = handleRes<TableDataJsonResponse<ITarget[]>>(await Axios(accessToken)
+					.get<TableDataJsonResponse<ITarget[]>>("/targets"));
+				setTargets(res.data.data);
 			} catch (error) {
 				toast.error(responseError(error).message);
 			} finally {
@@ -60,24 +48,27 @@ export const IdeaList: React.FC<IIdeaListProps> = ({ setTotal }: IIdeaListProps)
 		{
 			Header: "Akce",
 			Cell: (data: CellProps<IIdea>): ReactElement => (
-				<div className="table-icon">
-					<Link to={ "/ideas/detail/" + data.row.original.id }>
-						<i className="icon-info font-lg"
-						   title="Detail námětu"
-						   aria-label="Detail námětu" />
-					</Link>
-				</div>
+				<>
+					<div className="table-icon">
+						<Link to={ "/ideas/detail/" + data.row.original.id } id={ `ideas-${ data.row.original.id }-detail` }>
+							<i className="icon-info font-lg" />
+						</Link>
+					</div>
+					<UncontrolledTooltip target={ `ideas-${ data.row.original.id }-detail` } placement="right">Detail námětu</UncontrolledTooltip>
+				</>
 			),
 			Filter: (column: TableInstance<IIdea>) => {
 				return (
-					<div className="table-icon">
-						<i className="icon-close font-lg"
-						   title="Zrušit všechny filtry"
-						   aria-label="Zrušit všechny filtry"
-						   onClick={ () => {
-							   column.setAllFilters([]);
-						   } } />
-					</div>
+					<>
+						<div className="table-icon">
+							<i className="fa fa-close font-lg text-muted"
+							   id="ideas-clear-filters"
+							   onClick={ () => {
+								   column.setAllFilters([]);
+							   } } />
+						</div>
+						<UncontrolledTooltip target="ideas-clear-filters" placement="bottom">Zrušit všechny filtry</UncontrolledTooltip>
+					</>
 				);
 			},
 			disableFilters: false,
@@ -120,54 +111,13 @@ export const IdeaList: React.FC<IIdeaListProps> = ({ setTotal }: IIdeaListProps)
 		(async () => {
 			setIsLoading(true);
 			setError(false);
-			
-			const parameters: string[] = [];
-			let order: string | undefined = sort[0] ? sort[0].id : undefined;
-			if (order) order = order.toLowerCase();
-			if (order && sort[0].desc) order = order + "_desc";
-			
-			if (page) parameters.push("page=" + page);
-			if (size) parameters.push("pageSize=" + size);
-			if (order) parameters.push("order=" + order);
-			
-			for (let f of filters) {
-				switch (f.id) {
-					case "name":
-						parameters.push("name=" + f.value);
-						break;
-					case "subject":
-						parameters.push("subject=" + f.value);
-						break;
-					case "userId":
-						parameters.push("userId=" + f.value);
-						break;
-					case "userFirstName":
-						parameters.push("firstName=" + f.value);
-						break;
-					case "userLastName":
-						parameters.push("lastName=" + f.value);
-						break;
-					case "offered":
-						parameters.push("offered=" + f.value);
-						break;
-					case "targets":
-						parameters.push("target=" + f.value);
-						break;
-					default:
-						break;
-				}
-			}
+			const philters = generateParams({ page, size, sort, filters, aliases: { userFirstName: "firstname", userLastName: "lastname", targets: "target" } });
 			
 			try {
-				const res: AxiosResponse<TableDataJsonResponse<IIdea[]>> = await Axios(accessToken)
-					.get<TableDataJsonResponse<IIdea[]>>("/ideas?" + parameters.join("&"));
-				
-				if (isStatusOk(res)) {
-					setData(res.data.data);
-					setTotalPages(res.data.pages || 0);
-					setTotalRows(res.data.total || 0);
-					setTotal(res.data.total || 0);
-				} else throw responseFail(res);
+				const [ res ] = handleRes<TableDataJsonResponse<IIdea[]>>(await Axios(accessToken).get<TableDataJsonResponse<IIdea[]>>(`/ideas?${ philters.join("&") }`));
+				setData(res.data.data);
+				setTotalPages(res.data.pages || 0);
+				setTotalRows(res.data.total || 0);
 			} catch (error) {
 				toast.error(responseError(error).message);
 			} finally {
@@ -187,9 +137,5 @@ export const IdeaList: React.FC<IIdeaListProps> = ({ setTotal }: IIdeaListProps)
 			totalRows={ totalRows } />
 	);
 };
-
-interface IIdeaListProps {
-	setTotal: Dispatch<SetStateAction<number>>;
-}
 
 export default IdeaList;

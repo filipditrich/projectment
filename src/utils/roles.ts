@@ -5,6 +5,6 @@ import { Profile } from "oidc-client";
  * @param profile
  * @param ref
  */
-export const isOwnerOrAdmin = (profile: Profile, ref?: string): boolean => {
-	return (profile.administrator || profile.sub === ref);
+export const isOwnerOrAdmin = (profile: Profile, ref?: string | number): boolean => {
+	return (profile.administrator || profile.sub === ref?.toString());
 };

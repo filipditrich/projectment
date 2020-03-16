@@ -3,7 +3,7 @@ import { IUser } from "./user";
 /**
  * Work Interface
  */
-export interface IWork extends IWorkBase, IWorkCosts, IWorkStateIn, IWorkFiles, Pick<IWorkIds, "userId"> {
+export interface IWork extends IIdeaInit, IWorkCosts, IWorkStateIn, IWorkFiles, Pick<IWorkIds, "userId"> {
 	id: number;
 	created: string;
 	updated: string;
@@ -12,7 +12,7 @@ export interface IWork extends IWorkBase, IWorkCosts, IWorkStateIn, IWorkFiles, 
 /**
  * Base Work Interface
  */
-export interface IWorkBase extends Omit<IWorkIds, "userId"> {
+export interface IIdeaInit extends Omit<IWorkIds, "userId"> {
 	name: string;
 	description: string;
 	resources: string;
@@ -24,7 +24,7 @@ export interface IWorkBase extends Omit<IWorkIds, "userId"> {
  * Work Info Interface
  */
 export interface IWorkInfo
-	extends Omit<IWorkBase, "managerId"> {}
+	extends Omit<IIdeaInit, "managerId"> {}
 
 /**
  * Work Costs Interface

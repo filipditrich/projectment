@@ -26,13 +26,20 @@ export function genValidationSchema<T>(config: IFieldConfig<T>): any {
 	return yup.object().shape(obj);
 }
 
+export interface IFieldConfigFieldOptions {
+	disabled?: boolean;
+	isDisabled?: boolean;
+}
+
 export type IFieldConfig<T> = {
 	[key in keyof T]: {
 		value: T[key];
 		displayValue?: any;
 		title: string;
 		helpMessage: string;
-		field?: (props: UseFormikProps<T>) => ReactElement;
+		field?: (props: UseFormikProps<T>, options?: IFieldConfigFieldOptions) => ReactElement;
+		hideLabel?: boolean;
+		hideField?: boolean;
 		yup: Schema<T[key | any]> | Ref;
 		column?: {
 			[key in "xs" | "sm" | "md" | "lg" | "xl"]?: ColumnProps

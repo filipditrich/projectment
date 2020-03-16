@@ -1,6 +1,4 @@
-import { AxiosResponse } from "axios";
-import classnames from "classnames";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Field, Formik } from "formik";
 import * as yup from "yup";
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams, withRouter } from "react-router";
@@ -9,45 +7,43 @@ import {
 	Button,
 	Card,
 	CardBody, CardFooter,
-	CardHeader, Col,
-	FormFeedback,
-	FormGroup,
-	FormText,
+	CardHeader,
 	Input,
-	Label, Row,
-	Tooltip,
+	UncontrolledTooltip,
 } from "reactstrap";
 import { RSFInput } from "../../components/common/CustomSelect";
+import { FormFields } from "../../components/common/FormFields";
 import LoadingOverlay from "../../components/common/LoadingOverlay";
 import ClassName from "../../models/className";
 import { FormikOnSubmit, UseFormikProps } from "../../models/formik";
-import { IIdea } from "../../models/idea";
-import { DataJsonResponse, TableDataJsonResponse } from "../../models/response";
+import { IIdea, IIdeaGoal, IIdeaOutline } from "../../models/idea";
+import { DataJsonResponse, NoContentResponse, TableDataJsonResponse } from "../../models/response";
 import Subject from "../../models/subject";
 import { IUser } from "../../models/user";
-import { IWork, IWorkBase, IWorkInfo, IWorkSet } from "../../models/work";
+import { IWork, IIdeaInit, IWorkSet } from "../../models/work";
 import { useAppContext } from "../../providers";
 import { Axios, enumToArray, name } from "../../utils";
-import axios from "axios";
 import { History } from "history";
 import { handleRes, responseError } from "../../utils/axios";
 import { genInitialValues, genValidationSchema, IFieldConfig } from "../../utils/form";
 import { transformForAPI, transformFromAPI } from "../../utils/transform";
+import axios from "axios";
 
 /**
  * Work from Idea Component
  * @param history
  * @constructor
  */
-export const WorkFormInit: React.FC<InitWorkProps> = ({ history }: InitWorkProps) => {
+export const WorkCreate: React.FC<InitWorkProps> = ({ history }: InitWorkProps) => {
 	const { id } = useParams(); if (!id) throw new Error("No Id present!"); // shouldn't happen at all
 	const [ { accessToken, userId } ] = useAppContext();
 	const [ showHelp, setShowHelp ] = useState<boolean>(false);
-	const [ helpTooltipOpen, setHelpTooltipOpen ] = useState<boolean>(false);
 	const [ isLoading, setIsLoading ] = useState<boolean>(true);
 	
 	// data
 	const [ idea, setIdea ] = useState<IIdea>();
+	const [ goals, setGoals ] = useState<IIdeaGoal[]>([]);
+	const [ outlines, setOutlines ] = useState<IIdeaOutline[]>([]);
 	const [ users, setUsers ] = useState<IUser[]>([]);
 	const [ sets, setSets ] = useState<IWorkSet[]>([]);
 	
@@ -58,15 +54,21 @@ export const WorkFormInit: React.FC<InitWorkProps> = ({ history }: InitWorkProps
 				setIsLoading(true);
 				const [
 					ideaRes,
+					goalsRes,
+					outlinesRes,
 					usersRes,
 					setsRes
 				] = handleRes(...await axios.all<DataJsonResponse | TableDataJsonResponse>([
-					Axios(accessToken).get<DataJsonResponse<IIdea>>("/ideas/" + id),
+					Axios(accessToken).get<DataJsonResponse<IIdea>>(`/ideas/${ id }`),
+					Axios(accessToken).get<DataJsonResponse<IIdeaGoal[]>>(`/ideas/${ id }/goals`),
+					Axios(accessToken).get<DataJsonResponse<IIdeaOutline[]>>(`/ideas/${ id }/outlines`),
 					Axios(accessToken).get<TableDataJsonResponse<IUser[]>>("/users"),
 					Axios(accessToken).get<TableDataJsonResponse<IWorkSet[]>>("/sets"),
 				]));
 				
 				setIdea(transformFromAPI(ideaRes.data, id));
+				setGoals(goalsRes.data);
+				setOutlines(outlinesRes.data);
 				setSets(setsRes.data.data);
 				setUsers(usersRes.data.data);
 			} catch (error) {
@@ -78,7 +80,7 @@ export const WorkFormInit: React.FC<InitWorkProps> = ({ history }: InitWorkProps
 	}, [ accessToken ]);
 	
 	// form configuration
-	const config: IFieldConfig<IWorkBase> = useMemo<IFieldConfig<IWorkBase>>((): IFieldConfig<IWorkBase> => {
+	const config: IFieldConfig<IIdeaInit> = useMemo<IFieldConfig<IIdeaInit>>((): IFieldConfig<IIdeaInit> => {
 		return {
 			name: {
 				value: idea?.name || "",
@@ -99,7 +101,7 @@ export const WorkFormInit: React.FC<InitWorkProps> = ({ history }: InitWorkProps
 				title: (idea?.subject || []).length > 0 ? "Předmět" : "Předměty",
 				helpMessage: `Předmět${ (idea?.subject || []).length > 0 ? "y" : "" }, do kterého zadání práce spadá`,
 				yup: yup.array().required(`Předmět${ (idea?.subject || []).length > 0 ? "y" : "" }, do kterého zadání práce spadá je požadován`).nullable(true),
-				field: ({ getFieldMeta }: UseFormikProps<IWorkBase>) => (
+				field: ({ getFieldMeta }: UseFormikProps<IIdeaInit>, options) => (
 					<Field creatable
 					       isMulti
 					       name="subject"
@@ -107,7 +109,8 @@ export const WorkFormInit: React.FC<InitWorkProps> = ({ history }: InitWorkProps
 					       invalid={ getFieldMeta("subject").touched && !!getFieldMeta("subject").error }
 					       options={ enumToArray(Subject).map((subject) => (
 						       { value: subject.key, label: subject.value }))
-					       } />
+					       }
+					       { ...options } />
 				),
 				column: { md: 6 },
 			},
@@ -116,7 +119,7 @@ export const WorkFormInit: React.FC<InitWorkProps> = ({ history }: InitWorkProps
 				title: "Třída",
 				helpMessage: "Třída vypracovávajícího studenta",
 				yup: yup.string().required("Třída studenta vypracovávajícího práci je požadována"),
-				field: ({ getFieldMeta }: UseFormikProps<IWorkBase>) => (
+				field: ({ getFieldMeta }: UseFormikProps<IIdeaInit>, options) => (
 					<Field name="className"
 					       component={ RSFInput }
 					       creatable={ true }
@@ -125,7 +128,8 @@ export const WorkFormInit: React.FC<InitWorkProps> = ({ history }: InitWorkProps
 						       enumToArray(ClassName).map((className) => (
 							       { value: className.key, label: className.value }
 						       ))
-					       } />
+					       }
+					       { ...options } />
 				),
 				column: { md: 6 },
 			},
@@ -134,13 +138,14 @@ export const WorkFormInit: React.FC<InitWorkProps> = ({ history }: InitWorkProps
 				title: "Popis zadání",
 				helpMessage: "Popis zadání práce",
 				yup: yup.string().required("Popis zadání práce je požadován"),
-				field: ({ getFieldMeta }: UseFormikProps<IWorkBase>) => (
+				field: ({ getFieldMeta }: UseFormikProps<IIdeaInit>, options) => (
 					<Input type="textarea"
 					       invalid={ getFieldMeta("description").touched && !!getFieldMeta("description").error }
 					       tag={ Field }
 					       as="textarea"
 					       rows={ 3 }
-					       name="description" />
+					       name="description"
+					       { ...options } />
 				),
 			},
 			authorId: {
@@ -148,11 +153,12 @@ export const WorkFormInit: React.FC<InitWorkProps> = ({ history }: InitWorkProps
 				title: "Autor práce",
 				helpMessage: "Autor vypracovávající práci",
 				yup: yup.string().required("Autor vypracovávající práci je požadován"),
-				field: ({ getFieldMeta }: UseFormikProps<IWorkBase>) => (
+				field: ({ getFieldMeta }: UseFormikProps<IIdeaInit>, options) => (
 					<Field name="authorId"
 					       component={ RSFInput }
 					       invalid={ getFieldMeta("authorId").touched && getFieldMeta("authorId") }
-					       options={ users.map((user) => ({ value: user.id, label: name(user.name) })) } />
+					       options={ users.map((user) => ({ value: user.id, label: name(user.name) })) }
+					       { ...options } />
 				),
 				column: { md: 4 },
 			},
@@ -161,11 +167,12 @@ export const WorkFormInit: React.FC<InitWorkProps> = ({ history }: InitWorkProps
 				title: "Vedoucí práce",
 				helpMessage: "Uživatel který povede práci",
 				yup: yup.string().required("Vedoucí práce je požadován"),
-				field: ({ getFieldMeta }: UseFormikProps<IWorkBase>) => (
+				field: ({ getFieldMeta }: UseFormikProps<IIdeaInit>, options) => (
 					<Field name="managerId"
 					       component={ RSFInput }
 					       invalid={ getFieldMeta("managerId").touched && getFieldMeta("managerId") }
-					       options={ users.map((user) => ({ value: user.id, label: name(user.name) })) } />
+					       options={ users.map((user) => ({ value: user.id, label: name(user.name) })) }
+					       { ...options } />
 				),
 				column: { md: 4 },
 			},
@@ -174,11 +181,12 @@ export const WorkFormInit: React.FC<InitWorkProps> = ({ history }: InitWorkProps
 				title: "Sada prací",
 				helpMessage: "Sada prací, do které by zadání spadalo",
 				yup: yup.number().required("Sada prací do které práce spadá je požadována"),
-				field: ({ getFieldMeta }: UseFormikProps<IWorkBase>) => (
+				field: ({ getFieldMeta }: UseFormikProps<IIdeaInit>, options) => (
 					<Field name="setId"
 					       component={ RSFInput }
 					       invalid={ getFieldMeta("setId").touched && !!getFieldMeta("setId").error }
-					       options={ sets.map((set) => ({ value: set.id, label: set.name })) } />
+					       options={ sets.map((set) => ({ value: set.id, label: set.name })) }
+					       { ...options } />
 				),
 				column: { md: 4 },
 			},
@@ -186,20 +194,28 @@ export const WorkFormInit: React.FC<InitWorkProps> = ({ history }: InitWorkProps
 	}, [ idea, users, sets ]);
 	
 	// initial values
-	const initialValues = genInitialValues<IWorkBase>(config);
+	const initialValues = genInitialValues<IIdeaInit>(config);
 	
 	// validation schema
 	const validationSchema = genValidationSchema(config);
 	
 	// on submit hook
-	const onSubmit: FormikOnSubmit<IWorkBase> = async (values: IWorkBase, { setSubmitting }) => {
+	const onSubmit: FormikOnSubmit<IIdeaInit> = async (values: IIdeaInit, { setSubmitting }) => {
 		try {
 			setSubmitting(true);
 			const [ res ] = handleRes<DataJsonResponse<IWork>>(await Axios(accessToken)
 				.post<DataJsonResponse<IWork>>("/works", {
 					...transformForAPI({ ...idea, ...values }),
-					// TODO: outlines, goals?
 				}));
+			
+			// post goals and outlines as well
+			handleRes<DataJsonResponse<NoContentResponse>>(...await axios.all([
+				Axios(accessToken).put<DataJsonResponse<NoContentResponse>>(`/works/${ res.data.id }/goals`,
+					goals.map((goal) => ({ Text: goal.text }))),
+				Axios(accessToken).put<DataJsonResponse<NoContentResponse>>(`/works/${ res.data.id }/outlines`,
+					outlines.map((outline) => ({ Text: outline.text }))),
+			]));
+			
 			toast.success("Zadání z námětu bylo úspěšně vytvořeno.");
 			history.push(`/works/detail/${ res.data.id }`);
 		} catch (error) {
@@ -215,39 +231,11 @@ export const WorkFormInit: React.FC<InitWorkProps> = ({ history }: InitWorkProps
 			enableReinitialize={ true }
 			onSubmit={ onSubmit }>
 			{
-				(props: UseFormikProps<IWorkBase>) => (
+				(props: UseFormikProps<IIdeaInit>) => (
 					<LoadingOverlay active={ isLoading } tag={ Card }>
 						<CardHeader>Vytvoření zadání z námětu</CardHeader>
 						<CardBody>
-							<Form id="work-from-idea">
-								<Row>
-									{/* Fields */ }
-									{
-										Object.keys(config).map((name, index) => {
-											const field = config[name as keyof IWorkInfo];
-											
-											return (
-												<Col key={ index } sm={ 12 } { ...field.column }>
-													<FormGroup>
-														<Label for={ name }>{ field.title }</Label>
-														{
-															field.field ? field.field(props) : (
-																<Input type="text"
-																       invalid={ props.getFieldMeta(name).touched && !!props.getFieldMeta(name).error }
-																       tag={ Field }
-																       name={ name }
-																/>
-															)
-														}
-														<ErrorMessage name={ name }>{ (msg) => <FormFeedback>{ msg }</FormFeedback> }</ErrorMessage>
-														<FormText className={ classnames({ "d-none": !showHelp }) }>{ field.helpMessage }</FormText>
-													</FormGroup>
-												</Col>
-											);
-										})
-									}
-								</Row>
-							</Form>
+							<FormFields isEditing={ true } config={ config } props={ props } showHelp={ showHelp } id="work-from-idea"/>
 						</CardBody>
 						<CardFooter className="d-flex align-items-center justify-content-between">
 							{/* Buttons */ }
@@ -261,22 +249,14 @@ export const WorkFormInit: React.FC<InitWorkProps> = ({ history }: InitWorkProps
 							</div>
 							
 							{/* Help */ }
-							<a className="link-muted"
-							   href="#help"
-							   id="help-button"
-							   onClick={ (e) => {
-								   e.preventDefault();
-								   setShowHelp(!showHelp);
-							   } }>
+							<span className="link-muted ml-auto"
+							      id="help-button"
+							      onClick={ () => setShowHelp(!showHelp) }>
 								<span>Nápověda</span>
-							</a>
-							<Tooltip
-								placement="top"
-								isOpen={ helpTooltipOpen }
-								target="help-button"
-								toggle={ () => setHelpTooltipOpen(!helpTooltipOpen) }>
+							</span>
+							<UncontrolledTooltip placement="top" target="help-button">
 								Zobrazit nápovědu k formuláři
-							</Tooltip>
+							</UncontrolledTooltip>
 						</CardFooter>
 					</LoadingOverlay>
 				)
@@ -289,4 +269,4 @@ interface InitWorkProps {
 	history: History;
 }
 
-export default withRouter(WorkFormInit);
+export default withRouter(WorkCreate);

@@ -24,6 +24,12 @@ export interface IIdea extends IIdeaInit {
 }
 
 /**
+ * Idea Info Interface
+ */
+export interface IIdeaInfo
+	extends IIdeaInit, Pick<IIdea, "targets"> {}
+
+/**
  * Idea Target Interface
  */
 export interface ITarget {
@@ -46,7 +52,7 @@ export interface ITarget {
  * Idea Goal Interface
  */
 export interface IIdeaGoal {
-	id?: number;
+	id: number;
 	ideaId: number;
 	order: number;
 	text: string;

@@ -17,6 +17,7 @@ import {
 } from "reactstrap";
 import * as yup from "yup";
 import { RSFInput } from "../../../components/common/CustomSelect";
+import { FormFields } from "../../../components/common/FormFields";
 import ClassName from "../../../models/className";
 import { FormikOnSubmit, UseFormikProps } from "../../../models/formik";
 import { DataJsonResponse } from "../../../models/response";
@@ -52,13 +53,14 @@ export const WorkInfo: React.FC<WorkInfoProps> = ({ work, users, sets, state, fe
 				title: "Popis zadání",
 				helpMessage: "Popis zadání práce",
 				yup: yup.string().required("Popis zadání práce je požadován"),
-				field: ({ getFieldMeta }: UseFormikProps<IWorkInfo>) => (
+				field: ({ getFieldMeta }: UseFormikProps<IWorkInfo>, options) => (
 					<Input type="textarea"
 					       invalid={ getFieldMeta("description").touched && !!getFieldMeta("description").error }
 					       tag={ Field }
 					       as="textarea"
 					       rows={ 3 }
-					       name="description" />
+					       name="description"
+					       { ...options } />
 				),
 			},
 			resources: {
@@ -81,7 +83,7 @@ export const WorkInfo: React.FC<WorkInfoProps> = ({ work, users, sets, state, fe
 						}
 					</div>
 				),
-				field: ({ getFieldMeta }: UseFormikProps<IWorkInfo>) => (
+				field: ({ getFieldMeta }: UseFormikProps<IWorkInfo>, options) => (
 					<Field creatable
 					       isMulti
 					       name="subject"
@@ -89,7 +91,8 @@ export const WorkInfo: React.FC<WorkInfoProps> = ({ work, users, sets, state, fe
 					       invalid={ getFieldMeta("subject").touched && !!getFieldMeta("subject").error }
 					       options={ enumToArray(Subject).map((subject) => (
 						       { value: subject.key, label: subject.value }))
-					       } />
+					       }
+					       { ...options } />
 				),
 			},
 			authorId: {
@@ -98,11 +101,12 @@ export const WorkInfo: React.FC<WorkInfoProps> = ({ work, users, sets, state, fe
 				helpMessage: "Autor vypracovávající práci",
 				yup: yup.string().required("Autor vypracovávající práci je požadován"),
 				displayValue: <>{ name(users.find((user) => user.id === work?.authorId)?.name) } (<b>{ work?.className }</b>)</>,
-				field: ({ getFieldMeta }: UseFormikProps<IWorkInfo>) => (
+				field: ({ getFieldMeta }: UseFormikProps<IWorkInfo>, options) => (
 					<Field name="authorId"
 					       component={ RSFInput }
 					       invalid={ getFieldMeta("authorId").touched && getFieldMeta("authorId") }
-					       options={ users.map((user) => ({ value: user.id, label: name(user.name) })) } />
+					       options={ users.map((user) => ({ value: user.id, label: name(user.name) })) }
+					       { ...options } />
 				),
 				column: { sm: 12, md: 8, },
 			},
@@ -112,7 +116,7 @@ export const WorkInfo: React.FC<WorkInfoProps> = ({ work, users, sets, state, fe
 				helpMessage: "Třída vypracovávajícího studenta",
 				yup: yup.string().required("Třída studenta vypracovávajícího práci je požadována"),
 				displayValue: false,
-				field: ({ getFieldMeta }: UseFormikProps<IWorkInfo>) => (
+				field: ({ getFieldMeta }: UseFormikProps<IWorkInfo>, options) => (
 					<Field name="className"
 					       component={ RSFInput }
 					       creatable={ true }
@@ -121,7 +125,8 @@ export const WorkInfo: React.FC<WorkInfoProps> = ({ work, users, sets, state, fe
 						       enumToArray(ClassName).map((className) => (
 							       { value: className.key, label: className.value }
 						       ))
-					       } />
+					       }
+					       { ...options } />
 				),
 				column: { sm: 12, md: 4, },
 			},
@@ -131,11 +136,12 @@ export const WorkInfo: React.FC<WorkInfoProps> = ({ work, users, sets, state, fe
 				helpMessage: "Sada prací, do které by zadání spadalo",
 				yup: yup.number().required("Sada prací do které práce spadá je požadována"),
 				displayValue: sets.find((set) => set.id === work?.setId)?.name,
-				field: ({ getFieldMeta }: UseFormikProps<IWorkInfo>) => (
+				field: ({ getFieldMeta }: UseFormikProps<IWorkInfo>, options) => (
 					<Field name="setId"
 					       component={ RSFInput }
 					       invalid={ getFieldMeta("setId").touched && !!getFieldMeta("setId").error }
-					       options={ sets.map((set) => ({ value: set.id, label: set.name })) } />
+					       options={ sets.map((set) => ({ value: set.id, label: set.name })) }
+					       { ...options } />
 				),
 			},
 		};
@@ -195,55 +201,13 @@ export const WorkInfo: React.FC<WorkInfoProps> = ({ work, users, sets, state, fe
 											}>
 											<i className="icon-magic-wand font-xl" />
 										</button>
-										<UncontrolledTooltip placement="left"
-										                     target="edit-work">Upravit zadání</UncontrolledTooltip>
+										<UncontrolledTooltip placement="left" target="edit-work">Upravit zadání</UncontrolledTooltip>
 									</>
 								) : null
 							}
 						</CardHeader>
 						<CardBody>
-							<Form id="work-info">
-								<Row>
-									{/* Fields */ }
-									{
-										Object.keys(config).map((name, index) => {
-											const field = config[name as keyof IWorkInfo];
-											
-											return (
-												<Col key={ index } sm={ 12 } { ...field.column }>
-													<FormGroup>
-														{
-															isEditing ? (
-																<>
-																	<Label for={ name }>{ field.title }</Label>
-																	{
-																		field.field ? field.field(props) : (
-																			<Input type="text"
-																			       invalid={ props.getFieldMeta(name).touched && !!props.getFieldMeta(name).error }
-																			       tag={ Field }
-																			       name={ name }
-																			/>
-																		)
-																	}
-																	<ErrorMessage name={ name }>{ (msg) => <FormFeedback>{ msg }</FormFeedback> }</ErrorMessage>
-																	<FormText className={ classnames({ "d-none": !showHelp }) }>{ field.helpMessage }</FormText>
-																</>
-															) : (
-																field.displayValue !== false ? (
-																	<>
-																		<dt>{ field.title }</dt>
-																		<dd>{ field.displayValue || field.value }</dd>
-																	</>
-																) : null
-															)
-														}
-													</FormGroup>
-												</Col>
-											);
-										})
-									}
-								</Row>
-							</Form>
+							<FormFields isEditing={ isEditing } config={ config } props={ props } showHelp={ showHelp } id="work-info" />
 						</CardBody>
 						{
 							canEdit && isEditing ? (
@@ -266,9 +230,13 @@ export const WorkInfo: React.FC<WorkInfoProps> = ({ work, users, sets, state, fe
 										<span>Zrušit</span>
 									</Button>
 									<span className="link-muted ml-auto"
+									      id="help-button"
 									      onClick={ () => setShowHelp(!showHelp) }>
 										<span>Nápověda</span>
 									</span>
+									<UncontrolledTooltip placement="top" target="help-button">
+										Zobrazit nápovědu k formuláři
+									</UncontrolledTooltip>
 								</CardFooter>
 							) : null
 						}

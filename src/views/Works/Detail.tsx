@@ -112,7 +112,6 @@ export const WorkDetail: React.FC<WorkDetailProps> = ({ history }: WorkDetailPro
 					<WorkRoles work={ work } state={ workState } fetcher={ fetchData } />
 				</Card>
 				
-				{/* TODO: Files */ }
 				<Card style={ cardWidth(50) }>
 					<WorkFiles work={ work } state={ workState } fetcher={ fetchData } />
 				</Card>

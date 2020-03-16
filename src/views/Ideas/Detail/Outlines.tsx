@@ -1,79 +1,105 @@
-import { AxiosResponse } from "axios";
 import classNames from "classnames";
 import update from "immutability-helper";
 import { isEqual, sortBy } from "lodash";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Button, Card, CardBody, CardFooter, CardHeader, ListGroup } from "reactstrap";
-import LoadingOverlay from "../../../components/common/LoadingOverlay";
-import { IIdea, IIdeaGoal, IIdeaOutline } from "../../../models/idea";
-import { DataJsonResponse } from "../../../models/response";
+import { Button, Card, CardBody, CardFooter, CardHeader, ListGroup, UncontrolledTooltip, } from "reactstrap";
+import DraggableListItem from "../../../components/common/DraggableListItem";
+import { IIdea, IIdeaOutline } from "../../../models/idea";
+import { DataJsonResponse, NoContentResponse } from "../../../models/response";
 import { useAppContext } from "../../../providers";
-import { Axios, isStatusOk } from "../../../utils";
-import { responseError, responseFail } from "../../../utils/axios";
+import { Axios } from "../../../utils";
+import { handleRes, responseError } from "../../../utils/axios";
 import { isOwnerOrAdmin } from "../../../utils/roles";
-import IdeaListItem from "./ListItem";
 
 /**
- * Idea Outlines Component
+ * Goal Outlines Component
+ * @param idea
+ * @param state
+ * @param isLoading
+ * @param fetcher
  * @constructor
  */
-export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ idea }: IdeaOutlinesProps) => {
+export const IdeaOutlines: React.FC<IIdeaOutlineProps> = ({ idea, loading }: IIdeaOutlineProps) => {
 	const [ { accessToken, profile } ] = useAppContext();
-	const [ isLoading, setIsLoading ] = useState<boolean>(true);
+	const [ isLoading, setIsLoading ] = loading;
+	const [ isSubmitting, setIsSubmitting ] = useState<boolean>(false);
+	const [ outlines, setOutlines ] = useState<IIdeaOutlineList[]>([]);
 	const [ showBadges, setShowBadges ] = useState<boolean>(false);
-	const [ list, setList ] = useState<IIdeaOutlineList[]>([]);
 	const [ isChanged, setIsChanged ] = useState<boolean>(false);
 	
-	// detect any changes
-	useEffect(() => {
-		setIsChanged(!isEqual(list, sortBy([ ...list ], "order")));
-	}, [ list ]);
-	
-	// fetch idea outlines
-	const fetchOutlines = async () => {
+	// outline fetcher
+	const fetchOutlines = async (orderToEdit?: number) => {
 		try {
 			setIsLoading(true);
-			const res: AxiosResponse<DataJsonResponse<IIdeaOutline[]>> = await Axios(accessToken)
-				.get<DataJsonResponse<IIdeaOutline[]>>(`/ideas/${ idea?.id }/outlines`);
-			
-			if (isStatusOk(res)) {
-				setList(res.data);
-			} else throw responseFail(res);
+			const [ res ] = handleRes<DataJsonResponse<IIdeaOutline[]>>(await Axios(accessToken).get(`/ideas/${ idea?.id }/outlines`));
+			setOutlines(orderToEdit
+				? res.data.map((outline) => ({ ...outline, isEditing: outline.order === orderToEdit }))
+				: res.data
+			);
 		} catch (error) {
 			toast.error(responseError(error).message);
 		} finally {
 			setIsLoading(false);
 		}
 	};
+	
+	// fetch outlines
 	useEffect(() => {
-		if (idea) (async () => fetchOutlines())();
+		if (idea)
+			(async () => fetchOutlines())();
 	}, [ accessToken, idea ]);
+	
+	// detect any changes
+	useEffect(() => {
+		setIsChanged(!isEqual(outlines, sortBy([ ...outlines ], "order")));
+	}, [ outlines ]);
 	
 	// show badges with old index on reorder
 	useEffect(() => {
 		setShowBadges(isChanged);
-	}, [ list, isChanged ]);
+	}, [ outlines, isChanged ]);
+	
+	// whether the user can edit it
+	const canEdit: boolean = isOwnerOrAdmin(profile, idea?.userId);
+	
+	// add outline hook
+	const addOutline = useCallback(() => {
+		(async () => {
+			try {
+				setIsLoading(true);
+				const [ res ] = handleRes<DataJsonResponse<IIdeaOutline>>(
+					await Axios(accessToken).post(`/ideas/${ idea?.id }/outlines`, {
+						Text: `Bod osnovy ${ Math.max(...outlines.map((outline) => outline.order), 0) }`,
+					})
+				);
+				await fetchOutlines(res.data.order);
+				toast.success("Bod osnovy byl úspěšně vytvořen.");
+			} catch (error) {
+				toast.error(responseError(error).message);
+			} finally {
+				setIsLoading(false);
+			}
+		})();
+	}, [ outlines ]);
 	
 	// move outline hook
 	const moveOutline = useCallback((dragIndex: number, hoverIndex: number, text: string) => {
-		const dragItem = list[dragIndex];
+		const dragItem = outlines[dragIndex];
 		
-		// on text change
+		// text change
 		if (dragIndex === hoverIndex && dragItem.text !== text) {
 			dragItem.text = text;
 			(async () => {
 				try {
 					setIsLoading(true);
-					const res: AxiosResponse<DataJsonResponse<IIdeaGoal>> = await Axios(accessToken)
-						.put<DataJsonResponse<IIdeaGoal>>(`/ideas/${ idea?.id }/outlines/${ dragItem.order }`, {
-							Text: text
-						});
-					
-					if (isStatusOk(res)) {
-						await fetchOutlines();
-						toast.success("Text bodu osnovy byl úspěšně uložen.");
-					} else throw responseFail(res);
+					handleRes<DataJsonResponse<NoContentResponse>>(
+						await Axios(accessToken).put(`/ideas/${ idea?.id }/outlines/${ dragItem.order }`, {
+							Text: text,
+						})
+					);
+					await fetchOutlines();
+					toast.success("Text bodu osnovy byl úspěšně uložen.");
 				} catch (error) {
 					toast.error(responseError(error).message);
 				} finally {
@@ -81,116 +107,90 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ idea }: IdeaOutlines
 				}
 			})();
 		}
-		setList(update(list, {
+		
+		// update local list
+		setOutlines(update(outlines, {
 			$splice: [
 				[ dragIndex, 1 ],
 				[ hoverIndex, 0, dragItem ],
 			],
 		}));
-	}, [ list ]);
-	
-	// add outline hook
-	const addOutline = useCallback(() => {
-		(async () => {
-			try {
-				setIsLoading(true);
-				const res: AxiosResponse<DataJsonResponse<IIdeaOutline>> = await Axios(accessToken)
-					.post<DataJsonResponse<IIdeaOutline>>(`/ideas/${ idea?.id }/outlines`, {
-						Text: `Bod osnovy ${ Math.max(...list.map((ideaGoal) => ideaGoal.order), 0) }`,
-					});
-
-				if (isStatusOk(res)) {
-					await fetchOutlines();
-					toast.success("Bod osnovy byl úspěšně vytvořen.");
-				} else throw responseFail(res);
-			} catch (error) {
-				toast.error(responseError(error).message);
-			} finally {
-				setIsLoading(false);
-			}
-		})();
-	}, [ list ]);
+	}, [ outlines ]);
 	
 	// remove outline hook
-	const removeOutline = useCallback((ideaId: string | number, outlineId: string | number) => {
+	const removeOutline = useCallback((id: number) => {
 		(async () => {
 			try {
-		     setIsLoading(true);
-				const res: AxiosResponse<DataJsonResponse<IIdeaOutline>> = await Axios(accessToken)
-					.delete<DataJsonResponse<IIdeaOutline>>(`/ideas/${ ideaId }/outlines/${ outlineId }`);
-
-				if (isStatusOk(res)) {
-					await fetchOutlines();
-					toast.success("Bod osnovy byl úspěšně odstraněn.");
-				} else throw responseFail(res);
+				setIsLoading(true);
+				handleRes<DataJsonResponse<IIdeaOutline>>(await Axios(accessToken).delete(`/ideas/${ idea?.id }/outlines/${ id }`));
+				await fetchOutlines();
+				toast.success("Bod osnovy byl úspěšně odstraněn.");
 			} catch (error) {
 				toast.error(responseError(error).message);
 			} finally {
 				setIsLoading(false);
 			}
 		})();
-	}, [ list ]);
+	}, [ outlines ]);
 	
 	// submit reordering changes
-	const submitReorderingChanges = () => {
+	const submitChanges = () => {
 		(async () => {
 			try {
-				setIsLoading(true);
+				setIsSubmitting(true);
 				const reordered = sortBy(
-					[ ...list ].map((item, index) => {
-						return { ...item, order: index + 1 };
-					}), "order")
-					.map((item) => { return { Text: item.text }; });
-				
-				const res: AxiosResponse<DataJsonResponse<IIdeaGoal>> = await Axios(accessToken)
-					.put<DataJsonResponse<IIdeaGoal>>(`/ideas/${ idea?.id }/outlines`, reordered);
-				
-				if (isStatusOk(res)) {
-					await fetchOutlines();
-					toast.success("Body osnovy námětu byly úspěšně přezařeny.");
-				} else throw responseFail(res);
+					[ ...outlines ].map((item, index) => ({ ...item, order: index + 1 })), "order")
+					.map((item) => ({ Text: item.text }));
+				handleRes<DataJsonResponse<NoContentResponse>>(await Axios(accessToken).put(`/ideas/${ idea?.id }/outlines`, reordered));
+				await fetchOutlines();
+				toast.success("Body osnovy námětu byly úspěšně uloženy.");
 			} catch (error) {
-				setIsLoading(false);
 				toast.error(responseError(error).message);
+			} finally {
+				setIsSubmitting(false);
 			}
 		})();
 	};
 	
 	return (
-		<LoadingOverlay active={ isLoading } tag={ Card } styles={{ minWidth: "300px" }}>
+		<Card>
 			<CardHeader className="d-flex justify-content-between">
 				<span>Osnova námětu</span>
 				{
-					isOwnerOrAdmin(profile, idea?.userId) ? (
-						<button className="reset-button" onClick={ addOutline }>
-							<i className="icon-plus font-xl" />
-						</button>
+					canEdit ? (
+						<>
+							<button id="add-outline" className="reset-button" onClick={ addOutline }>
+								<i className="icon-plus font-xl" />
+							</button>
+							<UncontrolledTooltip placement="left" target="add-outline">Přidat nový bod osnovy</UncontrolledTooltip>
+						</>
 					) : null
 				}
 			</CardHeader>
-			<CardBody className={ classNames({ "d-flex flex-column": true, "justify-content-center": !list.length }) }>
+			<CardBody className={ classNames({ "d-flex flex-column": true, "justify-content-center": !outlines.length }) }>
 				{
-					list.length ? (
+					outlines.length ? (
 						<>
-							<p className="text-muted">Osnova shrnuje veškeré kroky, které student bude muset učinit, aby dosáhl cílů práce: co bude muset nastudovat, vyrobit, promyslet.</p>
+							<p className="text-muted">Osnova shrnuje veškeré kroky, které student musíc učinit, aby dosáhl cílů námětu: co musí nastudovat, vyrobit, promyslet.</p>
 							<ListGroup>
 								{
-									list.map((item: IIdeaOutlineList, index: number) => (
-										<IdeaListItem
-											listItem={ item }
+									outlines.map((outline, index) => (
+										<DraggableListItem
+											listItem={ { ...outline, refId: outline.ideaId } }
 											index={ index }
 											accept="outline"
 											showBadges={ showBadges }
 											key={ index }
-											canEdit={ isOwnerOrAdmin(profile, idea?.userId) }
+											canEdit={ canEdit && !isSubmitting }
+											updateItem={ moveOutline }
 											removeItem={ removeOutline }
-											updateItem={ moveOutline } />
+										/>
 									))
 								}
 							</ListGroup>
 						</>
 					) : (
-						<p className="text-muted text-center my-5">Nový bod námětu přidáte kliknutím na tlačítko <i className="icon-plus" /> v pravém horním rohu této karty.</p>
+						<p className="text-muted text-center my-5">Nový bod osnovy námětu přidáte kliknutím na tlačítko <i className="icon-plus" /> v pravém horním rohu této karty.</p>
 					)
 				}
 			</CardBody>
@@ -198,22 +198,24 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ idea }: IdeaOutlines
 				isChanged ? (
 					<CardFooter className="d-flex">
 						<Button className="button button-primary ml-auto"
-						        onClick={ submitReorderingChanges }>
-							<span>Potvrdit změny</span>
+						        disabled={ isLoading }
+						        onClick={ submitChanges }>
+							<span>{ isSubmitting ? "Working..." : "Potvrdit změny" }</span>
 						</Button>
 					</CardFooter>
 				) : null
 			}
-		</LoadingOverlay>
+		</Card>
 	);
 };
 
-export interface IdeaOutlinesProps {
-	idea?: IIdea;
+interface IIdeaOutlineList extends IIdeaOutline {
+	isEditing?: boolean;
 }
 
-export interface IIdeaOutlineList extends IIdeaOutline {
-	isEditing?: boolean;
+export interface IIdeaOutlineProps {
+	idea?: IIdea;
+	loading: [ boolean, Dispatch<SetStateAction<boolean>> ];
 }
 
 export default IdeaOutlines;

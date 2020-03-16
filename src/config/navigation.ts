@@ -14,20 +14,14 @@ const navigation: INavigation = {
 			name: "Náměty",
 		},
 		{
-			name: "Náměty",
+			name: "Seznam námětů",
+			url: "/ideas/list",
 			icon: "icon-bulb",
-			children: [
-				{
-					name: "Seznam námětů",
-					url: "/ideas/list",
-					icon: "icon-layers",
-				},
-				{
-					name: "Vytvořit námět",
-					url: "/ideas/create",
-					icon: "icon-note",
-				}
-			],
+		},
+		{
+			name: "Vytvořit námět",
+			url: "/ideas/create",
+			icon: "icon-note",
 		},
 		{
 			title: true,
@@ -38,21 +32,6 @@ const navigation: INavigation = {
 			icon: "icon-briefcase",
 			url: "/works/list",
 		},
-		{
-			title: true,
-			name: "Uživatelé",
-		},
-		{
-			name: "Uživatelé",
-			icon: "icon-user",
-			children: [
-				{
-					name: "Seznam uživatelů",
-					url: "/users/list",
-					icon: "icon-people",
-				}
-			],
-		}
 	]
 };
 
