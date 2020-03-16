@@ -6,10 +6,11 @@ import TargetBadge, { TargetBadgesTarget } from "../../../components/common/Targ
 import { loading } from "../../../misc";
 import { IIdea, ITarget } from "../../../models/idea";
 import { DataJsonResponse, TableDataJsonResponse } from "../../../models/response";
+import { UserClaim } from "../../../models/user";
 import { useAppContext } from "../../../providers";
 import { Axios, isStatusOk } from "../../../utils";
 import { responseError, responseFail } from "../../../utils/axios";
-import { isOwnerOrAdmin } from "../../../utils/roles";
+import { hasClaim } from "../../../utils/roles";
 
 /**
  * Idea Targets Component
@@ -73,15 +74,19 @@ export const IdeaTargets: React.FC<IdeaTargetsProps> = ({ idea, setIsLoading }: 
 		}
 	};
 	
+	// whether user can enable / disable target
+	const canEdit: boolean = hasClaim(profile, UserClaim.THESES_ADMIN)
+		|| hasClaim(profile, UserClaim.THESES_MANAGER);
+	
 	return !!targets && allTargets.length ? (
 		<div className="badge-container">
 			{
 				allTargets
 					.map((target: ITarget): TargetBadgesTarget => {
-						return { ...target, inactive: !isTargetUsed(target), classes: isOwnerOrAdmin(profile, idea.userId) ? "cursor-pointer p-1" : "p-1" };
+						return { ...target, inactive: !isTargetUsed(target), classes: canEdit ? "cursor-pointer p-1" : "p-1" };
 					})
 					.map((target: TargetBadgesTarget, index: number): ReactElement => (
-						isOwnerOrAdmin(profile, idea.userId) ? (
+						canEdit ? (
 							<ConfirmationWrapper
 								key={ index }
 								onPositive={

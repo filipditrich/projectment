@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { UncontrolledTooltip } from "reactstrap";
 import { ErrorHandler } from "../../components";
 import { DefaultProps } from "../../models/props";
 import IdeaList from "./List";

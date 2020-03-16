@@ -5,28 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5726637-2915-46d8-85ce-db261ec60771" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/common/FormFields.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/navigation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/navigation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/idea.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/idea.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/work.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/work.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/form.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/form.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layout/MainLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/MainLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/providers/ApplicationProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/providers/ApplicationProvider.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/roles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/roles.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Create.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/Goals.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Goals.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/Info.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Info.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/ListItem.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/Outlines.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Outlines.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Edit.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Form.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/Targets.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Targets.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Ideas/Ideas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Ideas.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Ideas/List.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/List.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Works/Create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Works/Create.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Works/Detail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Works/Detail.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Works/Detail/Goals.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Works/Detail/Goals.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Works/Detail/Costs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Works/Detail/Costs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Works/Detail/Files.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Works/Detail/Files.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Works/Detail/Info.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Works/Detail/Info.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Works/InitWork.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Works/Create.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Works/List.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Works/List.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -145,7 +136,7 @@
       <workItem from="1583585758266" duration="12267000" />
       <workItem from="1583690840805" duration="31706000" />
       <workItem from="1584033823260" duration="48000" />
-      <workItem from="1584033893348" duration="64831000" />
+      <workItem from="1584033893348" duration="69721000" />
     </task>
     <servers />
   </component>
@@ -190,11 +181,11 @@
     <state x="426" y="319" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.800@0.0.1280.800" timestamp="1582801189822" />
     <state x="442" y="-541" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1584315749864" />
     <state x="426" y="319" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1280.740@0.23.1280.740" timestamp="1581101934847" />
-    <state x="301" y="-721" width="828" height="546" key="find.popup" timestamp="1584390754754">
+    <state x="301" y="-721" width="828" height="546" key="find.popup" timestamp="1584395770497">
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
     <state x="300" y="159" width="828" height="546" key="find.popup/0.0.1280.800@0.0.1280.800" timestamp="1583950716862" />
-    <state x="301" y="-721" width="828" height="546" key="find.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1584390754754" />
+    <state x="301" y="-721" width="828" height="546" key="find.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1584395770497" />
     <state x="301" y="-721" width="828" height="546" key="find.popup/0.23.1680.1027/-37.-900.1440.900@-37.-900.1440.900" timestamp="1584176332676" />
     <state x="301" y="-721" width="932" height="615" key="find.popup/0.23.1680.990/-37.-900.1440.900@-37.-900.1440.900" timestamp="1583474597197" />
     <state width="534" height="392" key="javadoc.popup" timestamp="1583855060268">
@@ -202,11 +193,11 @@
     </state>
     <state width="534" height="392" key="javadoc.popup/0.0.1280.800@0.0.1280.800" timestamp="1583855060268" />
     <state width="600" height="440" key="javadoc.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1583460171541" />
-    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup" timestamp="1584389893764">
+    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup" timestamp="1584395022173">
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
     <state x="305" y="124" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1583947115901" />
-    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1584389893764" />
+    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1584395022173" />
     <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.23.1680.1027/-37.-900.1440.900@-37.-900.1440.900" timestamp="1584176606696" />
   </component>
 </project>

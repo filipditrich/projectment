@@ -47,7 +47,7 @@ export const WorkFiles: React.FC<WorkFilesProps> = ({ work, state, fetcher }: Wo
 			setSubmitting(true);
 			handleRes<DataJsonResponse<IWorkState>>(
 				await Axios(accessToken).put(`/works/${ work?.id }`, {
-					...transformForAPI(work), ...values,
+					...transformForAPI({ ...work, ...values }),
 				}));
 			toast.success("Odkaz na repozitář práce byl úspěšně změněn.");
 			fetcher();

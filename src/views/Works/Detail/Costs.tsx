@@ -63,12 +63,7 @@ export const WorkCosts: React.FC<WorkCostsProps> = ({ work, state, fetcher }: Wo
 			setSubmitting(true);
 			handleRes<DataJsonResponse<NoContentResponse>>(
 				await Axios(accessToken).put(`/works/${ work?.id }`, {
-					...transformForAPI(work),
-					detailExpenditures: values.detailExpenditures,
-					materialCosts: values.materialCosts,
-					materialCostsProvidedBySchool: values.materialCostsProvidedBySchool,
-					servicesCosts: values.servicesCosts,
-					servicesCostsProvidedBySchool: values.servicesCostsProvidedBySchool,
+					...transformForAPI({ ...work, ...values }),
 				})
 			);
 			toast.success("Náklady práce byly úspěšně uloženy.");

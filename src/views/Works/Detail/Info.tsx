@@ -71,9 +71,9 @@ export const WorkInfo: React.FC<WorkInfoProps> = ({ work, users, sets, state, fe
 			},
 			subject: {
 				value: work?.subject || [],
-				title: (work?.subject || []).length > 0 ? "Předmět" : "Předměty",
-				helpMessage: `Předmět${ (work?.subject || []).length > 0 ? "y" : "" }, do kterého zadání práce spadá`,
-				yup: yup.array().required(`Předmět${ (work?.subject || []).length > 0 ? "y" : "" }, do kterého zadání práce spadá je požadován`).nullable(true),
+				title: "Předmět/y",
+				helpMessage: "Předmět/y, do kterého zadání práce spadá",
+				yup: yup.array().required("Předmět/y, do kterého zadání práce spadá je požadován").nullable(true),
 				displayValue: (
 					<div className="badge-container">
 						{
@@ -159,7 +159,7 @@ export const WorkInfo: React.FC<WorkInfoProps> = ({ work, users, sets, state, fe
 			setSubmitting(true);
 			handleRes<DataJsonResponse<IWork>>(await Axios(accessToken)
 				.put<DataJsonResponse<IWork>>(`/works/${ work?.id }`, {
-					...transformForAPI(work), userId,
+					...transformForAPI({ ...work, ...values }), userId,
 				}));
 			toast.success("Zadání práce bylo úspěšně aktualizováno.");
 			fetcher();
@@ -201,13 +201,18 @@ export const WorkInfo: React.FC<WorkInfoProps> = ({ work, users, sets, state, fe
 											}>
 											<i className="icon-magic-wand font-xl" />
 										</button>
-										<UncontrolledTooltip placement="left" target="edit-work">Upravit zadání</UncontrolledTooltip>
+										<UncontrolledTooltip placement="left"
+										                     target="edit-work">Upravit zadání</UncontrolledTooltip>
 									</>
 								) : null
 							}
 						</CardHeader>
 						<CardBody>
-							<FormFields isEditing={ isEditing } config={ config } props={ props } showHelp={ showHelp } id="work-info" />
+							<FormFields isEditing={ isEditing }
+							            config={ config }
+							            props={ props }
+							            showHelp={ showHelp }
+							            id="work-info" />
 						</CardBody>
 						{
 							canEdit && isEditing ? (

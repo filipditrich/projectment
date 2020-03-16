@@ -98,9 +98,9 @@ export const WorkCreate: React.FC<InitWorkProps> = ({ history }: InitWorkProps) 
 			},
 			subject: {
 				value: idea?.subject || [],
-				title: (idea?.subject || []).length > 0 ? "Předmět" : "Předměty",
-				helpMessage: `Předmět${ (idea?.subject || []).length > 0 ? "y" : "" }, do kterého zadání práce spadá`,
-				yup: yup.array().required(`Předmět${ (idea?.subject || []).length > 0 ? "y" : "" }, do kterého zadání práce spadá je požadován`).nullable(true),
+				title: "Předmět/y",
+				helpMessage: "Předmět/y, do kterého zadání práce spadá",
+				yup: yup.array().required("Předmět/y, do kterého zadání práce spadá je požadován").nullable(true),
 				field: ({ getFieldMeta }: UseFormikProps<IIdeaInit>, options) => (
 					<Field creatable
 					       isMulti

@@ -12,6 +12,7 @@ import React, {
 } from "react";
 import { IDENTITY_CONFIGURATION, METADATA_OIDC } from "../config";
 import { UserManager, WebStorageStateStore, Log, User } from "oidc-client";
+import { IUser } from "../models/user";
 
 export const SET_TITLE: string = "SET_TITLE";
 export const ADD_MESSAGE: string = "ADD_MESSAGE";

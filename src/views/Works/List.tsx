@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { Dispatch, ReactElement, SetStateAction, useCallback, useEffect, useMemo, useState } from "react";
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { CellProps, Column, TableInstance } from "react-table";
 import { toast } from "react-toastify";
@@ -7,13 +7,13 @@ import { Badge, UncontrolledTooltip } from "reactstrap";
 import { DataTable, ListColumnFilter } from "../../components/common";
 import { FetchDataProps, generateParams } from "../../components/common/Table";
 import { KeyValue } from "../../models/generic";
-import { IIdea } from "../../models/idea";
 import { DataJsonResponse, TableDataJsonResponse } from "../../models/response";
 import { IWork, IWorkSet, IWorkState } from "../../models/work";
 import { useAppContext } from "../../providers";
-import { Axios, isStatusOk } from "../../utils";
-import { handleRes, responseError, responseFail } from "../../utils/axios";
+import { Axios } from "../../utils";
+import { handleRes, responseError } from "../../utils/axios";
 import { stateName } from "../../utils/name";
+import { isOwnerOrAdmin } from "../../utils/roles";
 
 /**
  * Works List Component
@@ -23,7 +23,7 @@ import { stateName } from "../../utils/name";
 export const WorkList: React.FC = () => {
 	const [ isLoading, setIsLoading ] = useState<boolean>(false);
 	const [ error, setError ] = useState<boolean | string>(false);
-	const [ { accessToken } ] = useAppContext();
+	const [ { accessToken, profile } ] = useAppContext();
 	
 	// data
 	const [ data, setData ] = useState<IWork[]>([]);
@@ -56,17 +56,23 @@ export const WorkList: React.FC = () => {
 	const columns = useMemo<Column<IWork>[]>(() => [
 		{
 			Header: "Akce",
-			Cell: (data: CellProps<IIdea>): ReactElement => (
+			Cell: (data: CellProps<IWork>): ReactElement => (
 				<>
-					<div className="table-icon">
-						<Link to={ "/works/detail/" + data.row.original.id } id={ `work-${ data.row.original.id }-detail` }>
-							<i className="icon-info font-lg" />
-						</Link>
-					</div>
-					<UncontrolledTooltip target={ `work-${ data.row.original.id }-detail` } placement="right">Detail zadání</UncontrolledTooltip>
+					{
+						isOwnerOrAdmin(profile, data.row.original.authorId) ? (
+							<>
+								<div className="table-icon">
+									<Link to={ "/works/detail/" + data.row.original.id } id={ `work-${ data.row.original.id }-detail` }>
+										<i className="icon-info font-lg" />
+									</Link>
+								</div>
+								<UncontrolledTooltip target={ `work-${ data.row.original.id }-detail` } placement="right">Detail zadání</UncontrolledTooltip>
+							</>
+						) : null
+					}
 				</>
 			),
-			Filter: (column: TableInstance<IIdea>) => {
+			Filter: (column: TableInstance<IWork>) => {
 				return (
 					<>
 						<div className="table-icon">

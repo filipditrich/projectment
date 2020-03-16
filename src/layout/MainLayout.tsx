@@ -103,14 +103,6 @@ const MainLayout = (props: any): ReactElement => {
 								</React.Suspense>
 							</Container>
 						</main>
-						
-						{/* TODO: remove? */ }
-						{/* App Aside */ }
-						<AppAside fixed>
-							<React.Suspense fallback={ loading() }>
-								<AsideLayout />
-							</React.Suspense>
-						</AppAside>
 					</div>
 					
 					{/* App Footer */ }

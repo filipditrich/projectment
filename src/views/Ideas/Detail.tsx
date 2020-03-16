@@ -1,6 +1,6 @@
 import { History } from "history";
 import React, { useCallback, useEffect, useState } from "react";
-import { withRouter, useParams } from "react-router";
+import { useParams, withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button, Card, CardBody, CardDeck } from "reactstrap";
@@ -8,10 +8,11 @@ import ConfirmationWrapper from "../../components/common/ConfirmationWrapper";
 import LoadingOverlay from "../../components/common/LoadingOverlay";
 import { IIdea } from "../../models/idea";
 import { DataJsonResponse, NoContentResponse } from "../../models/response";
+import { UserClaim } from "../../models/user";
 import { useAppContext } from "../../providers";
 import { Axios } from "../../utils";
 import { handleRes, responseError } from "../../utils/axios";
-import { isOwnerOrAdmin } from "../../utils/roles";
+import { hasClaim, isOwnerOrAdmin } from "../../utils/roles";
 import { transformFromAPI } from "../../utils/transform";
 import IdeaGoals from "./Detail/Goals";
 import IdeaInfo from "./Detail/Info";
@@ -62,7 +63,7 @@ export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailPro
 			
 			{/* Actions */ }
 			{
-				(isOwnerOrAdmin(profile, idea?.userId) || profile.theses_author) ? (
+				(hasClaim(profile, UserClaim.THESES_AUTHOR) && idea?.offered) || isOwnerOrAdmin(profile, idea?.userId) ? (
 					<Card>
 						<CardBody className="d-flex flex-wrap justify-content-end">
 							{
@@ -95,7 +96,7 @@ export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailPro
 									) : null
 							}
 							{
-								profile.theses_author && idea?.offered ? (
+								hasClaim(profile, UserClaim.THESES_AUTHOR) && idea?.offered ? (
 									<Link className="button button-primary ml-3" to={ `/works/create/${ idea?.id }` }>
 										<span>Vytvořit zadání</span>
 									</Link>

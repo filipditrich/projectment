@@ -1,6 +1,6 @@
 import { History } from "history";
 import React, { useCallback, useEffect, useState } from "react";
-import { useParams, withRouter } from "react-router";
+import { Redirect, useParams, withRouter } from "react-router";
 import { toast } from "react-toastify";
 import { Card, CardDeck } from "reactstrap";
 import LoadingOverlay from "../../components/common/LoadingOverlay";
@@ -12,6 +12,7 @@ import { Axios } from "../../utils";
 import { handleRes, responseError } from "../../utils/axios";
 import axios from "axios";
 import { cardWidth } from "../../utils/cards";
+import { isOwnerOrAdmin } from "../../utils/roles";
 import { transformFromAPI } from "../../utils/transform";
 import { WorkCosts } from "./Detail/Costs";
 import { WorkFiles } from "./Detail/Files";
@@ -36,7 +37,7 @@ export const WorkDetail: React.FC<WorkDetailProps> = ({ history }: WorkDetailPro
 	const [ sets, setSets ] = useState<IWorkSet[]>([]);
 	const [ allstates, setallStates ] = useState<IWorkState[]>([]);
 	const [ nextstates, setnextStates ] = useState<IWorkState[]>([]);
-	const [ { accessToken } ] = useAppContext();
+	const [ { accessToken, profile } ] = useAppContext();
 	
 	// fetch all data
 	const fetchData = useCallback(() => {
@@ -75,6 +76,11 @@ export const WorkDetail: React.FC<WorkDetailProps> = ({ history }: WorkDetailPro
 	useEffect(() => {
 		fetchData();
 	}, [ accessToken ]);
+	
+	if (work && !isOwnerOrAdmin(profile, work?.authorId)) {
+		toast.warn(`Nejste autorizován${ profile.gender === "female" ? "a" : "" } k zobrazení detailu tohoto námětu.`);
+		return <Redirect to="/works/list" />;
+	}
 	
 	return (
 		<LoadingOverlay active={ isLoading }>
