@@ -1,6 +1,6 @@
 const config = (prod?: boolean) => {
 	return prod ? {
-		APP_NAME: "SPŠSE a VOŠ",
+		APP_NAME: "Správa DP a MP",
 		APP_LOGO: {
 			NAME: "logo-pslib",
 			EXT: "svg",
@@ -14,4 +14,4 @@ const config = (prod?: boolean) => {
 	};
 };
 
-export default config(true);
+export default config(false);
