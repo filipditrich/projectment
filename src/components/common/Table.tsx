@@ -1,3 +1,4 @@
+import { remove, uniqBy } from "lodash";
 import React, { FC, ReactElement, useEffect, useMemo } from "react";
 import {
 	Cell,
@@ -40,6 +41,35 @@ export interface DataTableProps<T extends object = Data> {
 	totalPages: number;
 	totalRows: number;
 }
+export interface PhiltersProps<D extends object = Data> {
+	page: number,
+	size: number,
+	sort: Array<SortingRule<D>>,
+	filters: Filters<D>,
+	aliases?: { [key: string]: string },
+}
+
+/**
+ * Filter parameters
+ * @param page
+ * @param size
+ * @param sort
+ * @param filters
+ * @param aliases
+ */
+export const generateParams = ({ page, size, sort, filters, aliases }: PhiltersProps): string[] => {
+	let order: string | undefined = sort[0] ? sort[0].id : undefined;
+	if (order) order = order.toLowerCase();
+	if (order && sort[0].desc) order = order + "_desc";
+	
+	remove(filters, (v) => (v.id === "order")
+		|| (v.id === "pageSize") || (v.id === "page"));
+	if (page) filters.push({ id: "page", value: page });
+	if (size) filters.push({ id: "pageSize", value: size });
+	if (order) filters.push({ id: "order", value: order });
+	
+	return uniqBy(filters, "id").map((filter) => `${ aliases && aliases[filter.id] ? aliases[filter.id] : filter.id }=${ filter.value }`);
+};
 
 /**
  * Text Column Filter

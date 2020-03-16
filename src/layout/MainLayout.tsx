@@ -59,7 +59,7 @@ const MainLayout = (props: any): ReactElement => {
 						{/* Main Routed Content */ }
 						<main className="main">
 							<AppBreadcrumb appRoutes={ routes } router={ router } />
-							<Container fluid>
+							<Container fluid className="position-relative">
 								<React.Suspense fallback={ loading() }>
 									<Switch>
 										{

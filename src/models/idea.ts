@@ -5,7 +5,7 @@ export interface IIdeaInit {
 	name: string;
 	description: string;
 	resources: string;
-	subject: string;
+	subject: string[];
 	participants: number;
 	offered: boolean;
 }
@@ -14,7 +14,7 @@ export interface IIdeaInit {
  * Full Idea Interface
  */
 export interface IIdea extends IIdeaInit {
-	id: number | string;
+	id: number;
 	userId: string;
 	userFirstName: string;
 	userLastName: string;

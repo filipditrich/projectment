@@ -38,7 +38,7 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ idea }: IdeaGoalsProps) =>
 				.get<DataJsonResponse<IIdeaGoal[]>>(`/ideas/${ idea?.id }/goals`);
 			
 			if (isStatusOk(res)) {
-				setList(res.data);
+				setList(sortBy(res.data, "order"));
 			} else throw responseFail(res);
 		} catch (error) {
 			toast.error(responseError(error).message);
@@ -133,11 +133,27 @@ export const IdeaGoals: React.FC<IdeaGoalsProps> = ({ idea }: IdeaGoalsProps) =>
 	
 	// submit reordering changes
 	const submitReorderingChanges = () => {
-		setList(sortBy(
-			[ ...list ].map((item, index) => {
-				return { ...item, order: index + 1 };
-			}), "order"));
-		// TODO: implement this (not sure about the correct update method on API)
+		(async () => {
+			try {
+				setIsLoading(true);
+				const reordered = sortBy(
+					[ ...list ].map((item, index) => {
+						return { ...item, order: index + 1 };
+					}), "order")
+					.map((item) => { return { Text: item.text }; });
+				
+				const res: AxiosResponse<DataJsonResponse<IIdeaGoal>> = await Axios(accessToken)
+					.put<DataJsonResponse<IIdeaGoal>>(`/ideas/${ idea?.id }/goals`, reordered);
+				
+				if (isStatusOk(res)) {
+					await fetchGoals();
+					toast.success("Cíle námětu byly úspěšně přezařeny.");
+				} else throw responseFail(res);
+			} catch (error) {
+				setIsLoading(false);
+				toast.error(responseError(error).message);
+			}
+		})();
 	};
 	
 	return (

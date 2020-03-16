@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from "axios";
 import { oc } from "ts-optchain";
+import { DataJsonResponse, TableDataJsonResponse } from "../models/response";
 
 // Set config defaults when creating the instance
 const axiosInstance: AxiosInstance = axios.create({
@@ -78,4 +79,14 @@ export function responseFail<T = any>(res: AxiosResponse<T>, fallbackMessage?: s
 export function responseError(error: Partial<AxiosError & Error>, fallbackMessage?: string): Error {
 	if (!!error.isAxiosError && !error.response) console.error("[axios] network error");
 	return new Error(error.isAxiosError ? JSON.stringify(oc(error).response.data.errors(oc(error).response.data(fallbackMessage || error.message))) as any : error);
+}
+
+/**
+ * Handle responses and return their data
+ * @param responses
+ */
+export function handleRes<T = TableDataJsonResponse | DataJsonResponse>(...responses: AxiosResponse<T>[]): AxiosResponse<T>[] {
+	for (const response of responses)
+		if (!isStatusOk(response)) throw responseFail(response);
+	return responses;
 }

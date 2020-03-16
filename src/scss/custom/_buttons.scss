@@ -107,8 +107,15 @@ button:focus {
   flex-wrap: wrap;
 
   .button {
-	margin: 0.5rem 1rem;
-	flex-grow: 1;
+	margin: 0.5rem;
+	//flex-grow: 1;
+	&:first-of-type {
+	  margin-left: 0;
+	}
+
+	&:last-of-type {
+	  margin-right: 0;
+	}
   }
 }
 
@@ -132,7 +139,7 @@ button:focus {
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
 
-  /* Corrects inability to style clickable `input` types in iOS */
+  /* Corrects inability to style clickable `field` types in iOS */
   -webkit-appearance: none;
 }
 

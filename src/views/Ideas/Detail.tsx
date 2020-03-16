@@ -33,11 +33,12 @@ export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailPro
 	useEffect(() => {
 		(async () => {
 			try {
+				setIsLoading(true);
 				const res: AxiosResponse<DataJsonResponse<IIdea>> = await Axios(accessToken)
 					.get<DataJsonResponse<IIdea>>("/ideas/" + id);
 				
 				if (isStatusOk(res)) {
-					setIdea({ ...res.data, id });
+					setIdea({ ...res.data, id: Number(id) });
 				} else throw responseFail(res);
 			} catch (error) {
 				toast.error(responseError(error).message);
@@ -63,7 +64,6 @@ export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailPro
 				
 				{/* Actions */ }
 				{
-					// TODO: profile does not contain any claims
 					(isOwnerOrAdmin(profile, idea?.userId) || profile.theses_author) ? (
 						<Card>
 							<CardBody className="d-flex flex-wrap justify-content-end">

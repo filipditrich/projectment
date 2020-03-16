@@ -9,9 +9,9 @@ import React, { CSSProperties } from "react";
  */
 export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ active, text, tag, styles, children }: LoadingOverlayProps) => {
 	
-	const Wrapper: string | React.ElementType = tag || "div";
-	return (
-		<Wrapper style={ styles }>
+	const Wrapper: string | React.ElementType | undefined = tag;
+	const content = (
+		<>
 			{
 				active ? (
 					<div className="preloader loading-overlay">
@@ -21,7 +21,13 @@ export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ active, text, ta
 				) : null
 			}
 			{ children }
-		</Wrapper>
+		</>
+	);
+	
+	return (
+		Wrapper ? (
+			<Wrapper style={ styles }>{ content }</Wrapper>
+		) : <>{ content }</>
 	);
 };
 

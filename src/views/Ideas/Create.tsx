@@ -23,7 +23,7 @@ export const IdeaCreate: React.FC<IdeaCreateProps> = ({ history }: IdeaCreatePro
 		description: "",
 		resources: "",
 		participants: 1,
-		subject: "",
+		subject: [],
 		offered: false,
 	};
 	

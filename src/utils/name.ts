@@ -516,3 +516,16 @@ export function greeter(name: string) {
 export function name(name?: string): string {
 	return name ? [ ...(name.match(/([A-Z]?[^A-Z]*)/g) || "").slice(0,-1) ].join(" ") : "John Doe";
 }
+
+export function stateName(code?: number | string): string {
+	code = code?.toString();
+	switch (code) {
+		case "0": return "V přípravě";
+		case "1": return "Probíhající";
+		case "2": return "Selhaná";
+		case "3": return "Dokončená";
+		case "4": return "Neobhájená";
+		case "5": return "Obhájená";
+		default: return "Neznámý stav";
+	}
+}

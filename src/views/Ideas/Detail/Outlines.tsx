@@ -72,7 +72,7 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ idea }: IdeaOutlines
 					
 					if (isStatusOk(res)) {
 						await fetchOutlines();
-						toast.success("Text cíle námětu byl úspěšně uložen.");
+						toast.success("Text bodu osnovy byl úspěšně uložen.");
 					} else throw responseFail(res);
 				} catch (error) {
 					toast.error(responseError(error).message);
@@ -133,11 +133,27 @@ export const IdeaOutlines: React.FC<IdeaOutlinesProps> = ({ idea }: IdeaOutlines
 	
 	// submit reordering changes
 	const submitReorderingChanges = () => {
-		setList(sortBy(
-			[ ...list ].map((item, index) => {
-				return { ...item, order: index + 1 };
-			}), "order"));
-		// TODO: implement this (not sure about the correct update method on API)
+		(async () => {
+			try {
+				setIsLoading(true);
+				const reordered = sortBy(
+					[ ...list ].map((item, index) => {
+						return { ...item, order: index + 1 };
+					}), "order")
+					.map((item) => { return { Text: item.text }; });
+				
+				const res: AxiosResponse<DataJsonResponse<IIdeaGoal>> = await Axios(accessToken)
+					.put<DataJsonResponse<IIdeaGoal>>(`/ideas/${ idea?.id }/outlines`, reordered);
+				
+				if (isStatusOk(res)) {
+					await fetchOutlines();
+					toast.success("Body osnovy námětu byly úspěšně přezařeny.");
+				} else throw responseFail(res);
+			} catch (error) {
+				setIsLoading(false);
+				toast.error(responseError(error).message);
+			}
+		})();
 	};
 	
 	return (

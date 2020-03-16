@@ -7,7 +7,7 @@ import Creatable from "react-select/creatable";
 import { isPlainObject } from "lodash";
 
 /**
- * react-select input component for usage with formik forms
+ * react-select field component for usage with formik forms
  * @param options
  * @param field
  * @param form

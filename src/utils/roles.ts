@@ -6,5 +6,5 @@ import { Profile } from "oidc-client";
  * @param ref
  */
 export const isOwnerOrAdmin = (profile: Profile, ref?: string): boolean => {
-	return !(profile.administrator || profile.sub === ref);
+	return (profile.administrator || profile.sub === ref);
 };

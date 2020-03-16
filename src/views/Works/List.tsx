@@ -1,47 +1,49 @@
-import { AxiosResponse } from "axios";
-import React, { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
+import axios from "axios";
+import React, { Dispatch, ReactElement, SetStateAction, useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { CellProps, Column, TableInstance } from "react-table";
 import { toast } from "react-toastify";
-import { BoolColumnFilter, DataTable, ListColumnFilter } from "../../components/common";
-import { FetchDataProps } from "../../components/common/Table";
-import TargetBadges from "../../components/common/TargetBadges";
+import { Badge, UncontrolledTooltip } from "reactstrap";
+import { DataTable, ListColumnFilter } from "../../components/common";
+import { FetchDataProps, generateParams } from "../../components/common/Table";
 import { KeyValue } from "../../models/generic";
-import { IIdea, ITarget } from "../../models/idea";
-import { TableDataJsonResponse } from "../../models/response";
-import { IWork, IWorkInit } from "../../models/work";
+import { IIdea } from "../../models/idea";
+import { DataJsonResponse, TableDataJsonResponse } from "../../models/response";
+import { IWork, IWorkSet, IWorkState } from "../../models/work";
 import { useAppContext } from "../../providers";
 import { Axios, isStatusOk } from "../../utils";
-import { responseError, responseFail } from "../../utils/axios";
+import { handleRes, responseError, responseFail } from "../../utils/axios";
+import { stateName } from "../../utils/name";
 
 /**
  * Works List Component
+ * TODO: role checking
  * @constructor
  */
 export const WorkList: React.FC = () => {
 	const [ isLoading, setIsLoading ] = useState<boolean>(false);
 	const [ error, setError ] = useState<boolean | string>(false);
+	const [ { accessToken } ] = useAppContext();
 	
-	const [ targets, setTargets ] = useState<any[]>([]);
-	
+	// data
 	const [ data, setData ] = useState<IWork[]>([]);
+	const [ states, setStates ] = useState<IWorkState[]>([]);
+	const [ sets, setSets ] = useState<IWorkSet[]>([]);
 	const [ totalPages, setTotalPages ] = useState<number>(0);
 	const [ totalRows, setTotalRows ] = useState<number>(0);
 	
-	const [ { accessToken } ] = useAppContext();
-	
-	// get idea targets
+	// fetch work states
 	useEffect(() => {
 		(async () => {
 			setIsLoading(true);
-			
 			try {
-				const res: AxiosResponse<TableDataJsonResponse<ITarget[]>> = await Axios(accessToken)
-					.get<TableDataJsonResponse<ITarget[]>>("/targets");
-				
-				if (isStatusOk(res)) {
-					setTargets(res.data.data);
-				} else throw responseFail(res);
+				const [ statesRes, setsRes ] = handleRes(
+					...await axios.all<DataJsonResponse | TableDataJsonResponse>([
+						Axios(accessToken).get<DataJsonResponse<IWorkState[]>>("/works/allstates"),
+						Axios(accessToken).get<TableDataJsonResponse<IWorkSet[]>>("/sets"),
+					]));
+				setStates(statesRes.data);
+				setSets(setsRes.data.data);
 			} catch (error) {
 				toast.error(responseError(error).message);
 			} finally {
@@ -51,90 +53,84 @@ export const WorkList: React.FC = () => {
 	}, [ accessToken ]);
 	
 	// columns
-	const columns = useMemo<Column<IIdea>[]>(() => [
+	const columns = useMemo<Column<IWork>[]>(() => [
 		{
 			Header: "Akce",
 			Cell: (data: CellProps<IIdea>): ReactElement => (
-				<div className="table-icon">
-					<Link to={ "/ideas/detail/" + data.row.original.id }>
-						<i className="icon-info font-lg"
-						   title="Detail námětu"
-						   aria-label="Detail námětu" />
-					</Link>
-				</div>
+				<>
+					<div className="table-icon">
+						<Link to={ "/works/detail/" + data.row.original.id } id={ `work-${ data.row.original.id }-detail` }>
+							<i className="icon-info font-lg"
+							   title="Detail zadání"
+							   aria-label="Detail zadání" />
+						</Link>
+					</div>
+					<UncontrolledTooltip target={ `work-${ data.row.original.id }-detail` } placement="right">Detail zadání</UncontrolledTooltip>
+				</>
 			),
 			Filter: (column: TableInstance<IIdea>) => {
 				return (
-					<div className="table-icon">
-						<i className="icon-close font-lg"
-						   title="Zrušit všechny filtry"
-						   aria-label="Zrušit všechny filtry"
-						   onClick={ () => {
-							   column.setAllFilters([]);
-						   } } />
-					</div>
+					<>
+						<div className="table-icon">
+							<i className="fa fa-close font-lg text-muted"
+							   id="works-clear-filters"
+							   onClick={ () => {
+								   column.setAllFilters([]);
+							   } } />
+						</div>
+						<UncontrolledTooltip target="works-clear-filters" placement="bottom">Zrušit všechny filtry</UncontrolledTooltip>
+					</>
 				);
 			},
 			disableFilters: false,
 			defaultCanFilter: true,
 		},
 		{ Header: "Název", accessor: "name" },
-	], [ targets ]);
+		{ Header: "Jméno autora", accessor: "authorFirstName" },
+		{ Header: "Příjmení autora", accessor: "authorLastName" },
+		{ Header: "Třída", accessor: "className", disableFilters: true, disableSortBy: true }, // TODO: filtering on API missing ?
+		{
+			Header: "Sada prací",
+			accessor: "setId",
+			Cell: (data: CellProps<IWork>): ReactElement => (
+				<span>{ sets.find((set) => set.id === data.cell.value)?.name }</span>
+			),
+			Filter: (column: TableInstance<IWork>) => (
+				ListColumnFilter({ column }, [ ...sets
+					.map((set): KeyValue => {
+						return { key: set.id, value: set.name };
+					})
+				], "setId")
+			)
+		},
+		{
+			Header: "Stav",
+			accessor: "state",
+			Cell: (data: CellProps<IWork>): ReactElement => (
+				<Badge>{ stateName(states.find((state) => state.code === data.cell.value)?.code) }</Badge>
+			),
+			Filter: (column: TableInstance<IWork>) => (
+				ListColumnFilter({ column }, [ ...states
+					.map((state): KeyValue => {
+						return { key: state.code, value: stateName(state.code) };
+					})
+				], "state")
+			),
+		},
+	], [ states, sets ]);
 	
 	// fetch data
 	const fetchData = useCallback(({ page, size, sort, filters }: FetchDataProps): void => {
 		(async () => {
 			setIsLoading(true);
 			setError(false);
-			
-			const parameters: string[] = [];
-			let order: string | undefined = sort[0] ? sort[0].id : undefined;
-			if (order) order = order.toLowerCase();
-			if (order && sort[0].desc) order = order + "_desc";
-			
-			if (page) parameters.push("page=" + page);
-			if (size) parameters.push("pageSize=" + size);
-			if (order) parameters.push("order=" + order);
-			
-			// for (let f of filters) {
-			// 	switch (f.id) {
-			// 		case "name":
-			// 			parameters.push("name=" + f.value);
-			// 			break;
-			// 		case "subject":
-			// 			parameters.push("subject=" + f.value);
-			// 			break;
-			// 		case "userId":
-			// 			parameters.push("userId=" + f.value);
-			// 			break;
-			// 		case "userFirstName":
-			// 			parameters.push("firstName=" + f.value);
-			// 			break;
-			// 		case "userLastName":
-			// 			parameters.push("lastName=" + f.value);
-			// 			break;
-			// 		case "offered":
-			// 			parameters.push("offered=" + f.value);
-			// 			break;
-			// 		case "targets":
-			// 			parameters.push("target=" + f.value);
-			// 			break;
-			// 		default:
-			// 			break;
-			// 	}
-			// }
+			const philters = generateParams({ page, size, sort, filters, aliases: { authorFirstName: "firstname", authorLastName: "lastname" } });
 			
 			try {
-				const res: AxiosResponse<TableDataJsonResponse<IWork[]>> = await Axios(accessToken)
-					.get<TableDataJsonResponse<IWork[]>>("/works?" + parameters.join("&"));
-				
-				if (isStatusOk(res)) {
-					setData(res.data.data);
-					setTotalPages(res.data.pages || 0);
-					setTotalRows(res.data.total || 0);
-					// setTotal(res.data.total || 0);
-					console.log(res);
-				} else throw responseFail(res);
+				const [ res ] = handleRes<TableDataJsonResponse<IWork[]>>(await Axios(accessToken).get<TableDataJsonResponse<IWork[]>>(`/works?${ philters.join("&") }`));
+				setData(res.data.data);
+				setTotalPages(res.data.pages || 0);
+				setTotalRows(res.data.total || 0);
 			} catch (error) {
 				toast.error(responseError(error).message);
 			} finally {

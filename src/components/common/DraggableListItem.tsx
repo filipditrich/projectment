@@ -1,21 +1,21 @@
 import { XYCoord } from "dnd-core";
 import React, { useRef, useState } from "react";
 import { DragObjectWithType, DropTargetMonitor, useDrag, useDrop } from "react-dnd";
-import { Badge, Button, Input, ListGroupItemText } from "reactstrap";
-import ConfirmationWrapper from "../../../components/common/ConfirmationWrapper";
-import { useAppContext } from "../../../providers";
-import { isOwnerOrAdmin } from "../../../utils/roles";
-import { IIdeaGoalList } from "./Goals";
+import { Badge, Button, Input, ListGroupItemText, UncontrolledPopover } from "reactstrap";
+import ConfirmationWrapper from "./ConfirmationWrapper";
 
 /**
- * Idea Draggable List Item
+ * Draggable List Item Component
  * @param listItem
  * @param index
+ * @param accept
  * @param updateItem
+ * @param removeItem
  * @param showBadges
+ * @param canEdit
  * @constructor
  */
-export const IdeaListItem: React.FC<IdeaListItemProps> = ({ listItem, index, accept, updateItem, removeItem, showBadges, canEdit }: IdeaListItemProps) => {
+export const DraggableListItem: React.FC<DraggableListItemProps> = ({ listItem, index, accept, updateItem, removeItem, showBadges, canEdit }: DraggableListItemProps) => {
 	const [ isEditing, setIsEditing ] = useState<boolean>(listItem.isEditing || false);
 	const [ text, setText ] = useState<string>(listItem.text);
 	
@@ -103,6 +103,7 @@ export const IdeaListItem: React.FC<IdeaListItemProps> = ({ listItem, index, acc
 										       className="flex-grow-1"
 										       defaultValue={ listItem.text }
 										       autoFocus={ listItem.isEditing }
+										       onFocus={ (e) => e.target.select() }
 										       onKeyPress={
 											       (event) => {
 												       if (event.which === 13) {
@@ -125,7 +126,7 @@ export const IdeaListItem: React.FC<IdeaListItemProps> = ({ listItem, index, acc
 								onPositive={
 									async (setDialogOpen, setIsWorking) => {
 										setIsWorking(true);
-										await removeItem(listItem.ideaId, listItem.order);
+										await removeItem(listItem.order);
 										setIsWorking(false);
 										setDialogOpen(false);
 									}
@@ -153,21 +154,27 @@ export const IdeaListItem: React.FC<IdeaListItemProps> = ({ listItem, index, acc
 	);
 };
 
-interface ListItem extends IIdeaGoalList {}
+interface ListItem {
+	id: number;
+	text: string;
+	order: number
+	refId: number;
+	isEditing?: boolean;
+}
 
 interface DragItem extends DragObjectWithType {
 	index: number;
 	id: string;
 }
 
-export interface IdeaListItemProps {
+export interface DraggableListItemProps {
 	listItem: ListItem;
 	index: number;
 	accept: string;
 	updateItem: (dragIndex: number, hoverIndex: number, text: string) => void;
-	removeItem: (ideaId: string | number, goalId: string | number) => void;
+	removeItem: (id: number) => void;
 	showBadges: boolean;
 	canEdit?: boolean;
 }
 
-export default IdeaListItem;
+export default DraggableListItem;

@@ -32,12 +32,7 @@ export const IdeaForm: React.FC<IdeaFormProps> = ({ initialValues, validate, onS
 		<Formik
 			initialValues={ initialValues }
 			validate={ validate }
-			onSubmit={
-				(values: IIdeaInit, formikHelpers: FormikHelpers<IIdeaInit>) => {
-					values.subject = Array.isArray(values.subject) ? values.subject.join(", ") : values.subject;
-					onSubmit(values, formikHelpers);
-				}
-			}>
+			onSubmit={ onSubmit }>
 			{
 				({ isSubmitting, errors, touched, values, setFieldValue, getFieldMeta }: IdeaFormikProps) => (
 					<Form id={ id || "idea-form" }>

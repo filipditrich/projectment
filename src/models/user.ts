@@ -11,5 +11,5 @@ export interface IUser {
 	email: string;
 	canBeAuthor: boolean;
 	canBeEvaluator: boolean;
-	name?: string;
+	name: string;
 }

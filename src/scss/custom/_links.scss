@@ -34,9 +34,13 @@
   -webkit-text-fill-color: transparent;
   opacity: 0.35;
   transition: all 100ms ease-in-out;
+  cursor: pointer;
 
   &:hover {
 	opacity: 1;
+	&::after {
+	  opacity: 0;
+	}
   }
 }
 

@@ -10,13 +10,13 @@ import WorkList from "./List";
  * @constructor
  */
 export const Works: React.FC<DefaultProps> = ({ title }: DefaultProps) => {
-	const [ total, setTotal ] = useState<number>(0);
-	
 	return (
 		(
 			<ErrorHandler>
 				<header className="table-pre-header">
-					<h1>{ title } <Badge color="secondary">{ total }</Badge></h1>
+					<div className="d-flex align-items-center">
+						<h1>{ title }</h1>
+					</div>
 				</header>
 				<WorkList />
 			</ErrorHandler>
