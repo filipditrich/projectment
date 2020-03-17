@@ -3,8 +3,9 @@ import update from "immutability-helper";
 import { isEqual, sortBy } from "lodash";
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Button, Card, CardBody, CardFooter, CardHeader, ListGroup, UncontrolledTooltip, } from "reactstrap";
+import { Card, CardBody, CardFooter, CardHeader, ListGroup, UncontrolledTooltip, } from "reactstrap";
 import DraggableListItem from "../../../components/common/DraggableListItem";
+import { SubmitButton } from "../../../components/common/SubmitButton";
 import { IIdea, IIdeaOutline } from "../../../models/idea";
 import { DataJsonResponse, NoContentResponse } from "../../../models/response";
 import { useAppContext } from "../../../providers";
@@ -15,9 +16,7 @@ import { isOwnerOrAdmin } from "../../../utils/roles";
 /**
  * Goal Outlines Component
  * @param idea
- * @param state
- * @param isLoading
- * @param fetcher
+ * @param loading
  * @constructor
  */
 export const IdeaOutlines: React.FC<IIdeaOutlineProps> = ({ idea, loading }: IIdeaOutlineProps) => {
@@ -134,22 +133,20 @@ export const IdeaOutlines: React.FC<IIdeaOutlineProps> = ({ idea, loading }: IId
 	}, [ outlines ]);
 	
 	// submit reordering changes
-	const submitChanges = () => {
-		(async () => {
-			try {
-				setIsSubmitting(true);
-				const reordered = sortBy(
-					[ ...outlines ].map((item, index) => ({ ...item, order: index + 1 })), "order")
-					.map((item) => ({ Text: item.text }));
-				handleRes<DataJsonResponse<NoContentResponse>>(await Axios(accessToken).put(`/ideas/${ idea?.id }/outlines`, reordered));
-				await fetchOutlines();
-				toast.success("Body osnovy námětu byly úspěšně uloženy.");
-			} catch (error) {
-				toast.error(responseError(error).message);
-			} finally {
-				setIsSubmitting(false);
-			}
-		})();
+	const submitChanges = async () => {
+		try {
+			setIsSubmitting(true);
+			const reordered = sortBy(
+				[ ...outlines ].map((item, index) => ({ ...item, order: index + 1 })), "order")
+				.map((item) => ({ Text: item.text }));
+			handleRes<DataJsonResponse<NoContentResponse>>(await Axios(accessToken).put(`/ideas/${ idea?.id }/outlines`, reordered));
+			setIsSubmitting(false);
+			toast.success("Body osnovy námětu byly úspěšně uloženy.");
+			await fetchOutlines();
+		} catch (error) {
+			toast.error(responseError(error).message);
+			setIsSubmitting(false);
+		}
 	};
 	
 	return (
@@ -196,12 +193,8 @@ export const IdeaOutlines: React.FC<IIdeaOutlineProps> = ({ idea, loading }: IId
 			</CardBody>
 			{
 				isChanged ? (
-					<CardFooter className="d-flex">
-						<Button className="button button-primary ml-auto"
-						        disabled={ isLoading }
-						        onClick={ submitChanges }>
-							<span>{ isSubmitting ? "Working..." : "Potvrdit změny" }</span>
-						</Button>
+					<CardFooter>
+						<SubmitButton submitting={ isSubmitting } type="primary" onClick={ submitChanges } />
 					</CardFooter>
 				) : null
 			}

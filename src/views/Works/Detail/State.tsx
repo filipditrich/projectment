@@ -31,19 +31,14 @@ export const WorkState: React.FC<WorkStateProps> = ({ work, state, nextStates, a
 	};
 	
 	// onSubmit hook
-	const onSubmit: FormikOnSubmit<IWorkStateIn> = async (values: IWorkStateIn, { setSubmitting, resetForm }) => {
+	const onSubmit: FormikOnSubmit<IWorkStateIn> = async (values: IWorkStateIn) => {
 		try {
-			setSubmitting(true);
 			handleRes<DataJsonResponse<IWorkState>>(
 				await Axios(accessToken).put(`/works/${ work?.id }/state`, nextStates.find((_state) => _state.code.toString() === values.state.toString())));
 			toast.success("Stav práce byl úspěšně změněn.");
 			fetcher();
 		} catch (error) {
-			resetForm();
 			toast.error(responseError(error).message);
-		} finally {
-			setSubmitting(false);
-			setIsEditing(false);
 		}
 	};
 	
@@ -113,9 +108,9 @@ export const WorkState: React.FC<WorkStateProps> = ({ work, state, nextStates, a
 														props.values.state.toString() !== state?.code.toString() ? (
 															<ConfirmationWrapper
 																onPositive={
-																	async (setDialogOpen, setIsWorking) => {
-																		setIsWorking(true);
+																	async (setDialogOpen) => {
 																		await onSubmit(props.values, props);
+																		setDialogOpen(false);
 																	}
 																}
 																onNegative={ () => { props.resetForm(); setIsEditing(false); } }

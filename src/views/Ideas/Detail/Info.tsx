@@ -15,6 +15,7 @@ import {
 import * as yup from "yup";
 import { RSFInput } from "../../../components/common/CustomSelect";
 import { FormFields } from "../../../components/common/FormFields";
+import { SubmitButton } from "../../../components/common/SubmitButton";
 import { FormikOnSubmit, UseFormikProps } from "../../../models/formik";
 import { IIdea, IIdeaInfo } from "../../../models/idea";
 import { DataJsonResponse } from "../../../models/response";
@@ -188,24 +189,28 @@ export const IdeaInfo: React.FC<IdeaInfoProps> = ({ idea, setIsLoading, fetcher 
 											}>
 											<i className="icon-magic-wand font-xl" />
 										</button>
-										<UncontrolledTooltip placement="left" target="edit-idea">Upravit zadání</UncontrolledTooltip>
+										<UncontrolledTooltip placement="left"
+										                     target="edit-idea">Upravit zadání</UncontrolledTooltip>
 									</>
 								) : null
 							}
 						</CardHeader>
 						<CardBody>
-							<FormFields isEditing={ isEditing } config={ config } props={ props } showHelp={ showHelp } id="idea-edit"/>
+							<FormFields isEditing={ isEditing }
+							            config={ config }
+							            props={ props }
+							            showHelp={ showHelp }
+							            id="idea-edit" />
 						</CardBody>
 						{
 							canEdit && isEditing ? (
 								<CardFooter className="d-flex flex-wrap align-items-center">
-									{/* Buttons */}
-									<Button className="button button-primary"
-									        form="idea-edit"
-									        disabled={ props.isSubmitting }
-									        type="submit">
-										<span>{ props.isSubmitting ? "Working..." : "Uložit" }</span>
-									</Button>
+									{/* Buttons */ }
+									<SubmitButton passiveText="Uložit"
+									              activeText="Ukládám"
+									              type="primary"
+									              props={ { form: "idea-edit", type: "submit" } }
+									              onClick={ props.submitForm } />
 									<Button className="button button-secondary ml-3"
 									        type="button"
 									        disabled={ props.isSubmitting }
@@ -218,7 +223,7 @@ export const IdeaInfo: React.FC<IdeaInfoProps> = ({ idea, setIsLoading, fetcher 
 										<span>Zrušit</span>
 									</Button>
 									
-									{/* Help */}
+									{/* Help */ }
 									<span className="link-muted ml-auto"
 									      id="help-button"
 									      onClick={ () => setShowHelp(!showHelp) }>

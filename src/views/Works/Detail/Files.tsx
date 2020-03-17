@@ -6,6 +6,7 @@ import {
 	CardBody, CardFooter,
 	CardHeader, FormFeedback, FormGroup, FormText, Input, Label, UncontrolledTooltip,
 } from "reactstrap";
+import { SubmitButton } from "../../../components/common/SubmitButton";
 import { FormikOnSubmit, UseFormikProps } from "../../../models/formik";
 import { DataJsonResponse } from "../../../models/response";
 import { IWork, IWorkFiles, IWorkState } from "../../../models/work";
@@ -174,12 +175,11 @@ export const WorkFiles: React.FC<WorkFilesProps> = ({ work, state, fetcher }: Wo
 						{
 							canEdit && isEditing ? (
 								<CardFooter className="d-flex flex-wrap align-items-center">
-									<Button className="button button-primary"
-									        form="work-files"
-									        disabled={ props.isSubmitting }
-									        type="submit">
-										<span>{ props.isSubmitting ? "Working..." : "Uložit" }</span>
-									</Button>
+									<SubmitButton passiveText="Uložit"
+									              activeText="Ukládám"
+									              type="primary"
+									              props={ { form: "work-files", type: "submit" } }
+									              onClick={ props.submitForm } />
 									<Button className="button button-secondary ml-3"
 									        type="button"
 									        disabled={ props.isSubmitting }

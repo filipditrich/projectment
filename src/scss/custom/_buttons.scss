@@ -32,6 +32,30 @@ button:focus {
 	white-space: nowrap;
   }
 
+  &.button-submit {
+
+	&[disabled] > span {
+	  padding: 0 2rem 0 3rem;
+
+	  & > .spinner-container {
+		left: 2rem;
+	  }
+	}
+
+	& > span {
+	  padding: 0 2rem;
+	  position: relative;
+	  transition: padding 250ms ease-in-out;
+
+	  & > .spinner-container {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		transition: all 250ms ease-in-out;
+	  }
+	}
+  }
+
   &:hover {
 	text-decoration: none;
   }

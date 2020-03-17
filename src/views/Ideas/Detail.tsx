@@ -10,7 +10,7 @@ import { IIdea } from "../../models/idea";
 import { DataJsonResponse, NoContentResponse } from "../../models/response";
 import { UserClaim } from "../../models/user";
 import { useAppContext } from "../../providers";
-import { Axios } from "../../utils";
+import { Axios, fakePromise } from "../../utils";
 import { handleRes, responseError } from "../../utils/axios";
 import { hasClaim, isOwnerOrAdmin } from "../../utils/roles";
 import { transformFromAPI } from "../../utils/transform";
@@ -73,15 +73,17 @@ export const IdeaDetail: React.FC<IdeaDetailProps> = ({ history }: IdeaDetailPro
 											className="ml-auto"
 											orderSwap={ true }
 											onPositive={
-												async (sdo) => {
+												async (setDialogOpen, setIsWorking) => {
 													try {
+														setIsWorking(true);
 														handleRes<DataJsonResponse<NoContentResponse>>(
 															await Axios(accessToken).delete(`/ideas/${ id }`));
 														toast.success("Námět byl úspěšně smazán.");
+														setIsWorking(false); setDialogOpen(false);
 														history.push("/ideas/list");
 													} catch (error) {
 														toast.error(responseError(error).message);
-														sdo(false);
+														setIsWorking(false); setDialogOpen(false);
 													}
 												}
 											}

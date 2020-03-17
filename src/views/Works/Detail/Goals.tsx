@@ -3,8 +3,9 @@ import update from "immutability-helper";
 import { isEqual, sortBy } from "lodash";
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Button, CardBody, CardFooter, CardHeader, ListGroup, UncontrolledTooltip, } from "reactstrap";
+import { CardBody, CardFooter, CardHeader, ListGroup, UncontrolledTooltip, } from "reactstrap";
 import DraggableListItem from "../../../components/common/DraggableListItem";
+import { SubmitButton } from "../../../components/common/SubmitButton";
 import { DataJsonResponse, NoContentResponse } from "../../../models/response";
 import { IWork, IWorkGoal, IWorkState } from "../../../models/work";
 import { useAppContext } from "../../../providers";
@@ -15,8 +16,7 @@ import { handleRes, responseError } from "../../../utils/axios";
  * Work Goals Component
  * @param work
  * @param state
- * @param isLoading
- * @param fetcher
+ * @param loading
  * @constructor
  */
 export const WorkGoals: React.FC<WorkGoalsProps> = ({ work, state, loading }: WorkGoalsProps) => {
@@ -134,22 +134,20 @@ export const WorkGoals: React.FC<WorkGoalsProps> = ({ work, state, loading }: Wo
 	}, [ goals ]);
 	
 	// submit reordering changes
-	const submitChanges = () => {
-		(async () => {
-			try {
-				setIsSubmitting(true);
-				const reordered = sortBy(
-					[ ...goals ].map((item, index) => ({ ...item, order: index + 1 })), "order")
-					.map((item) => ({ Text: item.text }));
-				handleRes<DataJsonResponse<NoContentResponse>>(await Axios(accessToken).put(`/works/${ work?.id }/goals`, reordered));
-				await fetchGoals();
-				toast.success("Cíle práce byly úspěšně uloženy.");
-			} catch (error) {
-				toast.error(responseError(error).message);
-			} finally {
-				setIsSubmitting(false);
-			}
-		})();
+	const submitChanges = async () => {
+		try {
+			setIsSubmitting(true);
+			const reordered = sortBy(
+				[ ...goals ].map((item, index) => ({ ...item, order: index + 1 })), "order")
+				.map((item) => ({ Text: item.text }));
+			handleRes<DataJsonResponse<NoContentResponse>>(await Axios(accessToken).put(`/works/${ work?.id }/goals`, reordered));
+			setIsSubmitting(false);
+			toast.success("Cíle práce byly úspěšně uloženy.");
+			await fetchGoals();
+		} catch (error) {
+			toast.error(responseError(error).message);
+			setIsSubmitting(false);
+		}
 	};
 	
 	return (
@@ -197,12 +195,8 @@ export const WorkGoals: React.FC<WorkGoalsProps> = ({ work, state, loading }: Wo
 			</CardBody>
 			{
 				isChanged ? (
-					<CardFooter className="d-flex">
-						<Button className="button button-primary ml-auto"
-						        disabled={ isLoading }
-						        onClick={ submitChanges }>
-							<span>{ isSubmitting ? "Working..." : "Potvrdit změny" }</span>
-						</Button>
+					<CardFooter>
+						<SubmitButton submitting={ isSubmitting } type="primary" onClick={ submitChanges } />
 					</CardFooter>
 				) : null
 			}

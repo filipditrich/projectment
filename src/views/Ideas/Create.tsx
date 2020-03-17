@@ -15,12 +15,13 @@ import { History } from "history";
 import * as yup from "yup";
 import { RSFInput } from "../../components/common/CustomSelect";
 import { FormFields } from "../../components/common/FormFields";
+import { SubmitButton } from "../../components/common/SubmitButton";
 import { FormikOnSubmit, UseFormikProps } from "../../models/formik";
 import { IIdea, IIdeaInit } from "../../models/idea";
 import { DataJsonResponse } from "../../models/response";
 import Subject from "../../models/subject";
 import { useAppContext } from "../../providers";
-import { Axios, enumToArray } from "../../utils";
+import { Axios, enumToArray, fakePromise } from "../../utils";
 import { handleRes, responseError } from "../../utils/axios";
 import { genInitialValues, genValidationSchema, IFieldConfig } from "../../utils/form";
 import { transformForAPI } from "../../utils/transform";
@@ -32,7 +33,7 @@ import { transformForAPI } from "../../utils/transform";
  */
 export const IdeaCreate: React.FC<IdeaCreateProps> = ({ history }: IdeaCreateProps) => {
 	const [ showHelp, setShowHelp ] = useState<boolean>(false);
-	const [{ accessToken, userId }] = useAppContext();
+	const [ { accessToken, userId } ] = useAppContext();
 	
 	// form field configuration
 	const config: IFieldConfig<IIdeaInit> = useMemo<IFieldConfig<IIdeaInit>>((): IFieldConfig<IIdeaInit> => {
@@ -150,17 +151,20 @@ export const IdeaCreate: React.FC<IdeaCreateProps> = ({ history }: IdeaCreatePro
 					<Card>
 						<CardHeader>Vytvořit námět</CardHeader>
 						<CardBody>
-							<FormFields isEditing={ true } config={ config } props={ props } showHelp={ showHelp } id="idea-init" />
+							<FormFields isEditing={ true }
+							            config={ config }
+							            props={ props }
+							            showHelp={ showHelp }
+							            id="idea-init" />
 						</CardBody>
 						<CardFooter className="d-flex align-items-center justify-content-between">
 							{/* Buttons */ }
 							<div className="form-footer-buttons">
-								<Button className="button button-primary"
-								        type="submit"
-								        form="idea-init"
-								        disabled={ props.isSubmitting }>
-									<span>{ props.isSubmitting ? "Working..." : "Vytvořit" }</span>
-								</Button>
+								<SubmitButton passiveText="Vytvořit"
+								              activeText="Vytvářím"
+								              type="primary"
+								              props={ { form: "idea-init", type: "submit" } }
+								              onClick={ props.submitForm } />
 							</div>
 							
 							{/* Help */ }

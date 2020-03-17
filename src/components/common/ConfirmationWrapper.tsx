@@ -4,8 +4,11 @@ import React, {
 	SetStateAction,
 	useState
 } from "react";
+import { toast } from "react-toastify";
 import { Button } from "reactstrap";
+import { responseError } from "../../utils/axios";
 import Modal from "./Modal";
+import { SubmitButton } from "./SubmitButton";
 
 /**
  * Confirmation Wrapper (modal)
@@ -32,8 +35,10 @@ export const ConfirmationWrapper: React.FC<ConfirmationWrapperProps> = ({ onNega
 	dialogTitle = dialogTitle || "Potvrzení akce";
 	const onNegativeAction: onCallback = onNegative
 		? (async (sdo, siw) => onNegative(sdo, siw))
-		: (async () => { setDialogOpen(false); setIsWorking(false); });
-	const onPositiveAction: onCallback = (async (sdo, siw) => onPositive(sdo, siw));
+		: (async () => {
+			setIsWorking(false);
+			setDialogOpen(false);
+		});
 	
 	return (
 		<>
@@ -56,16 +61,15 @@ export const ConfirmationWrapper: React.FC<ConfirmationWrapperProps> = ({ onNega
 						<Button
 							className={ `button button-${ type } button-alt` }
 							disabled={ isWorking }
+							style={ { order: orderSwap ? 1 : 0 } }
 							onClick={ async () => await onNegativeAction(setDialogOpen, setIsWorking) }>
 							<span>{ negativeText }</span>
 						</Button>
-						<Button
-							className={ `button button-${ type }` }
-							style={ { order: orderSwap ? -1 : 0 } }
-							disabled={ isWorking }
-							onClick={ async () => await onPositiveAction(setDialogOpen, setIsWorking) }>
-							<span>{ positiveText }</span>
-						</Button>
+						<SubmitButton passiveText={ positiveText }
+						              submitting={ isWorking }
+						              unmounted={ !dialogOpen }
+						              type={ type }
+						              onClick={ async () => onPositive(setDialogOpen, setIsWorking) } />
 					</>
 				}>
 				{ dialogContent }
@@ -75,6 +79,7 @@ export const ConfirmationWrapper: React.FC<ConfirmationWrapperProps> = ({ onNega
 };
 
 type onCallback = (setDialogOpen: Dispatch<SetStateAction<boolean>>, setIsWorking: Dispatch<SetStateAction<boolean>>) => Promise<any | void> | void;
+
 export interface ConfirmationWrapperProps {
 	onPositive: onCallback;
 	positiveText?: string;

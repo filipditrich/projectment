@@ -17,6 +17,7 @@ import {
 	Table, UncontrolledTooltip,
 } from "reactstrap";
 import * as yup from "yup";
+import { SubmitButton } from "../../../components/common/SubmitButton";
 import { FormikOnSubmit, UseFormikProps } from "../../../models/formik";
 import { DataJsonResponse, NoContentResponse } from "../../../models/response";
 import { IWork, IWorkCosts, IWorkState } from "../../../models/work";
@@ -34,7 +35,7 @@ import { transformForAPI } from "../../../utils/transform";
  */
 export const WorkCosts: React.FC<WorkCostsProps> = ({ work, state, fetcher }: WorkCostsProps) => {
 	const [ isEditing, setIsEditing ] = useState<boolean>(false);
-	const [{ accessToken }] = useAppContext();
+	const [ { accessToken } ] = useAppContext();
 	
 	// initial values
 	const initialValues: { [key in keyof IWorkCosts]: IWorkCosts[key] } = {
@@ -94,14 +95,15 @@ export const WorkCosts: React.FC<WorkCostsProps> = ({ work, state, fetcher }: Wo
 										        id="edit-costs"
 										        disabled={ isEditing }
 										        onClick={
-										        	(e) => {
-										        		e.preventDefault();
-										        		setIsEditing(true);
-										        	}
+											        (e) => {
+												        e.preventDefault();
+												        setIsEditing(true);
+											        }
 										        }>
 											<i className="icon-magic-wand font-xl" />
 										</button>
-										<UncontrolledTooltip placement="left" target="edit-costs">Upravit náklady</UncontrolledTooltip>
+										<UncontrolledTooltip placement="left"
+										                     target="edit-costs">Upravit náklady</UncontrolledTooltip>
 									</>
 								) : null
 							}
@@ -111,125 +113,136 @@ export const WorkCosts: React.FC<WorkCostsProps> = ({ work, state, fetcher }: Wo
 							<Form id="work-costs">
 								<Table bordered responsive>
 									<thead>
-										<tr>
-											<th />
-											<th>Celkové</th>
-											<th>Hrazené školou</th>
-										</tr>
+									<tr>
+										<th />
+										<th>Celkové</th>
+										<th>Hrazené školou</th>
+									</tr>
 									</thead>
 									<tbody>
-										{/* Material Costs */ }
-										<tr>
-											<th scope="row">Výrobní náklady</th>
-											{
-												isEditing ? (
-													<>
-														<td>
-															<InputGroup className="flex-nowrap">
-																<Input type="number"
+									{/* Material Costs */ }
+									<tr>
+										<th scope="row">Výrobní náklady</th>
+										{
+											isEditing ? (
+												<>
+													<td>
+														<InputGroup className="flex-nowrap">
+															<Input type="number"
 															       invalid={ props.getFieldMeta("materialCosts").touched && !!props.getFieldMeta("materialCosts").error }
 															       tag={ Field }
 															       name="materialCosts"
-																/>
-																<InputGroupAddon addonType="append">
-																	<InputGroupText>Kč</InputGroupText>
-																</InputGroupAddon>
-															</InputGroup>
-														</td>
-														<td>
-															<InputGroup className="flex-nowrap">
-																<Input type="number"
+															/>
+															<InputGroupAddon addonType="append">
+																<InputGroupText>Kč</InputGroupText>
+															</InputGroupAddon>
+														</InputGroup>
+													</td>
+													<td>
+														<InputGroup className="flex-nowrap">
+															<Input type="number"
 															       invalid={ props.getFieldMeta("materialCostsProvidedBySchool").touched && !!props.getFieldMeta("materialCostsProvidedBySchool").error }
 															       tag={ Field }
 															       name="materialCostsProvidedBySchool"
-																/>
-																<InputGroupAddon addonType="append">
-																	<InputGroupText>Kč</InputGroupText>
-																</InputGroupAddon>
-															</InputGroup>
-														</td>
-													</>
-												) : (
-													<>
-														<td><b>{ Number(work?.materialCosts).toLocaleString("cs") }</b> Kč</td>
-														<td><b>{ Number(work?.materialCostsProvidedBySchool).toLocaleString("cs") }</b> Kč</td>
-													</>
-												)
-											}
-										</tr>
+															/>
+															<InputGroupAddon addonType="append">
+																<InputGroupText>Kč</InputGroupText>
+															</InputGroupAddon>
+														</InputGroup>
+													</td>
+												</>
+											) : (
+												<>
+													<td><b>{ Number(work?.materialCosts).toLocaleString("cs") }</b> Kč
+													</td>
+													<td>
+														<b>{ Number(work?.materialCostsProvidedBySchool).toLocaleString("cs") }</b> Kč
+													</td>
+												</>
+											)
+										}
+									</tr>
 									
 									
-										{/* Services Costs */ }
-										<tr>
-											<th scope="row">Náklady na služby</th>
-											{
-												isEditing ? (
-													<>
-														<td>
-															<InputGroup className="flex-nowrap">
-																<Input type="number"
+									{/* Services Costs */ }
+									<tr>
+										<th scope="row">Náklady na služby</th>
+										{
+											isEditing ? (
+												<>
+													<td>
+														<InputGroup className="flex-nowrap">
+															<Input type="number"
 															       invalid={ props.getFieldMeta("servicesCosts").touched && !!props.getFieldMeta("servicesCosts").error }
 															       tag={ Field }
 															       name="servicesCosts"
-																/>
-																<InputGroupAddon addonType="append">
-																	<InputGroupText>Kč</InputGroupText>
-																</InputGroupAddon>
-															</InputGroup>
-														</td>
-														<td>
-															<InputGroup className="flex-nowrap">
-																<Input type="number"
+															/>
+															<InputGroupAddon addonType="append">
+																<InputGroupText>Kč</InputGroupText>
+															</InputGroupAddon>
+														</InputGroup>
+													</td>
+													<td>
+														<InputGroup className="flex-nowrap">
+															<Input type="number"
 															       invalid={ props.getFieldMeta("servicesCostsProvidedBySchool").touched && !!props.getFieldMeta("servicesCostsProvidedBySchool").error }
 															       tag={ Field }
 															       name="servicesCostsProvidedBySchool"
-																/>
-																<InputGroupAddon addonType="append">
-																	<InputGroupText>Kč</InputGroupText>
-																</InputGroupAddon>
-															</InputGroup>
-														</td>
-													</>
-												) : (
-													<>
-														<td><b>{ Number(work?.servicesCosts).toLocaleString("cs") }</b> Kč</td>
-														<td><b>{ Number(work?.servicesCostsProvidedBySchool).toLocaleString("cs") }</b> Kč</td>
-													</>
-												)
-											}
-										</tr>
-									
-										{/* Total */ }
-										{
-											work ? (
-												<tr>
-													<th scope="row">Celkové náklady</th>
-													<td><b>{ Number(work.materialCosts + work.servicesCosts).toLocaleString("cs") }</b> Kč</td>
-													<td><b>{ Number(work.materialCostsProvidedBySchool + work.servicesCostsProvidedBySchool).toLocaleString("cs") }</b> Kč</td>
-												</tr>
-											) : null
+															/>
+															<InputGroupAddon addonType="append">
+																<InputGroupText>Kč</InputGroupText>
+															</InputGroupAddon>
+														</InputGroup>
+													</td>
+												</>
+											) : (
+												<>
+													<td><b>{ Number(work?.servicesCosts).toLocaleString("cs") }</b> Kč
+													</td>
+													<td>
+														<b>{ Number(work?.servicesCostsProvidedBySchool).toLocaleString("cs") }</b> Kč
+													</td>
+												</>
+											)
 										}
+									</tr>
+									
+									{/* Total */ }
+									{
+										work ? (
+											<tr>
+												<th scope="row">Celkové náklady</th>
+												<td>
+													<b>{ Number(work.materialCosts + work.servicesCosts).toLocaleString("cs") }</b> Kč
+												</td>
+												<td>
+													<b>{ Number(work.materialCostsProvidedBySchool + work.servicesCostsProvidedBySchool).toLocaleString("cs") }</b> Kč
+												</td>
+											</tr>
+										) : null
+									}
 									</tbody>
 								</Table>
 								
-								{/* Detail Expenditures */}
+								{/* Detail Expenditures */ }
 								<FormGroup>
 									{
 										isEditing ? (
 											<>
-												<hr/>
+												<hr />
 												<Label for="detailExpenditures">Detail Expenditures</Label>
 												<Input type="text"
 												       invalid={ props.getFieldMeta("detailExpenditures").touched && !!props.getFieldMeta("detailExpenditures").error }
 												       tag={ Field }
 												       name="detailExpenditures"
 												/>
-												<ErrorMessage name="detailExpenditures">{ (msg) => <FormFeedback>{ msg }</FormFeedback> }</ErrorMessage>
+												<ErrorMessage name="detailExpenditures">{ (msg) =>
+													<FormFeedback>{ msg }</FormFeedback> }</ErrorMessage>
 												<FormText>Detail Expenditures Help Message</FormText>
 											</>
 										) : work?.detailExpenditures ? (
 											<>
-												<hr/>
+												<hr />
 												<dt>Detail Expenditures</dt>
 												<dd>{ work?.detailExpenditures }</dd>
 											</>
@@ -241,17 +254,11 @@ export const WorkCosts: React.FC<WorkCostsProps> = ({ work, state, fetcher }: Wo
 						{
 							canEdit && isEditing ? (
 								<CardFooter className="d-flex flex-wrap align-items-center">
-									<Button className="button button-primary"
-									        disabled={ props.isSubmitting }
-									        type="button"
-									        onClick={
-										        (e) => {
-											        e.preventDefault();
-											        return props.submitForm();
-										        }
-									        }>
-										<span>{ props.isSubmitting ? "Working..." : "Uložit" }</span>
-									</Button>
+									<SubmitButton passiveText="Uložit"
+									              activeText="Ukládám"
+									              type="primary"
+									              props={ { form: "work-costs", type: "submit" } }
+									              onClick={ props.submitForm } />
 									<Button className="button button-secondary ml-3"
 									        type="button"
 									        disabled={ props.isSubmitting }

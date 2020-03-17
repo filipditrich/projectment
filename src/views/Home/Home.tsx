@@ -1,10 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import { ErrorHandler } from "../../components";
 import { useAppContext } from "../../providers";
-import { getRandomInt, greeter } from "../../utils";
-import { Button, Card, CardBody, CardDeck, CardHeader, Col, Row } from "reactstrap";
+import { greeter } from "../../utils";
+import { Card, CardBody, CardHeader, Col, Row } from "reactstrap";
 
 /**
  * Home Component

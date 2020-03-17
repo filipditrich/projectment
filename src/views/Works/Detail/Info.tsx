@@ -18,6 +18,7 @@ import {
 import * as yup from "yup";
 import { RSFInput } from "../../../components/common/CustomSelect";
 import { FormFields } from "../../../components/common/FormFields";
+import { SubmitButton } from "../../../components/common/SubmitButton";
 import ClassName from "../../../models/className";
 import { FormikOnSubmit, UseFormikProps } from "../../../models/formik";
 import { DataJsonResponse } from "../../../models/response";
@@ -217,12 +218,11 @@ export const WorkInfo: React.FC<WorkInfoProps> = ({ work, users, sets, state, fe
 						{
 							canEdit && isEditing ? (
 								<CardFooter className="d-flex flex-wrap align-items-center">
-									<Button className="button button-primary"
-									        form="work-info"
-									        disabled={ props.isSubmitting }
-									        type="submit">
-										<span>{ props.isSubmitting ? "Working..." : "Uložit" }</span>
-									</Button>
+									<SubmitButton passiveText="Uložit"
+									              activeText="Ukládám"
+									              type="primary"
+									              props={ { form: "work-info", type: "submit" } }
+									              onClick={ props.submitForm } />
 									<Button className="button button-secondary ml-3"
 									        type="button"
 									        disabled={ props.isSubmitting }

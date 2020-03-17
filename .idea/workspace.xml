@@ -5,10 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5726637-2915-46d8-85ce-db261ec60771" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/common/SubmitButton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/application.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/application.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scss/_themes.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/_themes.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/ConfirmationWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/ConfirmationWrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scss/custom/_buttons.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/custom/_buttons.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Home/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Create.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/Goals.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Goals.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/Info.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Info.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/Outlines.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Outlines.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Ideas/Detail/Targets.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Ideas/Detail/Targets.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Works/Create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Works/Create.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Works/Detail/Costs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Works/Detail/Costs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Works/Detail/Files.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Works/Detail/Files.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Works/Detail/Goals.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Works/Detail/Goals.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Works/Detail/Info.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Works/Detail/Info.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Works/Detail/Outlines.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Works/Detail/Outlines.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Works/Detail/State.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Works/Detail/State.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +140,7 @@
       <workItem from="1583585758266" duration="12267000" />
       <workItem from="1583690840805" duration="31706000" />
       <workItem from="1584033823260" duration="48000" />
-      <workItem from="1584033893348" duration="72115000" />
+      <workItem from="1584033893348" duration="85197000" />
     </task>
     <servers />
   </component>
@@ -171,23 +185,23 @@
     <state x="426" y="319" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.800@0.0.1280.800" timestamp="1582801189822" />
     <state x="442" y="-541" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1584398102487" />
     <state x="426" y="319" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1280.740@0.23.1280.740" timestamp="1581101934847" />
-    <state x="301" y="-721" width="828" height="546" key="find.popup" timestamp="1584396054914">
+    <state x="301" y="-721" width="828" height="546" key="find.popup" timestamp="1584452278155">
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
     <state x="300" y="159" width="828" height="546" key="find.popup/0.0.1280.800@0.0.1280.800" timestamp="1583950716862" />
-    <state x="301" y="-721" width="828" height="546" key="find.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1584396054914" />
-    <state x="301" y="-721" width="828" height="546" key="find.popup/0.23.1680.1027/-37.-900.1440.900@-37.-900.1440.900" timestamp="1584176332676" />
+    <state x="301" y="-721" width="828" height="546" key="find.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1584452278155" />
+    <state x="301" y="-721" width="828" height="546" key="find.popup/0.23.1680.1027/-37.-900.1440.900@-37.-900.1440.900" timestamp="1584447980988" />
     <state x="301" y="-721" width="932" height="615" key="find.popup/0.23.1680.990/-37.-900.1440.900@-37.-900.1440.900" timestamp="1583474597197" />
     <state width="534" height="392" key="javadoc.popup" timestamp="1583855060268">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
     <state width="534" height="392" key="javadoc.popup/0.0.1280.800@0.0.1280.800" timestamp="1583855060268" />
     <state width="600" height="440" key="javadoc.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1583460171541" />
-    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup" timestamp="1584396952012">
+    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup" timestamp="1584449457624">
       <screen x="-37" y="-900" width="1440" height="900" />
     </state>
     <state x="305" y="124" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1583947115901" />
-    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1584396952012" />
+    <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.0.1680.1050/-37.-900.1440.900@-37.-900.1440.900" timestamp="1584449457624" />
     <state x="306" y="-760" width="754" height="761" key="search.everywhere.popup/0.23.1680.1027/-37.-900.1440.900@-37.-900.1440.900" timestamp="1584176606696" />
   </component>
 </project>

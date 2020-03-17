@@ -91,6 +91,7 @@ export const IdeaTargets: React.FC<IdeaTargetsProps> = ({ idea, setIsLoading }: 
 								key={ index }
 								onPositive={
 									async (setDialogOpen, setIsWorking) => {
+										setIsWorking(true);
 										await toggleTarget(target);
 										setDialogOpen(false);
 										setIsWorking(false);

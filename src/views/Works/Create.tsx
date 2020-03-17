@@ -14,6 +14,7 @@ import {
 import { RSFInput } from "../../components/common/CustomSelect";
 import { FormFields } from "../../components/common/FormFields";
 import LoadingOverlay from "../../components/common/LoadingOverlay";
+import { SubmitButton } from "../../components/common/SubmitButton";
 import ClassName from "../../models/className";
 import { FormikOnSubmit, UseFormikProps } from "../../models/formik";
 import { IIdea, IIdeaGoal, IIdeaOutline } from "../../models/idea";
@@ -157,7 +158,9 @@ export const WorkCreate: React.FC<InitWorkProps> = ({ history }: InitWorkProps) 
 					<Field name="authorId"
 					       component={ RSFInput }
 					       invalid={ getFieldMeta("authorId").touched && getFieldMeta("authorId") }
-					       options={ users.map((user) => ({ value: user.id, label: name(user.name) })) }
+					       options={ users.filter((user) => user.canBeAuthor)
+						       .map((user) => ({ value: user.id, label: name(user.name) }))
+					       }
 					       { ...options } />
 				),
 				column: { md: 4 },
@@ -171,7 +174,9 @@ export const WorkCreate: React.FC<InitWorkProps> = ({ history }: InitWorkProps) 
 					<Field name="managerId"
 					       component={ RSFInput }
 					       invalid={ getFieldMeta("managerId").touched && getFieldMeta("managerId") }
-					       options={ users.map((user) => ({ value: user.id, label: name(user.name) })) }
+					       options={ users.filter((user) => user.canBeEvaluator)
+						       .map((user) => ({ value: user.id, label: name(user.name) }))
+					       }
 					       { ...options } />
 				),
 				column: { md: 4 },
@@ -185,7 +190,9 @@ export const WorkCreate: React.FC<InitWorkProps> = ({ history }: InitWorkProps) 
 					<Field name="setId"
 					       component={ RSFInput }
 					       invalid={ getFieldMeta("setId").touched && !!getFieldMeta("setId").error }
-					       options={ sets.map((set) => ({ value: set.id, label: set.name })) }
+					       options={ sets.filter((set) => set.active)
+						       .map((set) => ({ value: set.id, label: set.name }))
+					       }
 					       { ...options } />
 				),
 				column: { md: 4 },
@@ -240,12 +247,7 @@ export const WorkCreate: React.FC<InitWorkProps> = ({ history }: InitWorkProps) 
 						<CardFooter className="d-flex align-items-center justify-content-between">
 							{/* Buttons */ }
 							<div className="form-footer-buttons">
-								<Button className="button button-primary"
-								        type="submit"
-								        form="work-from-idea"
-								        disabled={ props.isSubmitting }>
-									<span>{ props.isSubmitting ? "Working..." : "Vytvořit" }</span>
-								</Button>
+								<SubmitButton passiveText="Vytvořit" activeText="Vytvářím" type="primary" props={{ form: "work-from-idea", type: "submit" }} onClick={ props.submitForm } />
 							</div>
 							
 							{/* Help */ }
